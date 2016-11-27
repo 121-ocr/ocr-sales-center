@@ -66,10 +66,10 @@ bp_replenishments:
             	}
         	},
         	"quantity": 60,
-        	"supply_price": {
+        	"supply_price": {   //供货价
         		"tax_type": "VTA",  
         		"tax_rate": 0.17,	
-        		"price_including_tax": {  
+        		"price_including_tax": {   //含税供货价
         			"currency": {		  
         				"currency_type": "CYN",
         				"money": 117.00
@@ -79,7 +79,7 @@ bp_replenishments:
         				"money": 17.55
         			}
         		},
-        		"price": {  
+        		"price": {   //无税供货价
         			"currency": {
         				"currency_type": "CYN",
         				"money": 100.00
@@ -90,10 +90,10 @@ bp_replenishments:
         			}
         		}
         	},
-        	"retail_price": {
+        	"retail_price": {  //零售价
         		"tax_type": "Excise Duty", 
         		"tax_rate": 0.03,	
-        		"price_including_tax": {  
+        		"price_including_tax": {  //含税零售价
         			"currency": {	
         				"currency_type": "CYN",
         				"money": 226.6
@@ -103,7 +103,7 @@ bp_replenishments:
         				"money": 41.2
         			}
         		},
-        		"price": {  
+        		"price": {    //无税零售价
         			"currency": {
         				"currency_type": "CYN",
         				"money": 220.00
@@ -114,169 +114,10 @@ bp_replenishments:
         			}
         		}
         	},
-        	"commission": {
-        		"computation_rule": {},
-        		"commission_value": {  
-        			"currency": {		
-        				"currency_type": "CYN",
-        				"money": 20.00
-        			},
-        			"original_currency":  {
-        				"currency_type": "USD",
-        				"money": 5.00
-        			}
-        		}          	
-        	}
-        },
-        {
-        	"detail_code": "20",
-        	"goods": {
-        		"account_id": "Kano",
-            	"product_sku_code": "WINE001SP0001SP0002",
-            	"title": "拉菲尚品波尔多干红葡萄酒750ml",
-            	"sales_catelogs": [{
-            		"code": "WINE",
-            		"name": "酒水"
-            	}],
-            	"product_sku": { 		            	
-	            	"bar_code": "",
-	            	"product_specifications": [
-	            	 	{
-	            	 		"specification_code": "SP0001",
-	            	 		"specification_name": "颜色",
-	            			"specification_value": "洋红"
-	            		},
-	            		{
-	            	 		"specification_code": "SP0002",
-	            	 		"specification_name": "容量",
-	            			"specification_value": "750ml"
-	            		}
-	            	],
-	            	"product_spu": {
-	            		"spu_code": "WINE001",
-	            		"base_unit": "瓶",
-	            		"brand": {
-	            			"code": "BR0001",
-	            			"name": "科特勒",
-	            			"manufacturer": {
-		            			"code": "BR0001",
-		            			"name": "法国科特勒酒庄"        			
-	            			}		            			
-	            		
-	            		},
-	            		"desc": ""		            	
-            		}
-            	}
-        	},
-        	"quantity": 60,
-        	"supply_price": {
-        		"tax_type": "VTA",
-        		"tax_rate": 0.17,
-        		"price_including_tax": {  
-        			"currency": {	
-        				"currency_type": "CYN",
-        				"money": 120.00
-        			},
-        			"original_currency":  { 
-        				"currency_type": "USD",
-        				"money": 20.00
-        			}
-        		},
-        		"price": {
-        			"currency": {
-        				"currency_type": "CYN",
-        				"money": 100.00
-        			},
-        			"original_currency":  {
-        				"currency_type": "USD",
-        				"money": 15.00
-        			}
-        		}
-        	},
-        	"retail_price": {
-        		"tax_type": "VTA",
-        		"tax_rate": 0.17,
-        		"price_including_tax": {
-        			"currency": {	
-        				"currency_type": "CYN",
-        				"money": 120.00
-        			},
-        			"original_currency":  { 
-        				"currency_type": "USD",
-        				"money": 120.00
-        			}
-        		},
-        		"price": {
-        			"currency": {
-        				"currency_type": "CYN",
-        				"money": 120.00
-        			},
-        			"original_currency":  {
-        				"currency_type": "USD",
-        				"money": 120.00
-        			}
-        		}
-        	},
-        	"commission": {
-        		"computation_rule": {},
-        		"commission_value": { 
-        			"currency": {
-        				"currency_type": "CYN",
-        				"money": 20.00
-        			},
-        			"original_currency":  {
-        				"currency_type": "USD",
-        				"money": 5.00
-        			}
-        		}          	
-        	}           
-        
-        },
-        {
-        	"detail_code": "30",
-        	"goods": {
-        		"account_id": "Kano",
-            	"product_sku_code": "WINE001SP0001SP0003",
-            	"title": "暮庄红葡萄酒750ml",
-            	"sales_catelogs": [{
-            		"code": "WINE",
-            		"name": "酒水"
-            	}],
-            	"product_sku": { 		            	
-	            	"bar_code": "",
-	            	"product_specifications": [
-	            	 	{
-	            	 		"specification_code": "SP0001",
-	            	 		"specification_name": "颜色",
-	            			"specification_value": "洋红"
-	            		},
-	            		{
-	            	 		"specification_code": "SP0002",
-	            	 		"specification_name": "容量",
-	            			"specification_value": "750ml"
-	            		}
-	            	],
-	            	"product_spu": {
-	            		"spu_code": "WINE001",
-	            		"base_unit": "瓶",
-	            		"brand": {
-	            			"code": "BR0001",
-	            			"name": "科特勒",
-	            			"manufacturer": {
-		            			"code": "BR0001",
-		            			"name": "法国科特勒酒庄"        			
-	            			}		            			
-	            		
-	            		},
-	            		"desc": ""		            	
-            		}
-            	}
-        	},
-        	"quantity": 60,
-        	"supply_price": {
+        	"supply_amount": {  //供货金额
         		"tax_type": "VTA",  
         		"tax_rate": 0.17,	
-        		"price_including_tax": {  
+        		"amount_including_tax": {   //含税金额
         			"currency": {		  
         				"currency_type": "CYN",
         				"money": 117.00
@@ -286,7 +127,7 @@ bp_replenishments:
         				"money": 17.55
         			}
         		},
-        		"price": {  
+        		"amount": {    //无税金额
         			"currency": {
         				"currency_type": "CYN",
         				"money": 100.00
@@ -297,10 +138,10 @@ bp_replenishments:
         			}
         		}
         	},
-        	"retail_price": {
+        	"retail_amount": {  //零售金额
         		"tax_type": "Excise Duty", 
         		"tax_rate": 0.03,	
-        		"price_including_tax": {  
+        		"amount_including_tax": {   //含税金额
         			"currency": {	
         				"currency_type": "CYN",
         				"money": 226.6
@@ -310,7 +151,7 @@ bp_replenishments:
         				"money": 41.2
         			}
         		},
-        		"price": {  
+        		"amount": {    //无税金额
         			"currency": {
         				"currency_type": "CYN",
         				"money": 220.00
@@ -320,10 +161,10 @@ bp_replenishments:
         				"money": 40.00
         			}
         		}
-        	},
-        	"commission": {
-        		"computation_rule": {},
-        		"commission_value": {  
+        	},        	
+        	"commission": {  //佣金
+        		"computation_rule": {},  //佣金计算规则
+        		"commission_value": {    //佣金
         			"currency": {		
         				"currency_type": "CYN",
         				"money": 20.00
@@ -334,7 +175,7 @@ bp_replenishments:
         			}
         		}          	
         	}
-        }	            
+        }
         
     ]
 }
