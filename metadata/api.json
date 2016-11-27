@@ -1,0 +1,18 @@
+一、渠道补货新增
+message api：ocr-sales-center.channel-restocking.create
+rest api: ocr-sales-center/channel-restocking/create, http: POST
+input: vo
+output: vo
+
+
+二、渠道补货单查询
+message api：ocr-sales-center.channel-restocking.findall
+rest api: ocr-sales-center/channel-restocking/findall, http: GET
+input:
+output: vo数组
+
+三、渠道补货单删除
+message api：ocr-sales-center.channel-restocking.remove
+rest api: ocr-sales-center/channel-restocking/remove, http: DELETE
+input: vo
+output: "ok" 
