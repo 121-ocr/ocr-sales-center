@@ -7,9 +7,29 @@ output: vo
 
 二、渠道补货单查询
 message api：ocr-sales-center.channel-restocking.findall
-rest api: ocr-sales-center/channel-restocking/findall, http: GET
+rest api: ocr-sales-center/channel-restocking/findall, http: POST
 input:
-output: vo数组
+分页查询参数
+{ fields: {},  //返回字段
+   paging: {
+      sort_field: 排序字段，只支持单个字段,
+      sort_direction: 1：升序，-1：降序,
+      page_number: 页码,
+      page_size: 每页大小,
+      total: 总数，下次需要回传
+      total_page: 总页数，下次需要回传
+   },
+   query: {}  //其他条件  
+}
+output: 
+分页查询返回
+{
+   "total": 总数量
+   "total_page": 总页数,
+   "datas" vo[bp_replenishments] 渠道补货单数组
+}
+
+
 
 三、渠道补货单删除
 message api：ocr-sales-center.channel-restocking.remove

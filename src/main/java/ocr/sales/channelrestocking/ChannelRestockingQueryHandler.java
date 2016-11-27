@@ -3,7 +3,6 @@ package ocr.sales.channelrestocking;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonObject;
 import otocloud.common.ActionURI;
-import otocloud.common.OtoCloudDirectoryHelper;
 import otocloud.framework.app.function.ActionDescriptor;
 import otocloud.framework.app.function.ActionHandlerImpl;
 import otocloud.framework.app.function.AppActivityImpl;
@@ -17,7 +16,7 @@ import otocloud.framework.core.OtoCloudBusMessage;
  */
 public class ChannelRestockingQueryHandler extends ActionHandlerImpl<JsonObject> {
 	
-	public static final String ADDRESS = "findall";
+	public static final String ADDRESS = "findcreated";
 
 	public ChannelRestockingQueryHandler(AppActivityImpl appActivity) {
 		super(appActivity);
@@ -35,23 +34,19 @@ public class ChannelRestockingQueryHandler extends ActionHandlerImpl<JsonObject>
 	@Override
 	public void handle(OtoCloudBusMessage<JsonObject> msg) {
 		
-		String menusFilePath = OtoCloudDirectoryHelper.getConfigDirectory() + "replenishment.json";		
-		
-		this.getAppActivity().getVertx().fileSystem().readFile(menusFilePath, result -> {
-    	    if (result.succeeded()) {
-    	    	String fileContent = result.result().toString(); 
-    	        
-    	    	JsonObject srvCfg = new JsonObject(fileContent);
-    	        msg.reply(srvCfg);     	        
-    	        
-    	    } else {
-				Throwable errThrowable = result.cause();
+		JsonObject queryParams = msg.body();
+	    
+	    this.queryLatestFactDataList(appActivity.getBizObjectType(), "created", queryParams, null, findRet->{
+	        if (findRet.succeeded()) {
+	            msg.reply(findRet.result());
+	        } else {
+				Throwable errThrowable = findRet.cause();
 				String errMsgString = errThrowable.getMessage();
 				appActivity.getLogger().error(errMsgString, errThrowable);
 				msg.fail(100, errMsgString);		
-   
-    	    }	
-		});
+	        }
+
+	    });
 
 
 	}
@@ -74,7 +69,7 @@ public class ChannelRestockingQueryHandler extends ActionHandlerImpl<JsonObject>
 		
 		actionDescriptor.getHandlerDescriptor().setParamsDesc(paramsDesc);	*/
 				
-		ActionURI uri = new ActionURI(ADDRESS, HttpMethod.GET);
+		ActionURI uri = new ActionURI(ADDRESS, HttpMethod.POST);
 		handlerDescriptor.setRestApiURI(uri);
 		
 		return actionDescriptor;

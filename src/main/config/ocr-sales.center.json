@@ -2,7 +2,7 @@
 	"main": "ocr.sales.App",
 	"options": {
 		"config": {
-			"version_id": 4,
+			"version_id": 7,
 			"service_name": "ocr-sales-center",
 			"app_inst_scope": ["1~1000"],
 			"app_desc": "营销中心服务",
@@ -11,7 +11,7 @@
 			"isolation_vertx_pool": false,			
 			"run_webserver": true,
 			"webserver_config": {
-				"webserver_port": 8085,
+				"webserver_port": 8082,
 				"eventbus_enabled": true,
 				"static_res_service": true
 			},

@@ -14,7 +14,7 @@ import otocloud.framework.app.function.AppInitActivityImpl;
  * @date 2016年11月26日
  * @author lijing@yonyou.com
  */
-public class ChannelsManagerService extends AppServiceImpl
+public class SalesCenterService extends AppServiceImpl
 {
 
 	//创建服务初始化组件

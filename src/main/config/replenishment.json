@@ -1,0 +1,1497 @@
+{
+    "total":6,
+    "rows":[
+        {
+            "bo_id": "REP201611190001",
+            "req_date": "2016/11/01",
+            "req_send_date": "2016/11/03",
+    		"req_code": "REQ201611190001",  
+    		"channel": {
+    		    "code": "N0003",
+            	"name": "昌平分店",
+            	"channel_type": {
+            		"code": "ch001",
+            		"name": "加盟店"
+            	},
+            	"customer": {
+            		"code": "cus0001",
+            		"name": "昌平北环商贸有限公司"
+            	},
+            	"account": "4"
+    		},
+			"restocking_warehose": {
+	            "code": "WH001",
+	            "name": "北京总仓"
+            },
+            "is_completed": "false",
+            "completed_date": "",
+            "details": [
+	            {
+	            	"detail_code": "10",
+	            	"goods": {
+	            		"account_id": "Kano",
+		            	"product_sku_code": "WINE001SP0001SP0002",
+		            	"title": "科特勒2014 干红葡萄酒750ml",
+		            	"sales_catelogs": [{
+		            		"code": "WINE",
+		            		"name": "酒水"
+		            	}],
+		            	"product_sku": { 		            	
+			            	"bar_code": "",
+			            	"product_specifications": [
+			            	 	{
+			            	 		"specification_code": "SP0001",
+			            	 		"specification_name": "颜色",
+			            			"specification_value": "洋红"
+			            		},
+			            		{
+			            	 		"specification_code": "SP0002",
+			            	 		"specification_name": "容量",
+			            			"specification_value": "750ml"
+			            		}
+			            	],
+			            	"product_spu": {
+			            		"spu_code": "WINE001",
+			            		"base_unit": "瓶",
+			            		"brand": {
+			            			"code": "BR0001",
+			            			"name": "科特勒",
+			            			"manufacturer": {
+				            			"code": "BR0001",
+				            			"name": "法国科特勒酒庄"        			
+			            			}		            			
+			            		
+			            		},
+			            		"desc": ""		            	
+		            		}
+		            	}
+	            	},
+	            	"quantity": 60,
+	            	"supply_price": {
+	            		"tax_type": "VTA",  
+	            		"tax_rate": 0.17,	
+	            		"price_including_tax": {  
+	            			"currency": {		  
+	            				"currency_type": "CYN",
+	            				"money": 117.00
+	            			},
+	            			"original_currency":  { 
+	            				"currency_type": "USD",
+	            				"money": 17.55
+	            			}
+	            		},
+	            		"price": {  
+	            			"currency": {
+	            				"currency_type": "CYN",
+	            				"money": 100.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 15.00
+	            			}
+	            		}
+	            	},
+	            	"retail_price": {
+	            		"tax_type": "Excise Duty", 
+	            		"tax_rate": 0.03,	
+	            		"price_including_tax": {  
+	            			"currency": {	
+	            				"currency_type": "CYN",
+	            				"money": 226.6
+	            			},
+	            			"original_currency":  { 
+	            				"currency_type": "USD",
+	            				"money": 41.2
+	            			}
+	            		},
+	            		"price": {  
+	            			"currency": {
+	            				"currency_type": "CYN",
+	            				"money": 220.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 40.00
+	            			}
+	            		}
+	            	},
+	            	"commission": {
+	            		"computation_rule": {},
+	            		"commission_value": {  
+	            			"currency": {		
+	            				"currency_type": "CYN",
+	            				"money": 20.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 5.00
+	            			}
+	            		}          	
+	            	}
+	            },
+	            {
+	            	"detail_code": "20",
+	            	"goods": {
+	            		"account_id": "Kano",
+		            	"product_sku_code": "WINE001SP0001SP0002",
+		            	"title": "拉菲尚品波尔多干红葡萄酒750ml",
+		            	"sales_catelogs": [{
+		            		"code": "WINE",
+		            		"name": "酒水"
+		            	}],
+		            	"product_sku": { 		            	
+			            	"bar_code": "",
+			            	"product_specifications": [
+			            	 	{
+			            	 		"specification_code": "SP0001",
+			            	 		"specification_name": "颜色",
+			            			"specification_value": "洋红"
+			            		},
+			            		{
+			            	 		"specification_code": "SP0002",
+			            	 		"specification_name": "容量",
+			            			"specification_value": "750ml"
+			            		}
+			            	],
+			            	"product_spu": {
+			            		"spu_code": "WINE001",
+			            		"base_unit": "瓶",
+			            		"brand": {
+			            			"code": "BR0001",
+			            			"name": "科特勒",
+			            			"manufacturer": {
+				            			"code": "BR0001",
+				            			"name": "法国科特勒酒庄"        			
+			            			}		            			
+			            		
+			            		},
+			            		"desc": ""		            	
+		            		}
+		            	}
+	            	},
+	            	"quantity": 60,
+	            	"supply_price": {
+	            		"tax_type": "VTA",
+	            		"tax_rate": 0.17,
+	            		"price_including_tax": {  
+	            			"currency": {	
+	            				"currency_type": "CYN",
+	            				"money": 120.00
+	            			},
+	            			"original_currency":  { 
+	            				"currency_type": "USD",
+	            				"money": 20.00
+	            			}
+	            		},
+	            		"price": {
+	            			"currency": {
+	            				"currency_type": "CYN",
+	            				"money": 100.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 15.00
+	            			}
+	            		}
+	            	},
+	            	"retail_price": {
+	            		"tax_type": "VTA",
+	            		"tax_rate": 0.17,
+	            		"price_including_tax": {
+	            			"currency": {	
+	            				"currency_type": "CYN",
+	            				"money": 120.00
+	            			},
+	            			"original_currency":  { 
+	            				"currency_type": "USD",
+	            				"money": 120.00
+	            			}
+	            		},
+	            		"price": {
+	            			"currency": {
+	            				"currency_type": "CYN",
+	            				"money": 120.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 120.00
+	            			}
+	            		}
+	            	},
+	            	"commission": {
+	            		"computation_rule": {},
+	            		"commission_value": { 
+	            			"currency": {
+	            				"currency_type": "CYN",
+	            				"money": 20.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 5.00
+	            			}
+	            		}          	
+	            	}           
+	            
+	            },
+	            {
+	            	"detail_code": "30",
+	            	"goods": {
+	            		"account_id": "Kano",
+		            	"product_sku_code": "WINE001SP0001SP0003",
+		            	"title": "暮庄红葡萄酒750ml",
+		            	"sales_catelogs": [{
+		            		"code": "WINE",
+		            		"name": "酒水"
+		            	}],
+		            	"product_sku": { 		            	
+			            	"bar_code": "",
+			            	"product_specifications": [
+			            	 	{
+			            	 		"specification_code": "SP0001",
+			            	 		"specification_name": "颜色",
+			            			"specification_value": "洋红"
+			            		},
+			            		{
+			            	 		"specification_code": "SP0002",
+			            	 		"specification_name": "容量",
+			            			"specification_value": "750ml"
+			            		}
+			            	],
+			            	"product_spu": {
+			            		"spu_code": "WINE001",
+			            		"base_unit": "瓶",
+			            		"brand": {
+			            			"code": "BR0001",
+			            			"name": "科特勒",
+			            			"manufacturer": {
+				            			"code": "BR0001",
+				            			"name": "法国科特勒酒庄"        			
+			            			}		            			
+			            		
+			            		},
+			            		"desc": ""		            	
+		            		}
+		            	}
+	            	},
+	            	"quantity": 60,
+	            	"supply_price": {
+	            		"tax_type": "VTA",  
+	            		"tax_rate": 0.17,	
+	            		"price_including_tax": {  
+	            			"currency": {		  
+	            				"currency_type": "CYN",
+	            				"money": 117.00
+	            			},
+	            			"original_currency":  { 
+	            				"currency_type": "USD",
+	            				"money": 17.55
+	            			}
+	            		},
+	            		"price": {  
+	            			"currency": {
+	            				"currency_type": "CYN",
+	            				"money": 100.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 15.00
+	            			}
+	            		}
+	            	},
+	            	"retail_price": {
+	            		"tax_type": "Excise Duty", 
+	            		"tax_rate": 0.03,	
+	            		"price_including_tax": {  
+	            			"currency": {	
+	            				"currency_type": "CYN",
+	            				"money": 226.6
+	            			},
+	            			"original_currency":  { 
+	            				"currency_type": "USD",
+	            				"money": 41.2
+	            			}
+	            		},
+	            		"price": {  
+	            			"currency": {
+	            				"currency_type": "CYN",
+	            				"money": 220.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 40.00
+	            			}
+	            		}
+	            	},
+	            	"commission": {
+	            		"computation_rule": {},
+	            		"commission_value": {  
+	            			"currency": {		
+	            				"currency_type": "CYN",
+	            				"money": 20.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 5.00
+	            			}
+	            		}          	
+	            	}
+	            }	            
+	            
+            ]
+        },
+        {
+            "bo_id": "REP201611190002",
+            "req_date": "2016/11/15",
+            "req_send_date": "2016/11/21",
+    		"req_code": "REQ201611190001",  
+    		"channel": {
+    		    "code": "N0002",
+            	"name": "朝阳分店",
+            	"channel_type": {
+            		"code": "ch001",
+            		"name": "加盟店"
+            	},
+            	"customer": {
+            		"code": "cus0003",
+            		"name": "朝阳商贸有限公司"
+            	}
+    		},
+			"restocking_warehose": {
+	            "code": "WH002",
+	            "name": "河北总仓"
+            },
+            "is_completed": "false",
+            "completed_date": "",
+            "details": [
+	            {
+	            	"detail_code": "REP201611190001003",
+	            	"goods": {
+	            		"account_id": "Kano",
+		            	"product_sku_code": "WINE001SP0001SP0002",
+		            	"title": "2016新大陆葡萄酒550ml",
+		            	"sales_catelogs": [{
+		            		"code": "WINE",
+		            		"name": "酒水"
+		            	}],
+		            	"product_sku": { 		            	
+			            	"bar_code": "",
+			            	"product_specifications": [
+			            	 	{
+			            	 		"specification_code": "SP0003",
+			            	 		"specification_name": "颜色",
+			            			"specification_value": "白"
+			            		},
+			            		{
+			            	 		"specification_code": "SP0004",
+			            	 		"specification_name": "容量",
+			            			"specification_value": "550ml"
+			            		}
+			            	],
+			            	"product_spu": {
+			            		"spu_code": "WINE001",
+			            		"base_unit": "瓶",
+			            		"brand": {
+			            			"code": "BR0001",
+			            			"name": "科特勒",
+			            			"manufacturer": {
+				            			"code": "BR0001",
+				            			"name": "法国科特勒酒庄"        			
+			            			}		            			
+			            		
+			            		},
+			            		"desc": ""		            	
+		            		}
+		            	}
+	            	},
+	            	"quantity": 60,
+	            	"supply_price": {
+	            		"tax_type": "VTA",  
+	            		"tax_rate": 0.17,	
+	            		"price_including_tax": {  
+	            			"currency": {		  
+	            				"currency_type": "CYN",
+	            				"money": 117.00
+	            			},
+	            			"original_currency":  { 
+	            				"currency_type": "USD",
+	            				"money": 17.55
+	            			}
+	            		},
+	            		"price": {  
+	            			"currency": {
+	            				"currency_type": "CYN",
+	            				"money": 100.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 15.00
+	            			}
+	            		}
+	            	},
+	            	"retail_price": {
+	            		"tax_type": "Excise Duty", 
+	            		"tax_rate": 0.03,	
+	            		"price_including_tax": {  
+	            			"currency": {	
+	            				"currency_type": "CYN",
+	            				"money": 226.6
+	            			},
+	            			"original_currency":  { 
+	            				"currency_type": "USD",
+	            				"money": 41.2
+	            			}
+	            		},
+	            		"price": {  
+	            			"currency": {
+	            				"currency_type": "CYN",
+	            				"money": 220.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 40.00
+	            			}
+	            		}
+	            	},
+	            	"commission": {
+	            		"computation_rule": {},
+	            		"commission_value": {  
+	            			"currency": {		
+	            				"currency_type": "CYN",
+	            				"money": 20.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 5.00
+	            			}
+	            		}          	
+	            	}
+	            },
+	            {
+	            	"detail_code": "REP201611190001004",
+	            	"goods": {
+	            		"account_id": "Kano",
+		            	"product_sku_code": "WINE001SP0001SP0002",
+		            	"title": "拉菲顶级干红750ml",
+		            	"sales_catelogs": [{
+		            		"code": "WINE",
+		            		"name": "酒水"
+		            	}],
+		            	"product_sku": { 		            	
+			            	"bar_code": "",
+			            	"product_specifications": [
+			            	 	{
+			            	 		"specification_code": "SP0001",
+			            	 		"specification_name": "颜色",
+			            			"specification_value": "洋红"
+			            		},
+			            		{
+			            	 		"specification_code": "SP0002",
+			            	 		"specification_name": "容量",
+			            			"specification_value": "750ml"
+			            		}
+			            	],
+			            	"product_spu": {
+			            		"spu_code": "WINE001",
+			            		"base_unit": "瓶",
+			            		"brand": {
+			            			"code": "BR0001",
+			            			"name": "科特勒",
+			            			"manufacturer": {
+				            			"code": "BR0001",
+				            			"name": "法国科特勒酒庄"        			
+			            			}		            			
+			            		
+			            		},
+			            		"desc": ""		            	
+		            		}
+		            	}
+	            	},
+	            	"quantity": 60,
+	            	"supply_price": {
+	            		"tax_type": "VTA",
+	            		"tax_rate": 0.17,
+	            		"price_including_tax": {  
+	            			"currency": {	
+	            				"currency_type": "CYN",
+	            				"money": 60.00
+	            			},
+	            			"original_currency":  { 
+	            				"currency_type": "USD",
+	            				"money": 10.00
+	            			}
+	            		},
+	            		"price": {
+	            			"currency": {
+	            				"currency_type": "CYN",
+	            				"money": 50.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 7.50
+	            			}
+	            		}
+	            	},
+	            	"retail_price": {
+	            		"tax_type": "VTA",
+	            		"tax_rate": 0.17,
+	            		"price_including_tax": {
+	            			"currency": {	
+	            				"currency_type": "CYN",
+	            				"money": 120.00
+	            			},
+	            			"original_currency":  { 
+	            				"currency_type": "USD",
+	            				"money": 120.00
+	            			}
+	            		},
+	            		"price": {
+	            			"currency": {
+	            				"currency_type": "CYN",
+	            				"money": 120.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 120.00
+	            			}
+	            		}
+	            	},
+	            	"commission": {
+	            		"computation_rule": {},
+	            		"commission_value": { 
+	            			"currency": {
+	            				"currency_type": "CYN",
+	            				"money": 20.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 5.00
+	            			}
+	            		}          	
+	            	}           
+	            
+	            }
+            ]
+        },
+        {
+            "bo_id": "REP201611190001",
+            "req_date": "2016/11/15",
+            "req_send_date": "2016/11/21",
+    		"req_code": "REQ201611190001",  
+    		"channel": {
+    		    "code": "N0001",
+            	"name": "海淀分店",
+            	"channel_type": {
+            		"code": "ch001",
+            		"name": "加盟店"
+            	},
+            	"customer": {
+            		"code": "cus0005",
+            		"name": "海淀商贸有限公司"
+            	}
+    		},
+			"restocking_warehose": {
+	            "code": "WH001",
+	            "name": "北京总仓"
+            },
+            "is_completed": "false",
+            "completed_date": "",
+            "details": [
+	            {
+	            	"detail_code": "10",
+	            	"goods": {
+	            		"account_id": "Kano",
+		            	"product_sku_code": "WINE001SP0001SP0002",
+		            	"title": "科特勒2014 干红葡萄酒750ml",
+		            	"sales_catelogs": [{
+		            		"code": "WINE",
+		            		"name": "酒水"
+		            	}],
+		            	"product_sku": { 		            	
+			            	"bar_code": "",
+			            	"product_specifications": [
+			            	 	{
+			            	 		"specification_code": "SP0001",
+			            	 		"specification_name": "颜色",
+			            			"specification_value": "洋红"
+			            		},
+			            		{
+			            	 		"specification_code": "SP0002",
+			            	 		"specification_name": "容量",
+			            			"specification_value": "750ml"
+			            		}
+			            	],
+			            	"product_spu": {
+			            		"spu_code": "WINE001",
+			            		"base_unit": "瓶",
+			            		"brand": {
+			            			"code": "BR0001",
+			            			"name": "科特勒",
+			            			"manufacturer": {
+				            			"code": "BR0001",
+				            			"name": "法国科特勒酒庄"        			
+			            			}		            			
+			            		
+			            		},
+			            		"desc": ""		            	
+		            		}
+		            	}
+	            	},
+	            	"quantity": 60,
+	            	"supply_price": {
+	            		"tax_type": "VTA",  
+	            		"tax_rate": 0.17,	
+	            		"price_including_tax": {  
+	            			"currency": {		  
+	            				"currency_type": "CYN",
+	            				"money": 117.00
+	            			},
+	            			"original_currency":  { 
+	            				"currency_type": "USD",
+	            				"money": 17.55
+	            			}
+	            		},
+	            		"price": {  
+	            			"currency": {
+	            				"currency_type": "CYN",
+	            				"money": 100.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 15.00
+	            			}
+	            		}
+	            	},
+	            	"retail_price": {
+	            		"tax_type": "Excise Duty", 
+	            		"tax_rate": 0.03,	
+	            		"price_including_tax": {  
+	            			"currency": {	
+	            				"currency_type": "CYN",
+	            				"money": 226.6
+	            			},
+	            			"original_currency":  { 
+	            				"currency_type": "USD",
+	            				"money": 41.2
+	            			}
+	            		},
+	            		"price": {  
+	            			"currency": {
+	            				"currency_type": "CYN",
+	            				"money": 220.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 40.00
+	            			}
+	            		}
+	            	},
+	            	"commission": {
+	            		"computation_rule": {},
+	            		"commission_value": {  
+	            			"currency": {		
+	            				"currency_type": "CYN",
+	            				"money": 20.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 5.00
+	            			}
+	            		}          	
+	            	}
+	            },
+	            {
+	            	"detail_code": "20",
+	            	"goods": {
+	            		"account_id": "Kano",
+		            	"product_sku_code": "WINE001SP0001SP0002",
+		            	"title": "拉菲尚品波尔多干红葡萄酒750ml",
+		            	"sales_catelogs": [{
+		            		"code": "WINE",
+		            		"name": "酒水"
+		            	}],
+		            	"product_sku": { 		            	
+			            	"bar_code": "",
+			            	"product_specifications": [
+			            	 	{
+			            	 		"specification_code": "SP0001",
+			            	 		"specification_name": "颜色",
+			            			"specification_value": "洋红"
+			            		},
+			            		{
+			            	 		"specification_code": "SP0002",
+			            	 		"specification_name": "容量",
+			            			"specification_value": "750ml"
+			            		}
+			            	],
+			            	"product_spu": {
+			            		"spu_code": "WINE001",
+			            		"base_unit": "瓶",
+			            		"brand": {
+			            			"code": "BR0001",
+			            			"name": "科特勒",
+			            			"manufacturer": {
+				            			"code": "BR0001",
+				            			"name": "法国科特勒酒庄"        			
+			            			}		            			
+			            		
+			            		},
+			            		"desc": ""		            	
+		            		}
+		            	}
+	            	},
+	            	"quantity": 60,
+	            	"supply_price": {
+	            		"tax_type": "VTA",
+	            		"tax_rate": 0.17,
+	            		"price_including_tax": {  
+	            			"currency": {	
+	            				"currency_type": "CYN",
+	            				"money": 120.00
+	            			},
+	            			"original_currency":  { 
+	            				"currency_type": "USD",
+	            				"money": 20.00
+	            			}
+	            		},
+	            		"price": {
+	            			"currency": {
+	            				"currency_type": "CYN",
+	            				"money": 100.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 15.00
+	            			}
+	            		}
+	            	},
+	            	"retail_price": {
+	            		"tax_type": "VTA",
+	            		"tax_rate": 0.17,
+	            		"price_including_tax": {
+	            			"currency": {	
+	            				"currency_type": "CYN",
+	            				"money": 120.00
+	            			},
+	            			"original_currency":  { 
+	            				"currency_type": "USD",
+	            				"money": 120.00
+	            			}
+	            		},
+	            		"price": {
+	            			"currency": {
+	            				"currency_type": "CYN",
+	            				"money": 120.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 120.00
+	            			}
+	            		}
+	            	},
+	            	"commission": {
+	            		"computation_rule": {},
+	            		"commission_value": { 
+	            			"currency": {
+	            				"currency_type": "CYN",
+	            				"money": 20.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 5.00
+	            			}
+	            		}          	
+	            	}           
+	            
+	            }
+            ]
+        },
+        {
+            "bo_id": "REP201611190002",
+            "req_date": "2016/11/15",
+            "req_send_date": "2016/11/21",
+    		"req_code": "REQ201611190001",  
+    		"channel": {
+    		    "code": "N0008",
+            	"name": "大兴分店",
+            	"channel_type": {
+            		"code": "ch002",
+            		"name": "直营店"
+            	}
+    		},
+			"restocking_warehose": {
+	            "code": "WH001",
+	            "name": "北京总仓"
+            },
+            "is_completed": "false",
+            "completed_date": "",
+            "details": [
+	            {
+	            	"detail_code": "REP201611190001003",
+	            	"goods": {
+	            		"account_id": "Kano",
+		            	"product_sku_code": "WINE001SP0001SP0002",
+		            	"title": "2016新大陆葡萄酒550ml",
+		            	"sales_catelogs": [{
+		            		"code": "WINE",
+		            		"name": "酒水"
+		            	}],
+		            	"product_sku": { 		            	
+			            	"bar_code": "",
+			            	"product_specifications": [
+			            	 	{
+			            	 		"specification_code": "SP0003",
+			            	 		"specification_name": "颜色",
+			            			"specification_value": "白"
+			            		},
+			            		{
+			            	 		"specification_code": "SP0004",
+			            	 		"specification_name": "容量",
+			            			"specification_value": "550ml"
+			            		}
+			            	],
+			            	"product_spu": {
+			            		"spu_code": "WINE001",
+			            		"base_unit": "瓶",
+			            		"brand": {
+			            			"code": "BR0001",
+			            			"name": "科特勒",
+			            			"manufacturer": {
+				            			"code": "BR0001",
+				            			"name": "法国科特勒酒庄"        			
+			            			}		            			
+			            		
+			            		},
+			            		"desc": ""		            	
+		            		}
+		            	}
+	            	},
+	            	"quantity": 60,
+	            	"supply_price": {
+	            		"tax_type": "VTA",  
+	            		"tax_rate": 0.17,	
+	            		"price_including_tax": {  
+	            			"currency": {		  
+	            				"currency_type": "CYN",
+	            				"money": 117.00
+	            			},
+	            			"original_currency":  { 
+	            				"currency_type": "USD",
+	            				"money": 17.55
+	            			}
+	            		},
+	            		"price": {  
+	            			"currency": {
+	            				"currency_type": "CYN",
+	            				"money": 100.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 15.00
+	            			}
+	            		}
+	            	},
+	            	"retail_price": {
+	            		"tax_type": "Excise Duty", 
+	            		"tax_rate": 0.03,	
+	            		"price_including_tax": {  
+	            			"currency": {	
+	            				"currency_type": "CYN",
+	            				"money": 226.6
+	            			},
+	            			"original_currency":  { 
+	            				"currency_type": "USD",
+	            				"money": 41.2
+	            			}
+	            		},
+	            		"price": {  
+	            			"currency": {
+	            				"currency_type": "CYN",
+	            				"money": 220.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 40.00
+	            			}
+	            		}
+	            	},
+	            	"commission": {
+	            		"computation_rule": {},
+	            		"commission_value": {  
+	            			"currency": {		
+	            				"currency_type": "CYN",
+	            				"money": 20.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 5.00
+	            			}
+	            		}          	
+	            	}
+	            },
+	            {
+	            	"detail_code": "REP201611190001004",
+	            	"goods": {
+	            		"account_id": "Kano",
+		            	"product_sku_code": "WINE001SP0001SP0002",
+		            	"title": "拉菲顶级干红750ml",
+		            	"sales_catelogs": [{
+		            		"code": "WINE",
+		            		"name": "酒水"
+		            	}],
+		            	"product_sku": { 		            	
+			            	"bar_code": "",
+			            	"product_specifications": [
+			            	 	{
+			            	 		"specification_code": "SP0001",
+			            	 		"specification_name": "颜色",
+			            			"specification_value": "洋红"
+			            		},
+			            		{
+			            	 		"specification_code": "SP0002",
+			            	 		"specification_name": "容量",
+			            			"specification_value": "750ml"
+			            		}
+			            	],
+			            	"product_spu": {
+			            		"spu_code": "WINE001",
+			            		"base_unit": "瓶",
+			            		"brand": {
+			            			"code": "BR0001",
+			            			"name": "科特勒",
+			            			"manufacturer": {
+				            			"code": "BR0001",
+				            			"name": "法国科特勒酒庄"        			
+			            			}		            			
+			            		
+			            		},
+			            		"desc": ""		            	
+		            		}
+		            	}
+	            	},
+	            	"quantity": 60,
+	            	"supply_price": {
+	            		"tax_type": "VTA",
+	            		"tax_rate": 0.17,
+	            		"price_including_tax": {  
+	            			"currency": {	
+	            				"currency_type": "CYN",
+	            				"money": 60.00
+	            			},
+	            			"original_currency":  { 
+	            				"currency_type": "USD",
+	            				"money": 10.00
+	            			}
+	            		},
+	            		"price": {
+	            			"currency": {
+	            				"currency_type": "CYN",
+	            				"money": 50.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 7.50
+	            			}
+	            		}
+	            	},
+	            	"retail_price": {
+	            		"tax_type": "VTA",
+	            		"tax_rate": 0.17,
+	            		"price_including_tax": {
+	            			"currency": {	
+	            				"currency_type": "CYN",
+	            				"money": 120.00
+	            			},
+	            			"original_currency":  { 
+	            				"currency_type": "USD",
+	            				"money": 120.00
+	            			}
+	            		},
+	            		"price": {
+	            			"currency": {
+	            				"currency_type": "CYN",
+	            				"money": 120.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 120.00
+	            			}
+	            		}
+	            	},
+	            	"commission": {
+	            		"computation_rule": {},
+	            		"commission_value": { 
+	            			"currency": {
+	            				"currency_type": "CYN",
+	            				"money": 20.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 5.00
+	            			}
+	            		}          	
+	            	}           
+	            
+	            }
+            ]
+        },
+        {
+            "bo_id": "REP201611190001",
+            "req_date": "2016/11/15",
+            "req_send_date": "2016/11/21",
+    		"req_code": "REQ201611190001",  
+    		"channel": {
+    		    "code": "N0001",
+            	"name": "海淀分店",
+            	"channel_type": {
+            		"code": "ch002",
+            		"name": "直营店"
+            	}
+    		},
+			"restocking_warehose": {
+	            "code": "WH001",
+	            "name": "北京总仓"
+            },
+            "is_completed": "false",
+            "completed_date": "",
+            "details": [
+	            {
+	            	"detail_code": "10",
+	            	"goods": {
+	            		"account_id": "Kano",
+		            	"product_sku_code": "WINE001SP0001SP0002",
+		            	"title": "科特勒2014 干红葡萄酒750ml",
+		            	"sales_catelogs": [{
+		            		"code": "WINE",
+		            		"name": "酒水"
+		            	}],
+		            	"product_sku": { 		            	
+			            	"bar_code": "",
+			            	"product_specifications": [
+			            	 	{
+			            	 		"specification_code": "SP0001",
+			            	 		"specification_name": "颜色",
+			            			"specification_value": "洋红"
+			            		},
+			            		{
+			            	 		"specification_code": "SP0002",
+			            	 		"specification_name": "容量",
+			            			"specification_value": "750ml"
+			            		}
+			            	],
+			            	"product_spu": {
+			            		"spu_code": "WINE001",
+			            		"base_unit": "瓶",
+			            		"brand": {
+			            			"code": "BR0001",
+			            			"name": "科特勒",
+			            			"manufacturer": {
+				            			"code": "BR0001",
+				            			"name": "法国科特勒酒庄"        			
+			            			}		            			
+			            		
+			            		},
+			            		"desc": ""		            	
+		            		}
+		            	}
+	            	},
+	            	"quantity": 60,
+	            	"supply_price": {
+	            		"tax_type": "VTA",  
+	            		"tax_rate": 0.17,	
+	            		"price_including_tax": {  
+	            			"currency": {		  
+	            				"currency_type": "CYN",
+	            				"money": 117.00
+	            			},
+	            			"original_currency":  { 
+	            				"currency_type": "USD",
+	            				"money": 17.55
+	            			}
+	            		},
+	            		"price": {  
+	            			"currency": {
+	            				"currency_type": "CYN",
+	            				"money": 100.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 15.00
+	            			}
+	            		}
+	            	},
+	            	"retail_price": {
+	            		"tax_type": "Excise Duty", 
+	            		"tax_rate": 0.03,	
+	            		"price_including_tax": {  
+	            			"currency": {	
+	            				"currency_type": "CYN",
+	            				"money": 226.6
+	            			},
+	            			"original_currency":  { 
+	            				"currency_type": "USD",
+	            				"money": 41.2
+	            			}
+	            		},
+	            		"price": {  
+	            			"currency": {
+	            				"currency_type": "CYN",
+	            				"money": 220.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 40.00
+	            			}
+	            		}
+	            	},
+	            	"commission": {
+	            		"computation_rule": {},
+	            		"commission_value": {  
+	            			"currency": {		
+	            				"currency_type": "CYN",
+	            				"money": 20.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 5.00
+	            			}
+	            		}          	
+	            	}
+	            },
+	            {
+	            	"detail_code": "20",
+	            	"goods": {
+	            		"account_id": "Kano",
+		            	"product_sku_code": "WINE001SP0001SP0002",
+		            	"title": "拉菲尚品波尔多干红葡萄酒750ml",
+		            	"sales_catelogs": [{
+		            		"code": "WINE",
+		            		"name": "酒水"
+		            	}],
+		            	"product_sku": { 		            	
+			            	"bar_code": "",
+			            	"product_specifications": [
+			            	 	{
+			            	 		"specification_code": "SP0001",
+			            	 		"specification_name": "颜色",
+			            			"specification_value": "洋红"
+			            		},
+			            		{
+			            	 		"specification_code": "SP0002",
+			            	 		"specification_name": "容量",
+			            			"specification_value": "750ml"
+			            		}
+			            	],
+			            	"product_spu": {
+			            		"spu_code": "WINE001",
+			            		"base_unit": "瓶",
+			            		"brand": {
+			            			"code": "BR0001",
+			            			"name": "科特勒",
+			            			"manufacturer": {
+				            			"code": "BR0001",
+				            			"name": "法国科特勒酒庄"        			
+			            			}		            			
+			            		
+			            		},
+			            		"desc": ""		            	
+		            		}
+		            	}
+	            	},
+	            	"quantity": 60,
+	            	"supply_price": {
+	            		"tax_type": "VTA",
+	            		"tax_rate": 0.17,
+	            		"price_including_tax": {  
+	            			"currency": {	
+	            				"currency_type": "CYN",
+	            				"money": 120.00
+	            			},
+	            			"original_currency":  { 
+	            				"currency_type": "USD",
+	            				"money": 20.00
+	            			}
+	            		},
+	            		"price": {
+	            			"currency": {
+	            				"currency_type": "CYN",
+	            				"money": 100.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 15.00
+	            			}
+	            		}
+	            	},
+	            	"retail_price": {
+	            		"tax_type": "VTA",
+	            		"tax_rate": 0.17,
+	            		"price_including_tax": {
+	            			"currency": {	
+	            				"currency_type": "CYN",
+	            				"money": 120.00
+	            			},
+	            			"original_currency":  { 
+	            				"currency_type": "USD",
+	            				"money": 120.00
+	            			}
+	            		},
+	            		"price": {
+	            			"currency": {
+	            				"currency_type": "CYN",
+	            				"money": 120.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 120.00
+	            			}
+	            		}
+	            	},
+	            	"commission": {
+	            		"computation_rule": {},
+	            		"commission_value": { 
+	            			"currency": {
+	            				"currency_type": "CYN",
+	            				"money": 20.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 5.00
+	            			}
+	            		}          	
+	            	}           
+	            
+	            }
+            ]
+        },
+        {
+            "bo_id": "REP201611190002",
+            "req_date": "2016/11/12",
+            "req_send_date": "2016/11/13",
+    		"req_code": "REQ201611190001",  
+    		"channel": {
+    		    "code": "N0003",
+            	"name": "昌平分店",
+            	"channel_type": {
+            		"code": "ch002",
+            		"name": "直营店"
+            	}
+    		},
+			"restocking_warehose": {
+	            "code": "WH001",
+	            "name": "北京总仓"
+            },
+            "is_completed": "false",
+            "completed_date": "",
+            "details": [
+	            {
+	            	"detail_code": "REP201611190001003",
+	            	"goods": {
+	            		"account_id": "Kano",
+		            	"product_sku_code": "WINE001SP0001SP0002",
+		            	"title": "2016新大陆葡萄酒550ml",
+		            	"sales_catelogs": [{
+		            		"code": "WINE",
+		            		"name": "酒水"
+		            	}],
+		            	"product_sku": { 		            	
+			            	"bar_code": "",
+			            	"product_specifications": [
+			            	 	{
+			            	 		"specification_code": "SP0003",
+			            	 		"specification_name": "颜色",
+			            			"specification_value": "白"
+			            		},
+			            		{
+			            	 		"specification_code": "SP0004",
+			            	 		"specification_name": "容量",
+			            			"specification_value": "550ml"
+			            		}
+			            	],
+			            	"product_spu": {
+			            		"spu_code": "WINE001",
+			            		"base_unit": "瓶",
+			            		"brand": {
+			            			"code": "BR0001",
+			            			"name": "科特勒",
+			            			"manufacturer": {
+				            			"code": "BR0001",
+				            			"name": "法国科特勒酒庄"        			
+			            			}		            			
+			            		
+			            		},
+			            		"desc": ""		            	
+		            		}
+		            	}
+	            	},
+	            	"quantity": 60,
+	            	"supply_price": {
+	            		"tax_type": "VTA",  
+	            		"tax_rate": 0.17,	
+	            		"price_including_tax": {  
+	            			"currency": {		  
+	            				"currency_type": "CYN",
+	            				"money": 117.00
+	            			},
+	            			"original_currency":  { 
+	            				"currency_type": "USD",
+	            				"money": 17.55
+	            			}
+	            		},
+	            		"price": {  
+	            			"currency": {
+	            				"currency_type": "CYN",
+	            				"money": 100.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 15.00
+	            			}
+	            		}
+	            	},
+	            	"retail_price": {
+	            		"tax_type": "Excise Duty", 
+	            		"tax_rate": 0.03,	
+	            		"price_including_tax": {  
+	            			"currency": {	
+	            				"currency_type": "CYN",
+	            				"money": 226.6
+	            			},
+	            			"original_currency":  { 
+	            				"currency_type": "USD",
+	            				"money": 41.2
+	            			}
+	            		},
+	            		"price": {  
+	            			"currency": {
+	            				"currency_type": "CYN",
+	            				"money": 220.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 40.00
+	            			}
+	            		}
+	            	},
+	            	"commission": {
+	            		"computation_rule": {},
+	            		"commission_value": {  
+	            			"currency": {		
+	            				"currency_type": "CYN",
+	            				"money": 20.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 5.00
+	            			}
+	            		}          	
+	            	}
+	            },
+	            {
+	            	"detail_code": "REP201611190001004",
+	            	"goods": {
+	            		"account_id": "Kano",
+		            	"product_sku_code": "WINE001SP0001SP0002",
+		            	"title": "拉菲顶级干红750ml",
+		            	"sales_catelogs": [{
+		            		"code": "WINE",
+		            		"name": "酒水"
+		            	}],
+		            	"product_sku": { 		            	
+			            	"bar_code": "",
+			            	"product_specifications": [
+			            	 	{
+			            	 		"specification_code": "SP0001",
+			            	 		"specification_name": "颜色",
+			            			"specification_value": "洋红"
+			            		},
+			            		{
+			            	 		"specification_code": "SP0002",
+			            	 		"specification_name": "容量",
+			            			"specification_value": "750ml"
+			            		}
+			            	],
+			            	"product_spu": {
+			            		"spu_code": "WINE001",
+			            		"base_unit": "瓶",
+			            		"brand": {
+			            			"code": "BR0001",
+			            			"name": "科特勒",
+			            			"manufacturer": {
+				            			"code": "BR0001",
+				            			"name": "法国科特勒酒庄"        			
+			            			}		            			
+			            		
+			            		},
+			            		"desc": ""		            	
+		            		}
+		            	}
+	            	},
+	            	"quantity": 60,
+	            	"supply_price": {
+	            		"tax_type": "VTA",
+	            		"tax_rate": 0.17,
+	            		"price_including_tax": {  
+	            			"currency": {	
+	            				"currency_type": "CYN",
+	            				"money": 60.00
+	            			},
+	            			"original_currency":  { 
+	            				"currency_type": "USD",
+	            				"money": 10.00
+	            			}
+	            		},
+	            		"price": {
+	            			"currency": {
+	            				"currency_type": "CYN",
+	            				"money": 50.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 7.50
+	            			}
+	            		}
+	            	},
+	            	"retail_price": {
+	            		"tax_type": "VTA",
+	            		"tax_rate": 0.17,
+	            		"price_including_tax": {
+	            			"currency": {	
+	            				"currency_type": "CYN",
+	            				"money": 120.00
+	            			},
+	            			"original_currency":  { 
+	            				"currency_type": "USD",
+	            				"money": 120.00
+	            			}
+	            		},
+	            		"price": {
+	            			"currency": {
+	            				"currency_type": "CYN",
+	            				"money": 120.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 120.00
+	            			}
+	            		}
+	            	},
+	            	"commission": {
+	            		"computation_rule": {},
+	            		"commission_value": { 
+	            			"currency": {
+	            				"currency_type": "CYN",
+	            				"money": 20.00
+	            			},
+	            			"original_currency":  {
+	            				"currency_type": "USD",
+	            				"money": 5.00
+	            			}
+	            		}          	
+	            	}           
+	            
+	            }
+            ]
+        }					
+
+    ]
+}

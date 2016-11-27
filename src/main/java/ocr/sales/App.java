@@ -19,7 +19,7 @@ public class App extends AppServiceEngineImpl
 	//创建此APP中租户的应用服务实例时调用
 	@Override
 	public AppService newAppInstance() {
-		return new ChannelsManagerService();
+		return new SalesCenterService();
 	}
 
 	//创建此APP统一的web入口服务
@@ -40,7 +40,7 @@ public class App extends AppServiceEngineImpl
     	App app = new App();
 
     	AppServiceEngineImpl.internalMain("log4j2.xml",
-    										"ocr-channel-manager.json", 
+    										"ocr-sales.center.json", 
     										app);
     	
     }   
