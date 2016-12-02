@@ -64,6 +64,9 @@ public class ChannelRestockingComponent extends AppActivityImpl {
 		ChannelRestockingRemoveHandler channelRestockingRemoveHandler = new ChannelRestockingRemoveHandler(this);
 		ret.add(channelRestockingRemoveHandler);
 		
+		ChannelRestockingBatchCreateHandler channelRestockingBatchCreateHandler = new ChannelRestockingBatchCreateHandler(this);
+		ret.add(channelRestockingBatchCreateHandler);
+		
 		return ret;
 	}
 
