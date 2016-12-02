@@ -16,7 +16,7 @@
 				"static_res_service": true
 			},
 			"api_register_server": {
-				//"webserver_name": "121webserver-N01"
+				
 			},
 			"sys_datasource": {
 				"config": {
