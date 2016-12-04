@@ -18,15 +18,15 @@ bp_replenishments:
     	},
     	"account": "4"
 	},
-	"restocking_warehose": {
-        "code": "WH001",
-        "name": "北京总仓"
-    },
     "is_completed": "false",
     "completed_date": "",
     "details": [
         {
         	"detail_code": "10",
+        	"restocking_warehose": {
+		        "code": "WH001",
+		        "name": "北京总仓"
+		    },
         	"goods": {
         		"account_id": "Kano",
             	"product_sku_code": "WINE001SP0001SP0002",

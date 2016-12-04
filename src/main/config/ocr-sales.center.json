@@ -42,6 +42,17 @@
 				"component_common": {
 				},
 				"component_config": {
+					"channel-restocking": {
+			      		"options": {
+	        				"config" :  {
+	        				    "dependencies":{
+		        					"inventorycenter_service": {
+		        						"service_name": "ocr-inventorycenter"
+		        					}
+	        					}
+							}
+						 }
+				   }
 				},
 				"component_deployment": []
 			},

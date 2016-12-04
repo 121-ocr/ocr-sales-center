@@ -67,6 +67,9 @@ public class ChannelRestockingComponent extends AppActivityImpl {
 		ChannelRestockingBatchCreateHandler channelRestockingBatchCreateHandler = new ChannelRestockingBatchCreateHandler(this);
 		ret.add(channelRestockingBatchCreateHandler);
 		
+		ChannelRestockingCommitHandler channelRestockingCommitHandler = new ChannelRestockingCommitHandler(this);
+		ret.add(channelRestockingCommitHandler);
+		
 		return ret;
 	}
 
