@@ -27,13 +27,6 @@ public class App extends AppServiceEngineImpl
 	public WebServer createWebServer() {
 		return new MyWebServer();
 	}
-
-	//创建APP全局组件
-	@Override
-	public List<OtoCloudComponent> createServiceComponents() {
-		return null;
-	}
-	
 	
     public static void main( String[] args )
     {
@@ -43,6 +36,12 @@ public class App extends AppServiceEngineImpl
     										"ocr-sales.center.json", 
     										app);
     	
-    }   
+    }
+
+	@Override
+	public List<OtoCloudComponent> createServiceComponents() {
+		// TODO Auto-generated method stub
+		return null;
+	}   
 
 }

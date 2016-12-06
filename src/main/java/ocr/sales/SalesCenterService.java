@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ocr.sales.channelrestocking.ChannelRestockingComponent;
+import ocr.sales.shippingadvise.ShippingAdviseComponent;
 import otocloud.framework.app.engine.AppServiceImpl;
 import otocloud.framework.app.engine.WebServer;
 import otocloud.framework.app.function.AppActivity;
 import otocloud.framework.app.function.AppInitActivityImpl;
+
 
 /**
  * TODO: 营销中心微服务
@@ -28,16 +30,20 @@ public class SalesCenterService extends AppServiceImpl
 	public WebServer createWebServer() {
 		// TODO Auto-generated method stub
 		return null;
-	}
+	}	
+
 
 	//创建服务内的业务活动组件
 	@Override
 	public List<AppActivity> createBizActivities() {
-		List<AppActivity> retActivities = new ArrayList<>();
-		
+		List<AppActivity> retActivities = new ArrayList<>();		
 	
 		ChannelRestockingComponent channelRestockingComponent = new ChannelRestockingComponent();
 		retActivities.add(channelRestockingComponent);
+		
+		//创建发货通知组件
+		ShippingAdviseComponent shippingAdviseComponent = new ShippingAdviseComponent();		
+		retActivities.add(shippingAdviseComponent);		
 
 		return retActivities;
 	}

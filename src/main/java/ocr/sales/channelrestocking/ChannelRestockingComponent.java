@@ -70,6 +70,9 @@ public class ChannelRestockingComponent extends AppActivityImpl {
 		ChannelRestockingCommitHandler channelRestockingCommitHandler = new ChannelRestockingCommitHandler(this);
 		ret.add(channelRestockingCommitHandler);
 		
+		ChannelRestockingFindOneHandler channelRestockingFindOneHandler = new ChannelRestockingFindOneHandler(this);
+		ret.add(channelRestockingFindOneHandler);
+		
 		return ret;
 	}
 

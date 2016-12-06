@@ -110,7 +110,11 @@ public class ChannelRestockingCommitHandler extends ActionHandlerImpl<JsonObject
 				String dt = DateTimeUtil.now("yyyy-MM-dd");
 				stockOutObj.put("send_date", DateTimeUtil.now("yyyy-MM-dd"));
 				stockOutObj.put("confirm_date", dt);
-				stockOutObj.put("channel", replenishmentObj.getJsonObject("channel"));
+				JsonObject channel = replenishmentObj.getJsonObject("channel");
+				if(channel.containsKey("_id")){
+					channel.remove("_id");
+				}
+				stockOutObj.put("channel", channel);
 				stockOutObj.put("note", "");
 				stockOutObj.put("replenishment_code", replenishmentObj.getString("bo_id"));
 				stockOutObj.put("warehouse", restockingWarehouse);
