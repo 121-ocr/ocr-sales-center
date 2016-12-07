@@ -43,7 +43,7 @@ public class ShippingAdviseNoticeHandler extends ActionHandlerImpl<JsonObject> {
 		BizStateChangedMessage bizStateChangedMessage = new BizStateChangedMessage();
 		bizStateChangedMessage.fromJsonObject(msg.body());
 		
-		JsonObject stockOutObj = bizStateChangedMessage.getFactData().getJsonObject("bo");
+		JsonObject stockOutObj = bizStateChangedMessage.getFactData();
 		String replenishmentId = stockOutObj.getString("replenishment_code");
 		
 		//获取补货单数据    	
