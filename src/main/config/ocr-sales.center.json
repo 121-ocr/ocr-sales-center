@@ -48,6 +48,9 @@
 	        				    "dependencies":{
 		        					"inventorycenter_service": {
 		        						"service_name": "ocr-inventorycenter"
+		        					},
+		        					"channel_service": {
+		        						"service_name": "ocr-channel-manager"
 		        					}
 	        					}
 							}
@@ -71,20 +74,7 @@
 				"component_deployment": []
 			},
 			"component_config": {
-				"shipping-advise": {
-		      		"options": {
-        				"config" :  {
-        				    "dependencies":{
-    				    		"inventorycenter_service": {
-	        						"service_name": "ocr-inventorycenter"
-	        					},
-	        					"pointofsale_service": {
-	        						"service_name": "ocr-pointofsale"
-	        					}
-        					}
-						}
-					 }
-			   }
+
 			},
 			"component_deployment": [
 			],
