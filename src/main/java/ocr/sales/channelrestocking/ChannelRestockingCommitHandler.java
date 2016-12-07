@@ -63,7 +63,7 @@ public class ChannelRestockingCommitHandler extends ActionHandlerImpl<JsonObject
 
 				//提交拣货处理				
 				String invSrvName = this.appActivity.getDependencies().getJsonObject("inventorycenter_service").getString("service_name","");
-				String stockoutPickOutAddress = this.appActivity.getAppInstContext().getAccount() + "." + invSrvName + "." + "stockout-mgr.batch_pickout";							
+				String stockoutPickOutAddress = this.appActivity.getAppInstContext().getAccount() + "." + invSrvName + "." + "stockout-mgr.batch_create";							
 				DeliveryOptions options = new DeliveryOptions();
 				options.setHeaders(headerMap);
 				this.appActivity.getEventBus().<JsonArray>send(stockoutPickOutAddress,
