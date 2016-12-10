@@ -1,0 +1,533 @@
+{
+    "_id" : "5848f1cb4a1de225f86c978f",
+    "previous_state" : null,
+    "current_state" : "created",
+    "next_state" : "",
+    "account" : "3",
+    "ts" : "2016-12-08 04:46:28",
+    "actor" : {
+        "access_token" : "aaa",
+        "actor_account" : "3",
+        "actor" : "lj"
+    },
+    "partner" : null,
+    "bo" : {
+        "req_code" : "",
+        "req_date" : "2016-12-08",
+        "req_send_date" : "2016-12-08",
+        "channel" : {
+            "code" : "N0002",
+            "link_account" : "4",
+            "level" : {
+                "name" : "一级",
+                "code" : "lv01"
+            },
+            "name" : "卡诺回龙观加盟店",
+            "channel_assistant" : "lj",
+            "channel_type" : {
+                "name" : "经销商",
+                "code" : "ch02"
+            },
+            "region" : {
+                "code" : "100000",
+                "full_name" : "北京"
+            },
+            "ship_to" : {
+                "address" : {
+                    "region" : {
+                        "code" : "100200",
+                        "full_name" : "北京市昌平区"
+                    },
+                    "address_detail" : "XXX街道"
+                },
+                "contact" : {
+                    "user" : {
+                        "name" : "小李",
+                        "code" : "U002"
+                    },
+                    "phone" : "",
+                    "email" : ""
+                }
+            },
+            "customer" : {
+                "name" : "昌平欣然百货",
+                "code" : "cus0002"
+            },
+            "link_org_acct_rel" : "1"
+        },
+        "details" : [ 
+            {
+                "restocking_warehose" : {
+                    "name" : "河北总仓",
+                    "account" : "3",
+                    "code" : "WH002"
+                },
+                "quantity" : 1,
+                "goods" : {
+                    "product_sku_code" : "JUICE001SP0003SP0001",
+                    "product_sku" : {
+                        "bar_code" : "",
+                        "product_spu" : {
+                            "spu_code" : "JUICE003",
+                            "brand" : {
+                                "name" : "PRIMA",
+                                "code" : "BR0005",
+                                "manufacturer" : {
+                                    "name" : "塞浦路斯",
+                                    "code" : "MF0005"
+                                }
+                            },
+                            "base_unit" : "箱",
+                            "desc" : ""
+                        },
+                        "product_specifications" : [ 
+                            {
+                                "specification_name" : "口味",
+                                "specification_value" : "草莓",
+                                "specification_code" : "SP0003"
+                            }, 
+                            {
+                                "specification_name" : "容量",
+                                "specification_value" : "750ml",
+                                "specification_code" : "SP0002"
+                            }
+                        ]
+                    },
+                    "sales_catelogs" : [ 
+                        {
+                            "name" : "果汁",
+                            "inner_code" : "GC0302",
+                            "code" : "GC0302"
+                        }, 
+                        {
+                            "name" : "红酒",
+                            "inner_code" : "GC0301",
+                            "code" : "GC0301"
+                        }
+                    ],
+                    "title" : "普瑞达野生浆果550ml",
+                    "account" : "3"
+                },
+                "retail_amount" : {},
+                "commission" : null,
+                "supply_price" : null,
+                "supply_amount" : {},
+                "detail_code" : "0",
+                "invbatchcode" : "1",
+                "retail_price" : null,
+                "shelf_life" : "2019-11-11",
+                "shipments" : [ 
+                    {
+                        "ship_quantity" : 1,
+                        "ship_date" : "2019-11-11",
+                        "ship_actor" : {}
+                    }
+                ],
+                "ship_completed" : true,
+                "pick_completed" : true,
+                "pick_quantity" : 1
+            }, 
+            {
+                "restocking_warehose" : {
+                    "name" : "北京总仓",
+                    "account" : "3",
+                    "code" : "WH001"
+                },
+                "quantity" : 2,
+                "goods" : {
+                    "product_sku_code" : "WINE001SP0001SP0001",
+                    "product_sku" : {
+                        "bar_code" : "",
+                        "product_spu" : {
+                            "spu_code" : "WINE001",
+                            "brand" : {
+                                "name" : "科特勒",
+                                "code" : "BR0001",
+                                "manufacturer" : {
+                                    "name" : "法国科特勒酒庄",
+                                    "code" : "BR0001"
+                                }
+                            },
+                            "base_unit" : "瓶",
+                            "desc" : ""
+                        },
+                        "product_specifications" : [ 
+                            {
+                                "specification_name" : "颜色",
+                                "specification_value" : "洋红",
+                                "specification_code" : "SP0001"
+                            }, 
+                            {
+                                "specification_name" : "容量",
+                                "specification_value" : "750ml",
+                                "specification_code" : "SP0002"
+                            }
+                        ]
+                    },
+                    "sales_catelogs" : [ 
+                        {
+                            "name" : "红酒",
+                            "inner_code" : "GC0301",
+                            "code" : "GC0301"
+                        }
+                    ],
+                    "title" : "科特勒2014 干红葡萄酒750ml",
+                    "account" : "3"
+                },
+                "shipments" : [ 
+                    {
+                        "ship_quantity" : 1,
+                        "ship_date" : "2019-11-11",
+                        "ship_actor" : {}
+                    }
+                ],
+                "ship_completed" : false,
+                "pick_completed" : true,
+                "pick_quantity" : 1,
+                "retail_amount" : {},
+                "commission" : {
+                    "commission_value" : {
+                        "original_currency" : {
+                            "money" : 5,
+                            "currency_type" : "USD"
+                        },
+                        "currency" : {
+                            "money" : 20,
+                            "currency_type" : "CYN"
+                        }
+                    },
+                    "computation_rule" : {}
+                },
+                "supply_price" : {
+                    "tax_type" : "VTA",
+                    "tax_rate" : 0.1700000000000000,
+                    "price" : {
+                        "original_currency" : {
+                            "money" : 15,
+                            "currency_type" : "USD"
+                        },
+                        "currency" : {
+                            "money" : 100,
+                            "currency_type" : "CYN"
+                        }
+                    },
+                    "price_including_tax" : {
+                        "original_currency" : {
+                            "money" : 17.5500000000000010,
+                            "currency_type" : "USD"
+                        },
+                        "currency" : {
+                            "money" : 117,
+                            "currency_type" : "CYN"
+                        }
+                    }
+                },
+                "supply_amount" : {},
+                "detail_code" : "0",
+                "invbatchcode" : "1",
+                "retail_price" : {
+                    "tax_type" : "Excise Duty",
+                    "tax_rate" : 0.0300000000000000,
+                    "price" : {
+                        "original_currency" : {
+                            "money" : 40,
+                            "currency_type" : "USD"
+                        },
+                        "currency" : {
+                            "money" : 220,
+                            "currency_type" : "CYN"
+                        }
+                    },
+                    "price_including_tax" : {
+                        "original_currency" : {
+                            "money" : 41.2000000000000030,
+                            "currency_type" : "USD"
+                        },
+                        "currency" : {
+                            "money" : 226.5999999999999900,
+                            "currency_type" : "CYN"
+                        }
+                    }
+                },
+                "shelf_life" : "2018-09-11"
+            }, 
+            {
+                "restocking_warehose" : {
+                    "name" : "北京总仓",
+                    "account" : "3",
+                    "code" : "WH001"
+                },
+                "quantity" : 3,
+                "goods" : {
+                    "product_sku_code" : "WINE001SP0001SP0001",
+                    "product_sku" : {
+                        "bar_code" : "",
+                        "product_spu" : {
+                            "spu_code" : "WINE001",
+                            "brand" : {
+                                "name" : "科特勒",
+                                "code" : "BR0001",
+                                "manufacturer" : {
+                                    "name" : "法国科特勒酒庄",
+                                    "code" : "BR0001"
+                                }
+                            },
+                            "base_unit" : "瓶",
+                            "desc" : ""
+                        },
+                        "product_specifications" : [ 
+                            {
+                                "specification_name" : "颜色",
+                                "specification_value" : "洋红",
+                                "specification_code" : "SP0001"
+                            }, 
+                            {
+                                "specification_name" : "容量",
+                                "specification_value" : "750ml",
+                                "specification_code" : "SP0002"
+                            }
+                        ]
+                    },
+                    "sales_catelogs" : [ 
+                        {
+                            "name" : "红酒",
+                            "inner_code" : "GC0301",
+                            "code" : "GC0301"
+                        }
+                    ],
+                    "title" : "科特勒2014 干红葡萄酒750ml",
+                    "account" : "3"
+                },
+                "shipments" : [ 
+                    {
+                        "ship_quantity" : 1,
+                        "ship_date" : "2019-11-11",
+                        "ship_actor" : {}
+                    }, 
+                    {
+                        "ship_quantity" : 1,
+                        "ship_date" : "2019-11-11",
+                        "ship_actor" : {}
+                    }
+                ],
+                "ship_completed" : false,
+                "pick_completed" : false,
+                "pick_quantity" : 2,
+                "retail_amount" : {},
+                "commission" : {
+                    "commission_value" : {
+                        "original_currency" : {
+                            "money" : 5,
+                            "currency_type" : "USD"
+                        },
+                        "currency" : {
+                            "money" : 20,
+                            "currency_type" : "CYN"
+                        }
+                    },
+                    "computation_rule" : {}
+                },
+                "supply_price" : {
+                    "tax_type" : "VTA",
+                    "tax_rate" : 0.1700000000000000,
+                    "price" : {
+                        "original_currency" : {
+                            "money" : 8,
+                            "currency_type" : "USD"
+                        },
+                        "currency" : {
+                            "money" : 88,
+                            "currency_type" : "CYN"
+                        }
+                    },
+                    "price_including_tax" : {
+                        "original_currency" : {
+                            "money" : 12.5500000000000010,
+                            "currency_type" : "USD"
+                        },
+                        "currency" : {
+                            "money" : 107,
+                            "currency_type" : "CYN"
+                        }
+                    }
+                },
+                "supply_amount" : {},
+                "detail_code" : "1",
+                "invbatchcode" : "2",
+                "retail_price" : {
+                    "tax_type" : "Excise Duty",
+                    "tax_rate" : 0.0300000000000000,
+                    "price" : {
+                        "original_currency" : {
+                            "money" : 40,
+                            "currency_type" : "USD"
+                        },
+                        "currency" : {
+                            "money" : 220,
+                            "currency_type" : "CYN"
+                        }
+                    },
+                    "price_including_tax" : {
+                        "original_currency" : {
+                            "money" : 41.2000000000000030,
+                            "currency_type" : "USD"
+                        },
+                        "currency" : {
+                            "money" : 226.5999999999999900,
+                            "currency_type" : "CYN"
+                        }
+                    }
+                },
+                "shelf_life" : "2021-01-22"
+            }, 
+            {
+                "restocking_warehose" : {
+                    "name" : "河北总仓",
+                    "account" : "3",
+                    "code" : "WH002"
+                },
+                "quantity" : 4,
+                "goods" : {
+                    "product_sku_code" : "WINE001SP0001SP0001",
+                    "product_sku" : {
+                        "bar_code" : "",
+                        "product_spu" : {
+                            "spu_code" : "WINE001",
+                            "brand" : {
+                                "name" : "科特勒",
+                                "code" : "BR0001",
+                                "manufacturer" : {
+                                    "name" : "法国科特勒酒庄",
+                                    "code" : "BR0001"
+                                }
+                            },
+                            "base_unit" : "瓶",
+                            "desc" : ""
+                        },
+                        "product_specifications" : [ 
+                            {
+                                "specification_name" : "颜色",
+                                "specification_value" : "洋红",
+                                "specification_code" : "SP0001"
+                            }, 
+                            {
+                                "specification_name" : "容量",
+                                "specification_value" : "750ml",
+                                "specification_code" : "SP0002"
+                            }
+                        ]
+                    },
+                    "sales_catelogs" : [ 
+                        {
+                            "name" : "红酒",
+                            "inner_code" : "GC0301",
+                            "code" : "GC0301"
+                        }
+                    ],
+                    "title" : "科特勒2014 干红葡萄酒750ml",
+                    "account" : "3"
+                },
+                "shipments" : [ 
+                    {
+                        "ship_quantity" : 1,
+                        "ship_date" : "2019-11-11",
+                        "ship_actor" : {}
+                    }
+                ],
+                "ship_completed" : false,
+                "pick_completed" : false,
+                "pick_quantity" : 1,
+                "retail_amount" : {},
+                "commission" : {
+                    "commission_value" : {
+                        "original_currency" : {
+                            "money" : 5,
+                            "currency_type" : "USD"
+                        },
+                        "currency" : {
+                            "money" : 20,
+                            "currency_type" : "CYN"
+                        }
+                    },
+                    "computation_rule" : {}
+                },
+                "supply_price" : {
+                    "tax_type" : "VTA",
+                    "tax_rate" : 0.1700000000000000,
+                    "price" : {
+                        "original_currency" : {
+                            "money" : 15,
+                            "currency_type" : "USD"
+                        },
+                        "currency" : {
+                            "money" : 100,
+                            "currency_type" : "CYN"
+                        }
+                    },
+                    "price_including_tax" : {
+                        "original_currency" : {
+                            "money" : 17.5500000000000010,
+                            "currency_type" : "USD"
+                        },
+                        "currency" : {
+                            "money" : 117,
+                            "currency_type" : "CYN"
+                        }
+                    }
+                },
+                "supply_amount" : {},
+                "detail_code" : "2",
+                "invbatchcode" : "1",
+                "retail_price" : {
+                    "tax_type" : "Excise Duty",
+                    "tax_rate" : 0.0300000000000000,
+                    "price" : {
+                        "original_currency" : {
+                            "money" : 40,
+                            "currency_type" : "USD"
+                        },
+                        "currency" : {
+                            "money" : 220,
+                            "currency_type" : "CYN"
+                        }
+                    },
+                    "price_including_tax" : {
+                        "original_currency" : {
+                            "money" : 41.2000000000000030,
+                            "currency_type" : "USD"
+                        },
+                        "currency" : {
+                            "money" : 226.5999999999999900,
+                            "currency_type" : "CYN"
+                        }
+                    }
+                },
+                "shelf_life" : "2021-09-11"
+            }
+        ],
+        "target_warehose" : {
+            "name" : "北京朝阳门店仓2",
+            "character" : {
+                "name" : "VMI仓",
+                "code" : "1"
+            },
+            "code" : "WH004",
+            "address" : {
+                "region" : {
+                    "code" : "110105",
+                    "full_name" : "北京市朝阳区"
+                },
+                "address_detail" : "XXX街道"
+            },
+            "type" : {
+                "name" : "仓库",
+                "code" : "1"
+            },
+            "account" : "4"
+        },
+        "is_completed" : false,
+        "completed_date" : "",
+        "bo_id" : "5848f1cb4a1de225f86c978f"
+    },
+    "bo_id" : "5848f1cb4a1de225f86c978f"
+}
