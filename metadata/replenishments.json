@@ -181,6 +181,7 @@
                         "ship_actor" : {},
                         "ship_code" : "发货单号",
                         "logistics_code": "物流单号",
+                        "is_shipped": false,  //是否发货
                         "accept_completed" : true,
                         "accept_quantity" : 1,
                         "reject_quantity" : 0
