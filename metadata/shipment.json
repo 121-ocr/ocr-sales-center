@@ -1,0 +1,140 @@
+{
+    "_id" : "5848f1cb4a1de225f86c978f",
+    "previous_state" : null,
+    "current_state" : "created",
+    "next_state" : "",
+    "account" : "3",
+    "ts" : "2016-12-08 04:46:28",
+    "actor" : {
+        "access_token" : "aaa",
+        "actor_account" : "3",
+        "actor" : "lj"
+    },
+    "partner" : null,
+    "bo" : {
+        "bo_id" : "5848f1cb4a1de225f86c978f",
+        "shipment_code" : "",
+        "ship_date" : "2016-12-08",
+        "ship_actor" : {},
+        "car_number" : "",
+        "channel" : {
+            "code" : "N0002",
+            "link_account" : "4",
+            "level" : {
+                "name" : "一级",
+                "code" : "lv01"
+            },
+            "name" : "卡诺回龙观加盟店",
+            "channel_assistant" : "lj",
+            "channel_type" : {
+                "name" : "经销商",
+                "code" : "ch02"
+            },
+            "region" : {
+                "code" : "100000",
+                "full_name" : "北京"
+            },
+            "ship_to" : {
+                "address" : {
+                    "region" : {
+                        "code" : "100200",
+                        "full_name" : "北京市昌平区"
+                    },
+                    "address_detail" : "XXX街道"
+                },
+                "contact" : {
+                    "user" : {
+                        "name" : "小李",
+                        "code" : "U002"
+                    },
+                    "phone" : "",
+                    "email" : ""
+                }
+            },
+            "customer" : {
+                "name" : "昌平欣然百货",
+                "code" : "cus0002"
+            },
+            "link_org_acct_rel" : "1"
+        },
+        "target_warehose" : {
+            "name" : "北京朝阳门店仓2",
+            "character" : {
+                "name" : "VMI仓",
+                "code" : "1"
+            },
+            "code" : "WH004",
+            "address" : {
+                "region" : {
+                    "code" : "110105",
+                    "full_name" : "北京市朝阳区"
+                },
+                "address_detail" : "XXX街道"
+            },
+            "type" : {
+                "name" : "仓库",
+                "code" : "1"
+            },
+            "account" : "4"
+        },
+        "is_completed" : false,
+        "completed_date" : "",
+        "details" : [ 
+            {
+            	"detail_code" : "0",
+                "restocking_warehose" : {
+                    "name" : "河北总仓",
+                    "account" : "3",
+                    "code" : "WH002"
+                },
+                "goods" : {
+                    "product_sku_code" : "JUICE001SP0003SP0001",
+                    "product_sku" : {
+                        "bar_code" : "",
+                        "product_spu" : {
+                            "spu_code" : "JUICE003",
+                            "brand" : {
+                                "name" : "PRIMA",
+                                "code" : "BR0005",
+                                "manufacturer" : {
+                                    "name" : "塞浦路斯",
+                                    "code" : "MF0005"
+                                }
+                            },
+                            "base_unit" : "箱",
+                            "desc" : ""
+                        },
+                        "product_specifications" : [ 
+                            {
+                                "specification_name" : "口味",
+                                "specification_value" : "草莓",
+                                "specification_code" : "SP0003"
+                            }, 
+                            {
+                                "specification_name" : "容量",
+                                "specification_value" : "750ml",
+                                "specification_code" : "SP0002"
+                            }
+                        ]
+                    },
+                    "sales_catelogs" : [ 
+                        {
+                            "name" : "果汁",
+                            "inner_code" : "GC0302",
+                            "code" : "GC0302"
+                        }, 
+                        {
+                            "name" : "红酒",
+                            "inner_code" : "GC0301",
+                            "code" : "GC0301"
+                        }
+                    ],
+                    "title" : "普瑞达野生浆果550ml",
+                    "account" : "3"
+                },
+                "invbatchcode" : "1",
+                 "quantity" : 1
+            }
+        ]
+    }
+}

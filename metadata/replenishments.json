@@ -120,7 +120,11 @@
                     {
                         "ship_quantity" : 1,
                         "ship_date" : "2019-11-11",
-                        "ship_actor" : {}
+                        "ship_actor" : {},
+                        "ship_code" : "发货单号",
+                        "accept_completed" : true,
+                        "accept_quantity" : 1,
+                        "reject_quantity" : 0
                     }
                 ],
                 "ship_completed" : true,
