@@ -109,12 +109,70 @@
                     "account" : "3"
                 },
                 "retail_amount" : {},
-                "commission" : null,
-                "supply_price" : null,
+                "commission" : {
+                    "commission_value" : {
+                        "original_currency" : {
+                            "money" : 5,
+                            "currency_type" : "USD"
+                        },
+                        "currency" : {
+                            "money" : 20,
+                            "currency_type" : "CYN"
+                        }
+                    },
+                    "computation_rule" : {}
+                },
+                "supply_price" : {
+                    "tax_type" : "VTA",
+                    "tax_rate" : 0.1700000000000000,
+                    "price" : {
+                        "original_currency" : {
+                            "money" : 15,
+                            "currency_type" : "USD"
+                        },
+                        "currency" : {
+                            "money" : 100,
+                            "currency_type" : "CYN"
+                        }
+                    },
+                    "price_including_tax" : {
+                        "original_currency" : {
+                            "money" : 17.5500000000000010,
+                            "currency_type" : "USD"
+                        },
+                        "currency" : {
+                            "money" : 117,
+                            "currency_type" : "CYN"
+                        }
+                    }
+                },
+                "retail_price" : {
+                    "tax_type" : "Excise Duty",
+                    "tax_rate" : 0.0300000000000000,
+                    "price" : {
+                        "original_currency" : {
+                            "money" : 40,
+                            "currency_type" : "USD"
+                        },
+                        "currency" : {
+                            "money" : 220,
+                            "currency_type" : "CYN"
+                        }
+                    },
+                    "price_including_tax" : {
+                        "original_currency" : {
+                            "money" : 41.2000000000000030,
+                            "currency_type" : "USD"
+                        },
+                        "currency" : {
+                            "money" : 226.5999999999999900,
+                            "currency_type" : "CYN"
+                        }
+                    }
+                },
                 "supply_amount" : {},
                 "detail_code" : "0",
                 "invbatchcode" : "1",
-                "retail_price" : null,
                 "shelf_life" : "2019-11-11",
                 "shipments" : [ 
                     {
@@ -122,6 +180,7 @@
                         "ship_date" : "2019-11-11",
                         "ship_actor" : {},
                         "ship_code" : "发货单号",
+                        "logistics_code": "物流单号",
                         "accept_completed" : true,
                         "accept_quantity" : 1,
                         "reject_quantity" : 0
@@ -130,384 +189,8 @@
                 "ship_completed" : true,
                 "pick_completed" : true,
                 "pick_quantity" : 1
-            }, 
-            {
-                "restocking_warehose" : {
-                    "name" : "北京总仓",
-                    "account" : "3",
-                    "code" : "WH001"
-                },
-                "quantity" : 2,
-                "goods" : {
-                    "product_sku_code" : "WINE001SP0001SP0001",
-                    "product_sku" : {
-                        "bar_code" : "",
-                        "product_spu" : {
-                            "spu_code" : "WINE001",
-                            "brand" : {
-                                "name" : "科特勒",
-                                "code" : "BR0001",
-                                "manufacturer" : {
-                                    "name" : "法国科特勒酒庄",
-                                    "code" : "BR0001"
-                                }
-                            },
-                            "base_unit" : "瓶",
-                            "desc" : ""
-                        },
-                        "product_specifications" : [ 
-                            {
-                                "specification_name" : "颜色",
-                                "specification_value" : "洋红",
-                                "specification_code" : "SP0001"
-                            }, 
-                            {
-                                "specification_name" : "容量",
-                                "specification_value" : "750ml",
-                                "specification_code" : "SP0002"
-                            }
-                        ]
-                    },
-                    "sales_catelogs" : [ 
-                        {
-                            "name" : "红酒",
-                            "inner_code" : "GC0301",
-                            "code" : "GC0301"
-                        }
-                    ],
-                    "title" : "科特勒2014 干红葡萄酒750ml",
-                    "account" : "3"
-                },
-                "shipments" : [ 
-                    {
-                        "ship_quantity" : 1,
-                        "ship_date" : "2019-11-11",
-                        "ship_actor" : {}
-                    }
-                ],
-                "ship_completed" : false,
-                "pick_completed" : true,
-                "pick_quantity" : 1,
-                "retail_amount" : {},
-                "commission" : {
-                    "commission_value" : {
-                        "original_currency" : {
-                            "money" : 5,
-                            "currency_type" : "USD"
-                        },
-                        "currency" : {
-                            "money" : 20,
-                            "currency_type" : "CYN"
-                        }
-                    },
-                    "computation_rule" : {}
-                },
-                "supply_price" : {
-                    "tax_type" : "VTA",
-                    "tax_rate" : 0.1700000000000000,
-                    "price" : {
-                        "original_currency" : {
-                            "money" : 15,
-                            "currency_type" : "USD"
-                        },
-                        "currency" : {
-                            "money" : 100,
-                            "currency_type" : "CYN"
-                        }
-                    },
-                    "price_including_tax" : {
-                        "original_currency" : {
-                            "money" : 17.5500000000000010,
-                            "currency_type" : "USD"
-                        },
-                        "currency" : {
-                            "money" : 117,
-                            "currency_type" : "CYN"
-                        }
-                    }
-                },
-                "supply_amount" : {},
-                "detail_code" : "0",
-                "invbatchcode" : "1",
-                "retail_price" : {
-                    "tax_type" : "Excise Duty",
-                    "tax_rate" : 0.0300000000000000,
-                    "price" : {
-                        "original_currency" : {
-                            "money" : 40,
-                            "currency_type" : "USD"
-                        },
-                        "currency" : {
-                            "money" : 220,
-                            "currency_type" : "CYN"
-                        }
-                    },
-                    "price_including_tax" : {
-                        "original_currency" : {
-                            "money" : 41.2000000000000030,
-                            "currency_type" : "USD"
-                        },
-                        "currency" : {
-                            "money" : 226.5999999999999900,
-                            "currency_type" : "CYN"
-                        }
-                    }
-                },
-                "shelf_life" : "2018-09-11"
-            }, 
-            {
-                "restocking_warehose" : {
-                    "name" : "北京总仓",
-                    "account" : "3",
-                    "code" : "WH001"
-                },
-                "quantity" : 3,
-                "goods" : {
-                    "product_sku_code" : "WINE001SP0001SP0001",
-                    "product_sku" : {
-                        "bar_code" : "",
-                        "product_spu" : {
-                            "spu_code" : "WINE001",
-                            "brand" : {
-                                "name" : "科特勒",
-                                "code" : "BR0001",
-                                "manufacturer" : {
-                                    "name" : "法国科特勒酒庄",
-                                    "code" : "BR0001"
-                                }
-                            },
-                            "base_unit" : "瓶",
-                            "desc" : ""
-                        },
-                        "product_specifications" : [ 
-                            {
-                                "specification_name" : "颜色",
-                                "specification_value" : "洋红",
-                                "specification_code" : "SP0001"
-                            }, 
-                            {
-                                "specification_name" : "容量",
-                                "specification_value" : "750ml",
-                                "specification_code" : "SP0002"
-                            }
-                        ]
-                    },
-                    "sales_catelogs" : [ 
-                        {
-                            "name" : "红酒",
-                            "inner_code" : "GC0301",
-                            "code" : "GC0301"
-                        }
-                    ],
-                    "title" : "科特勒2014 干红葡萄酒750ml",
-                    "account" : "3"
-                },
-                "shipments" : [ 
-                    {
-                        "ship_quantity" : 1,
-                        "ship_date" : "2019-11-11",
-                        "ship_actor" : {}
-                    }, 
-                    {
-                        "ship_quantity" : 1,
-                        "ship_date" : "2019-11-11",
-                        "ship_actor" : {}
-                    }
-                ],
-                "ship_completed" : false,
-                "pick_completed" : false,
-                "pick_quantity" : 2,
-                "retail_amount" : {},
-                "commission" : {
-                    "commission_value" : {
-                        "original_currency" : {
-                            "money" : 5,
-                            "currency_type" : "USD"
-                        },
-                        "currency" : {
-                            "money" : 20,
-                            "currency_type" : "CYN"
-                        }
-                    },
-                    "computation_rule" : {}
-                },
-                "supply_price" : {
-                    "tax_type" : "VTA",
-                    "tax_rate" : 0.1700000000000000,
-                    "price" : {
-                        "original_currency" : {
-                            "money" : 8,
-                            "currency_type" : "USD"
-                        },
-                        "currency" : {
-                            "money" : 88,
-                            "currency_type" : "CYN"
-                        }
-                    },
-                    "price_including_tax" : {
-                        "original_currency" : {
-                            "money" : 12.5500000000000010,
-                            "currency_type" : "USD"
-                        },
-                        "currency" : {
-                            "money" : 107,
-                            "currency_type" : "CYN"
-                        }
-                    }
-                },
-                "supply_amount" : {},
-                "detail_code" : "1",
-                "invbatchcode" : "2",
-                "retail_price" : {
-                    "tax_type" : "Excise Duty",
-                    "tax_rate" : 0.0300000000000000,
-                    "price" : {
-                        "original_currency" : {
-                            "money" : 40,
-                            "currency_type" : "USD"
-                        },
-                        "currency" : {
-                            "money" : 220,
-                            "currency_type" : "CYN"
-                        }
-                    },
-                    "price_including_tax" : {
-                        "original_currency" : {
-                            "money" : 41.2000000000000030,
-                            "currency_type" : "USD"
-                        },
-                        "currency" : {
-                            "money" : 226.5999999999999900,
-                            "currency_type" : "CYN"
-                        }
-                    }
-                },
-                "shelf_life" : "2021-01-22"
-            }, 
-            {
-                "restocking_warehose" : {
-                    "name" : "河北总仓",
-                    "account" : "3",
-                    "code" : "WH002"
-                },
-                "quantity" : 4,
-                "goods" : {
-                    "product_sku_code" : "WINE001SP0001SP0001",
-                    "product_sku" : {
-                        "bar_code" : "",
-                        "product_spu" : {
-                            "spu_code" : "WINE001",
-                            "brand" : {
-                                "name" : "科特勒",
-                                "code" : "BR0001",
-                                "manufacturer" : {
-                                    "name" : "法国科特勒酒庄",
-                                    "code" : "BR0001"
-                                }
-                            },
-                            "base_unit" : "瓶",
-                            "desc" : ""
-                        },
-                        "product_specifications" : [ 
-                            {
-                                "specification_name" : "颜色",
-                                "specification_value" : "洋红",
-                                "specification_code" : "SP0001"
-                            }, 
-                            {
-                                "specification_name" : "容量",
-                                "specification_value" : "750ml",
-                                "specification_code" : "SP0002"
-                            }
-                        ]
-                    },
-                    "sales_catelogs" : [ 
-                        {
-                            "name" : "红酒",
-                            "inner_code" : "GC0301",
-                            "code" : "GC0301"
-                        }
-                    ],
-                    "title" : "科特勒2014 干红葡萄酒750ml",
-                    "account" : "3"
-                },
-                "shipments" : [ 
-                    {
-                        "ship_quantity" : 1,
-                        "ship_date" : "2019-11-11",
-                        "ship_actor" : {}
-                    }
-                ],
-                "ship_completed" : false,
-                "pick_completed" : false,
-                "pick_quantity" : 1,
-                "retail_amount" : {},
-                "commission" : {
-                    "commission_value" : {
-                        "original_currency" : {
-                            "money" : 5,
-                            "currency_type" : "USD"
-                        },
-                        "currency" : {
-                            "money" : 20,
-                            "currency_type" : "CYN"
-                        }
-                    },
-                    "computation_rule" : {}
-                },
-                "supply_price" : {
-                    "tax_type" : "VTA",
-                    "tax_rate" : 0.1700000000000000,
-                    "price" : {
-                        "original_currency" : {
-                            "money" : 15,
-                            "currency_type" : "USD"
-                        },
-                        "currency" : {
-                            "money" : 100,
-                            "currency_type" : "CYN"
-                        }
-                    },
-                    "price_including_tax" : {
-                        "original_currency" : {
-                            "money" : 17.5500000000000010,
-                            "currency_type" : "USD"
-                        },
-                        "currency" : {
-                            "money" : 117,
-                            "currency_type" : "CYN"
-                        }
-                    }
-                },
-                "supply_amount" : {},
-                "detail_code" : "2",
-                "invbatchcode" : "1",
-                "retail_price" : {
-                    "tax_type" : "Excise Duty",
-                    "tax_rate" : 0.0300000000000000,
-                    "price" : {
-                        "original_currency" : {
-                            "money" : 40,
-                            "currency_type" : "USD"
-                        },
-                        "currency" : {
-                            "money" : 220,
-                            "currency_type" : "CYN"
-                        }
-                    },
-                    "price_including_tax" : {
-                        "original_currency" : {
-                            "money" : 41.2000000000000030,
-                            "currency_type" : "USD"
-                        },
-                        "currency" : {
-                            "money" : 226.5999999999999900,
-                            "currency_type" : "CYN"
-                        }
-                    }
-                },
-                "shelf_life" : "2021-09-11"
-            }
+            } 
+
         ],
         "target_warehose" : {
             "name" : "北京朝阳门店仓2",
