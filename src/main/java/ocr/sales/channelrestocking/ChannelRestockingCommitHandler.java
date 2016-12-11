@@ -96,6 +96,8 @@ public class ChannelRestockingCommitHandler extends ActionHandlerImpl<JsonObject
 		Map<String, JsonObject> stockOuts = new HashMap<>();
 		JsonArray retArray = new JsonArray();
 		
+		String boId = replenishmentObj.getString("bo_id");
+		
 		JsonArray details = replenishmentObj.getJsonArray("details");
 		for(Object item : details){
 			JsonObject detail = (JsonObject)item;
@@ -108,6 +110,8 @@ public class ChannelRestockingCommitHandler extends ActionHandlerImpl<JsonObject
 				stockDetails = stockOutObj.getJsonArray("detail");
 			}else{				
 				String dt = DateTimeUtil.now("yyyy-MM-dd");
+				Integer idNum = retArray.size() + 1;
+				stockOutObj.put("bo_id", boId + "_" + idNum.toString());
 				stockOutObj.put("send_date", DateTimeUtil.now("yyyy-MM-dd"));
 				stockOutObj.put("confirm_date", dt);
 				JsonObject channel = replenishmentObj.getJsonObject("channel");

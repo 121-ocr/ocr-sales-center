@@ -128,7 +128,7 @@ public class ReplenishmentQuantityUpdateHandler extends ActionHandlerImpl<JsonOb
 			JsonObject repDetail = (JsonObject)item;
 			if(repDetail.getString("detail_code").equals(stockOutItem.getString("rep_detail_code"))){
 				Double quantity = repDetail.getDouble("pick_quantity");
-				quantity = quantity + stockOutItem.getDouble("quantity_should");
+				quantity = quantity + stockOutItem.getDouble("quantity_fact");
 				//如果拣货量==补货量,则置拣货完成状态
 				if(quantity.equals(repDetail.getDouble("quantity"))){
 					repDetail.put("pick_completed", true);
