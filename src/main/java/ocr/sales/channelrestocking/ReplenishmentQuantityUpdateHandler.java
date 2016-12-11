@@ -1,10 +1,9 @@
-package ocr.sales.shippingadvise;
+package ocr.sales.channelrestocking;
 
 import io.vertx.core.MultiMap;
 import io.vertx.core.eventbus.DeliveryOptions;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
-import otocloud.common.util.DateTimeUtil;
 import otocloud.framework.app.function.ActionHandlerImpl;
 import otocloud.framework.app.function.AppActivityImpl;
 import otocloud.framework.app.function.BizStateChangedMessage;
@@ -13,25 +12,25 @@ import otocloud.framework.core.OtoCloudBusMessage;
 
 
 /**
- * TODO: 发货通知门店处理
+ * TODO: 拣货完成更新补货单已拣货量
  * @date 2016年11月15日
  * @author lijing
  */
-public class ShippingAdviseNoticeHandler extends ActionHandlerImpl<JsonObject> {
+public class ReplenishmentQuantityUpdateHandler extends ActionHandlerImpl<JsonObject> {
 
 	/**
 	 * Constructor.
 	 *
 	 * @param componentImpl
 	 */
-	public ShippingAdviseNoticeHandler(AppActivityImpl appActivity) {
+	public ReplenishmentQuantityUpdateHandler(AppActivityImpl appActivity) {
 		super(appActivity);
 	}
 	
     @Override
     public String getRealAddress(){
 		String inventorycenterSrvName = this.appActivity.getDependencies().getJsonObject("inventorycenter_service").getString("service_name","");
-		String address = this.appActivity.getAppInstContext().getAccount() + "." + inventorycenterSrvName + ".stockout-mgr." + BizStateSwitchDesc.buildStateSwitchEventAddress("bp_stockout", "pickouted", "shippingouted");
+		String address = this.appActivity.getAppInstContext().getAccount() + "." + inventorycenterSrvName + ".stockout-mgr." + BizStateSwitchDesc.buildStateSwitchEventAddress("bp_stockout", "onpicking", "pickouted");
 		return address;
     }
 	
@@ -55,8 +54,38 @@ public class ShippingAdviseNoticeHandler extends ActionHandlerImpl<JsonObject> {
 				new JsonObject().put("bo_id", replenishmentId), ret->{
 				if(ret.succeeded()){		
 					
-					JsonObject replenishmentObj = ret.result().body().getJsonObject("bo");
-					String channelAccount = replenishmentObj.getJsonObject("channel").getString("link_account");
+					JsonObject bo = ret.result().body();
+					
+					JsonObject replenishmentObj = bo.getJsonObject("bo");
+					JsonArray repDetailsArray = replenishmentObj.getJsonArray("details");
+					
+					JsonArray stockOutDetailsArray = stockOutObj.getJsonArray("detail");
+					
+					//更新补货量
+					if(stockOutDetailsArray != null && stockOutDetailsArray.size() > 0){
+						stockOutDetailsArray.forEach(stockOutItem->{
+							updateRepDetailQuantity(repDetailsArray, (JsonObject)stockOutItem);							
+						});						
+					}
+					
+					//保存补货单
+					String boStatus = bo.getString("current_state");
+					this.updateFactData(this.appActivity.getBizObjectType(), replenishmentObj, replenishmentId, boStatus, 
+							bo.getJsonObject("actor"), null, next->{
+						if(ret.succeeded()){		
+							msg.reply("ok");									
+						}else{
+							Throwable errThrowable = next.cause();
+							String errMsgString = errThrowable.getMessage();
+							appActivity.getLogger().error(errMsgString, errThrowable);
+							msg.fail(100, errMsgString);
+						}								
+					});
+					
+					
+					
+					
+/*					String channelAccount = replenishmentObj.getJsonObject("channel").getString("link_account");
 					
 					JsonObject allotinvObj = convertToAllotinvObj(stockOutObj, replenishmentObj);
 					
@@ -76,8 +105,10 @@ public class ShippingAdviseNoticeHandler extends ActionHandlerImpl<JsonObject> {
 								msg.fail(100, errMsgString);
 							}
 							
-						});				
+						});				*/
 					
+					
+			
 					
 				}else{										
 					Throwable errThrowable = ret.cause();
@@ -92,7 +123,25 @@ public class ShippingAdviseNoticeHandler extends ActionHandlerImpl<JsonObject> {
 
 	}
 	
-	//转换为门店补货入库单
+	private void updateRepDetailQuantity(JsonArray repDetailsArray, JsonObject stockOutItem){
+		for(Object item : repDetailsArray){
+			JsonObject repDetail = (JsonObject)item;
+			if(repDetail.getString("detail_code").equals(stockOutItem.getString("rep_detail_code"))){
+				Double quantity = repDetail.getDouble("pick_quantity");
+				quantity = quantity + stockOutItem.getDouble("quantity_should");
+				//如果拣货量==补货量,则置拣货完成状态
+				if(quantity.equals(repDetail.getDouble("quantity"))){
+					repDetail.put("pick_completed", true);
+				}else{
+					repDetail.put("pick_completed", false);
+				}
+				repDetail.put("pick_quantity", quantity);
+				break;
+			}
+		}
+	}
+	
+/*	//转换为门店补货入库单
 	private JsonObject convertToAllotinvObj(JsonObject stockOutObj, JsonObject replenishmentObj){
 		JsonObject retObj = new JsonObject();
 		retObj.put("supply_date", DateTimeUtil.now("yyyy-MM-dd"));
@@ -135,7 +184,7 @@ public class ShippingAdviseNoticeHandler extends ActionHandlerImpl<JsonObject> {
 		}
 
 		return retObj;
-	}
+	}*/
 
 	@Override
 	public String getEventAddress() {

@@ -10,7 +10,7 @@ import otocloud.framework.core.OtoCloudEventDescriptor;
 import otocloud.framework.core.OtoCloudEventHandlerRegistry;
 
 /**
- * TODO: 发货通知
+ * TODO: 发货通知组件
  * @date 2016年11月15日
  * @author lijing
  */
@@ -70,9 +70,7 @@ public class ShippingAdviseComponent extends AppActivityImpl {
 
 		List<OtoCloudEventHandlerRegistry> ret = new ArrayList<OtoCloudEventHandlerRegistry>();
 
-		ShippingAdviseNoticeHandler shippingAdviseNoticeHandler = new ShippingAdviseNoticeHandler(this);
-		ret.add(shippingAdviseNoticeHandler);
-		
+	
 		return ret;
 	}
 

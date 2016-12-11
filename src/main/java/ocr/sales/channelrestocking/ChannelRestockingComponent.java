@@ -54,6 +54,9 @@ public class ChannelRestockingComponent extends AppActivityImpl {
 	public List<OtoCloudEventHandlerRegistry> registerEventHandlers() {
 		// TODO Auto-generated method stub
 		List<OtoCloudEventHandlerRegistry> ret = new ArrayList<OtoCloudEventHandlerRegistry>();
+		
+		ReplenishmentQuantityUpdateHandler replenishmentQuantityUpdateHandler = new ReplenishmentQuantityUpdateHandler(this);
+		ret.add(replenishmentQuantityUpdateHandler);
 
 		ChannelRestockingHandler channelRestockingHandler = new ChannelRestockingHandler(this);
 		ret.add(channelRestockingHandler);
