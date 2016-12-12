@@ -1,10 +1,6 @@
 package ocr.sales.channelrestocking;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import io.vertx.core.AsyncResult;
-import io.vertx.core.Future;
 import io.vertx.core.Handler;
 import io.vertx.core.eventbus.Message;
 import io.vertx.core.json.JsonArray;
@@ -146,7 +142,11 @@ public class ChannelRestockingShipHandler extends ActionHandlerImpl<JsonObject> 
 			JsonArray shipment_b_list = new JsonArray();
 			int row = 0;
 			for (Object object2 : replenishment_s) {
+				
 				JsonObject detail_s = (JsonObject) object2;
+				if("是".equals(detail_s.getString("is_shipped"))){
+					continue;
+				}
 				shipment.put("ship_date", detail_s.getString("ship_date"));
 				shipment.put("ship_actor", detail_s.getJsonObject("ship_actor"));
 				JsonObject shipment_b = new JsonObject();

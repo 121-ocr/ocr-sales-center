@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ocr.sales.channelrestocking.ChannelRestockingComponent;
+import ocr.sales.shipment.ShipmentComponent;
 import ocr.sales.shippingadvise.ShippingAdviseComponent;
 import otocloud.framework.app.engine.AppServiceImpl;
 import otocloud.framework.app.engine.WebServer;
@@ -43,7 +44,10 @@ public class SalesCenterService extends AppServiceImpl
 		
 		//创建发货通知组件
 		ShippingAdviseComponent shippingAdviseComponent = new ShippingAdviseComponent();		
-		retActivities.add(shippingAdviseComponent);		
+		retActivities.add(shippingAdviseComponent);	
+		
+		ShipmentComponent shipmentComponent = new ShipmentComponent();
+		retActivities.add(shipmentComponent);
 
 		return retActivities;
 	}
