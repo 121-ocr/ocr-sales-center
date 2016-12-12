@@ -13,7 +13,6 @@
     "partner" : null,
     "bo" : {
         "bo_id" : "5848f1cb4a1de225f86c978f",
-        "shipment_code" : "",
         "ship_date" : "2016-12-08",
         "ship_actor" : {},
         "car_number" : "",
