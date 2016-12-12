@@ -3,10 +3,16 @@ package ocr.sales.channelrestocking;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
 import io.vertx.core.eventbus.Message;
+import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
+import otocloud.common.ActionURI;
+import otocloud.framework.app.function.ActionDescriptor;
 import otocloud.framework.app.function.ActionHandlerImpl;
 import otocloud.framework.app.function.AppActivityImpl;
+import otocloud.framework.app.function.BizRootType;
+import otocloud.framework.app.function.BizStateSwitchDesc;
+import otocloud.framework.core.HandlerDescriptor;
 import otocloud.framework.core.OtoCloudBusMessage;
 
 /**
@@ -56,7 +62,7 @@ public class ChannelRestockingShipHandler extends ActionHandlerImpl<JsonObject> 
 		// 根据状态不同调用不同的保存方法
 		JsonObject body = msg.body();
 		// 发货记录上记录发货单id
-
+		setShipmentCode(body,bo);
 		String current_state = body.getString("current_state");
 		ChannelRestocking2ShippingBaseHandler handler = null;
 		if (ChannelRestockingConstant.COMMIT_STATUS.equals(current_state)) {
@@ -88,6 +94,26 @@ public class ChannelRestockingShipHandler extends ActionHandlerImpl<JsonObject> 
 				msg.fail(100, errMsgString);
 			}
 		});
+	}
+
+	/**
+	 * 回写发货单号到补货单的孙表-发货记录上
+	 * @param replenishment
+	 * @param shipment
+	 */
+	private void setShipmentCode(JsonObject replenishment, JsonObject shipment) {
+		JsonArray replenishment_b = replenishment.getJsonArray("details");
+		for (Object object : replenishment_b) {
+			JsonObject detail = (JsonObject) object;
+			JsonArray replenishment_s = detail.getJsonArray("shipments");
+			if(replenishment_s == null || replenishment_s.isEmpty()){
+				continue;
+			}
+			for (Object object2 : replenishment_s) {
+				JsonObject detail_s = (JsonObject) object2;
+				detail_s.put("ship_code", shipment.getString("bo_id"));
+			}
+		}
 	}
 
 	/**
@@ -139,16 +165,19 @@ public class ChannelRestockingShipHandler extends ActionHandlerImpl<JsonObject> 
 		for (Object object : replenishment_b) {
 			JsonObject detail = (JsonObject) object;
 			JsonArray replenishment_s = detail.getJsonArray("shipments");
+			if(replenishment_s == null || replenishment_s.isEmpty()){
+				continue;
+			}
 			JsonArray shipment_b_list = new JsonArray();
 			int row = 0;
 			for (Object object2 : replenishment_s) {
 				
 				JsonObject detail_s = (JsonObject) object2;
-				if("是".equals(detail_s.getString("is_shipped"))){
+				if(detail_s.getBoolean("is_shipped")){
 					continue;
 				}
 				shipment.put("ship_date", detail_s.getString("ship_date"));
-				shipment.put("ship_actor", detail_s.getJsonObject("ship_actor"));
+				shipment.put("ship_actor", detail_s.getString("ship_actor"));
 				JsonObject shipment_b = new JsonObject();
 				shipment_b.put("detail_code", row++);
 				shipment_b.put("restocking_warehose", detail.getJsonObject("restocking_warehose"));
@@ -162,5 +191,24 @@ public class ChannelRestockingShipHandler extends ActionHandlerImpl<JsonObject> 
 		}
 		this.appActivity.getEventBus().send(shipmentAddress, shipment, retHandler);
 	}
-
+	/**
+	 * 此action的自描述元数据
+	 */
+	@Override
+	public ActionDescriptor getActionDesc() {		
+		
+		ActionDescriptor actionDescriptor = super.getActionDesc();
+		HandlerDescriptor handlerDescriptor = actionDescriptor.getHandlerDescriptor();
+				
+		ActionURI uri = new ActionURI(ChannelRestockingConstant.SHIP_ADDRESS, HttpMethod.POST);
+		handlerDescriptor.setRestApiURI(uri);
+		
+		//状态变化定义
+//		BizStateSwitchDesc bizStateSwitchDesc = new BizStateSwitchDesc(BizRootType.BIZ_OBJECT, 
+//				null, "created");
+//		bizStateSwitchDesc.setWebExpose(true); //是否向web端发布事件		
+//		actionDescriptor.setBizStateSwitch(bizStateSwitchDesc);
+		
+		return actionDescriptor;
+	}
 }

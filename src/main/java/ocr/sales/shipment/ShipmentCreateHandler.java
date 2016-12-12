@@ -27,7 +27,7 @@ public class ShipmentCreateHandler extends SampleBillBaseHandler{
 	 */
 	@Override
 	public String getEventAddress() {
-		return ShipmentConstant.CREATE_STATUS;
+		return ShipmentConstant.CREATE_ADDRESS;
 	}
 	
 	/**

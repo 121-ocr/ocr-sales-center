@@ -13,7 +13,7 @@ public class ChannelRestockingConstant {
 	public static final String SHIP_ADDRESS = "ship";
 	
 	//创建状态
-	public static final String CREATE_STATUS = "create";
+	public static final String CREATE_STATUS = "created";
 	//提交状态
 	public static final String COMMIT_STATUS = "commit";
 	//发货中状态

@@ -11,6 +11,6 @@ public class ShipmentConstant {
 	public static final String CREATE_ADDRESS = "create";
 	
 	//创建状态
-	public static final String CREATE_STATUS = "create";
+	public static final String CREATE_STATUS = "created";
 
 }
