@@ -10,8 +10,6 @@ import otocloud.common.ActionURI;
 import otocloud.framework.app.function.ActionDescriptor;
 import otocloud.framework.app.function.ActionHandlerImpl;
 import otocloud.framework.app.function.AppActivityImpl;
-import otocloud.framework.app.function.BizRootType;
-import otocloud.framework.app.function.BizStateSwitchDesc;
 import otocloud.framework.core.HandlerDescriptor;
 import otocloud.framework.core.OtoCloudBusMessage;
 
@@ -60,10 +58,10 @@ public class ChannelRestockingShipHandler extends ActionHandlerImpl<JsonObject> 
 	 */
 	private void proess(OtoCloudBusMessage<JsonObject> msg, JsonObject bo) {
 		// 根据状态不同调用不同的保存方法
-		JsonObject body = msg.body();
+		JsonObject body = msg.body().getJsonObject("bo");
 		// 发货记录上记录发货单id
 		setShipmentCode(body,bo);
-		String current_state = body.getString("current_state");
+		String current_state = msg.body().getString("current_state");
 		ChannelRestocking2ShippingBaseHandler handler = null;
 		if (ChannelRestockingConstant.COMMIT_STATUS.equals(current_state)) {
 			handler = new ChannelRestockingCommit2ShippingHandler(appActivity);
@@ -111,7 +109,11 @@ public class ChannelRestockingShipHandler extends ActionHandlerImpl<JsonObject> 
 			}
 			for (Object object2 : replenishment_s) {
 				JsonObject detail_s = (JsonObject) object2;
+				if(detail_s.getBoolean("is_shipped")){
+					continue;
+				}
 				detail_s.put("ship_code", shipment.getString("bo_id"));
+				detail_s.put("is_shipped", true);
 			}
 		}
 	}
@@ -154,7 +156,7 @@ public class ChannelRestockingShipHandler extends ActionHandlerImpl<JsonObject> 
 		String shipmentAddress = appActivity.getAppInstContext().getAccount() + "."
 				+ this.appActivity.getService().getRealServiceName() + ".shipment.create";
 		// 构建发货单VO
-		JsonObject replenishment = msg.body();
+		JsonObject replenishment = msg.body().getJsonObject("bo");
 		JsonObject shipment = new JsonObject();
 		// SimpleDateFormat dfDate=new SimpleDateFormat("yyyy-MM-dd");
 		// String shipdate = dfDate.format(new Date());
@@ -177,13 +179,13 @@ public class ChannelRestockingShipHandler extends ActionHandlerImpl<JsonObject> 
 					continue;
 				}
 				shipment.put("ship_date", detail_s.getString("ship_date"));
-				shipment.put("ship_actor", detail_s.getString("ship_actor"));
+				shipment.put("ship_actor", detail_s.getValue("ship_actor"));
 				JsonObject shipment_b = new JsonObject();
 				shipment_b.put("detail_code", row++);
 				shipment_b.put("restocking_warehose", detail.getJsonObject("restocking_warehose"));
 				shipment_b.put("goods", detail.getJsonObject("goods"));
 				shipment_b.put("invbatchcode", detail.getString("invbatchcode"));
-				shipment_b.put("quantity", detail_s.getString("ship_quantity"));
+				shipment_b.put("quantity", detail_s.getValue("ship_quantity"));
 
 				shipment_b_list.add(shipment_b);
 			}

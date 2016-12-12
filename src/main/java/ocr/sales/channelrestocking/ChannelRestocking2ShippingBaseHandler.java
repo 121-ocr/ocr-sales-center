@@ -45,22 +45,22 @@ public class ChannelRestocking2ShippingBaseHandler extends ActionHandlerImpl<Jso
 		});
 	}
 
-	private boolean isContainsFactData() {
+	public boolean isContainsFactData() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	private boolean needPublishEvent() {
+	public boolean needPublishEvent() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	private String getNewState() {
+	public String getNewState() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	private String getPreStatus() {
+	public String getPreStatus() {
 		// TODO Auto-generated method stub
 		return null;
 	}

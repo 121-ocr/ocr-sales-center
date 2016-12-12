@@ -14,11 +14,11 @@ public class ChannelRestockingCommit2ShippingHandler extends ChannelRestocking2S
 		super(appActivity);
 	}
 
-	private String getNewState() {
+	public String getNewState() {
 		return ChannelRestockingConstant.SHIPPING_STATUS;
 	}
 
-	private String getPreStatus() {
+	public String getPreStatus() {
 		return ChannelRestockingConstant.COMMIT_STATUS;
 	}
 }

@@ -39,7 +39,6 @@ public class ChannelRestockingQuery4ReadyShipHandler extends ActionHandlerImpl<J
 		// TODO Auto-generated method stub
 //		return ChannelRestockingConstant.COMMIT_STATUS;
 		List<String> ret = new ArrayList<>();
-		ret.add("created");
 		ret.add("commit");
 		ret.add("shipping");
 		return ret;
