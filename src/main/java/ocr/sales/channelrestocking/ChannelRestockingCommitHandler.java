@@ -133,8 +133,14 @@ public class ChannelRestockingCommitHandler extends ActionHandlerImpl<JsonObject
 			stockDetail.put("detail_code", detailNo.toString());
 			stockDetail.put("rep_detail_code", detail.getString("detail_code"));
 			stockDetail.put("goods", detail.getJsonObject("goods"));
-			stockDetail.put("batch_code", detail.getString("invbatchcode"));
-			stockDetail.put("shelf_life", detail.getString("shelf_life"));			
+			
+			if(detail.containsKey("invbatchcode")){
+				stockDetail.put("batch_code", detail.getString("invbatchcode"));
+			}
+			if(detail.containsKey("shelf_life")){
+				stockDetail.put("shelf_life", detail.getString("shelf_life"));	
+			}
+			
 			stockDetail.put("quantity_should", detail.getDouble("quantity"));
 			stockDetail.put("supply_price", detail.getJsonObject("supply_price"));
 			stockDetail.put("supply_amount", detail.getJsonObject("supply_amount"));
