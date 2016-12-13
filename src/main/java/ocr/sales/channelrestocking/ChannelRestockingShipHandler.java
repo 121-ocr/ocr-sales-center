@@ -126,10 +126,11 @@ public class ChannelRestockingShipHandler extends ActionHandlerImpl<JsonObject> 
 	 */
 	private void afterProcess(JsonObject replenishment,JsonObject shipment, Handler<AsyncResult<Message<JsonObject>>> retHandler) {
 		String from_account = this.appActivity.getAppInstContext().getAccount();
+		String to_account = shipment.getJsonObject("channel").getString("link_account");
 		// 调用门店的接口
 		String invSrvName = this.appActivity.getDependencies().getJsonObject("pointofsale_service")
 				.getString("service_name", "");
-		String acceptAddress = from_account + "." + invSrvName + "." + "accept.create";
+		String acceptAddress = to_account + "." + invSrvName + "." + "accept.create";
 		// 创建收货通知的VO
 		JsonObject accept = new JsonObject();
 		accept.put("replenishments_id", replenishment.getString("bo_id"));

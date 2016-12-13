@@ -178,7 +178,7 @@ public class ChannelRestockingCommitHandler extends ActionHandlerImpl<JsonObject
 		
 		//状态变化定义
 		BizStateSwitchDesc bizStateSwitchDesc = new BizStateSwitchDesc(BizRootType.BIZ_OBJECT, 
-				null, "created");
+				null, "commit");
 		bizStateSwitchDesc.setWebExpose(true); //是否向web端发布事件		
 		actionDescriptor.setBizStateSwitch(bizStateSwitchDesc);
 		
