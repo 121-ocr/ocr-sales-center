@@ -51,6 +51,9 @@
 		        					},
 		        					"channel_service": {
 		        						"service_name": "ocr-channel-manager"
+		        					},
+		        					"pointofsale_service": {
+		        						"service_name": "ocr-pointofsale"
 		        					}
 	        					}
 							}

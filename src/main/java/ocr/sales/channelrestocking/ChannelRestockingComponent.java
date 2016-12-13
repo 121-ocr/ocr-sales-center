@@ -76,6 +76,18 @@ public class ChannelRestockingComponent extends AppActivityImpl {
 		ChannelRestockingFindOneHandler channelRestockingFindOneHandler = new ChannelRestockingFindOneHandler(this);
 		ret.add(channelRestockingFindOneHandler);
 		
+		ChannelRestockingQuery4ReadyShipHandler channelRestockingQuery4ReadyShipHandler = new ChannelRestockingQuery4ReadyShipHandler(this);
+		ret.add(channelRestockingQuery4ReadyShipHandler);
+		
+		ChannelRestockingShipHandler channelRestockingShipHandler = new ChannelRestockingShipHandler(this);
+		ret.add(channelRestockingShipHandler);
+		
+		ChannelRestockingCommit2ShippingHandler channelRestockingCommit2ShippingHandler = new ChannelRestockingCommit2ShippingHandler(this);
+		ret.add(channelRestockingCommit2ShippingHandler);
+		
+		ChannelRestockingShipping2ShippingHandler channelRestockingShipping2ShippingHandler = new ChannelRestockingShipping2ShippingHandler(this);
+		ret.add(channelRestockingShipping2ShippingHandler);
+		
 		return ret;
 	}
 
