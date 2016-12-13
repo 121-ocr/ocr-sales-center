@@ -140,6 +140,7 @@ public class ChannelRestockingShipHandler extends ActionHandlerImpl<JsonObject> 
 		accept.put("ship_date", shipment.getString("ship_date"));
 		accept.put("ship_actor", shipment.getValue("ship_actor"));
 		accept.put("shipment_id", shipment.getString("bo_id"));
+		accept.put("is_completed", false);
 		
 		this.appActivity.getEventBus().send(acceptAddress, accept, retHandler);
 
