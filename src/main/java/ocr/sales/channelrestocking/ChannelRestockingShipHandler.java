@@ -75,7 +75,7 @@ public class ChannelRestockingShipHandler extends ActionHandlerImpl<JsonObject> 
 		handler.save(body, msg.headers(), result -> {
 			if (result.succeeded()) {
 				// 后续处理
-				afterProcess(bo, ret -> {
+				afterProcess(body,bo,ret -> {
 					if (ret.succeeded()) {
 						msg.reply(ret.result()); // 返回BO
 					} else {
@@ -124,7 +124,7 @@ public class ChannelRestockingShipHandler extends ActionHandlerImpl<JsonObject> 
 	 * @param bo
 	 * @param retHandler
 	 */
-	private void afterProcess(JsonObject bo, Handler<AsyncResult<Message<JsonObject>>> retHandler) {
+	private void afterProcess(JsonObject replenishment,JsonObject shipment, Handler<AsyncResult<Message<JsonObject>>> retHandler) {
 		String from_account = this.appActivity.getAppInstContext().getAccount();
 		// 调用门店的接口
 		String invSrvName = this.appActivity.getDependencies().getJsonObject("pointofsale_service")
@@ -132,13 +132,14 @@ public class ChannelRestockingShipHandler extends ActionHandlerImpl<JsonObject> 
 		String acceptAddress = from_account + "." + invSrvName + "." + "accept.create";
 		// 创建收货通知的VO
 		JsonObject accept = new JsonObject();
-		accept.put("replenishments_id", bo.getString("bo_id"));
-		accept.put("supplier", bo.getString("actor"));
-		JsonArray details = bo.getJsonArray("details");
-		JsonArray shipments = ((JsonObject)details.getValue(0)).getJsonArray("shipments");
-		accept.put("ship_date", ((JsonObject)shipments.getValue(0)).getString("ship_date"));
-		accept.put("ship_actor", ((JsonObject)shipments.getValue(0)).getJsonObject("ship_actor"));
-		accept.put("shipment_id", ((JsonObject)shipments.getValue(0)).getString("shipment_id"));
+		accept.put("replenishments_id", replenishment.getString("bo_id"));
+		JsonObject supplier = new JsonObject();
+		supplier.put("link_org_acct_rel", "1");
+		supplier.put("link_account", from_account);
+		accept.put("supplier", supplier);
+		accept.put("ship_date", shipment.getString("ship_date"));
+		accept.put("ship_actor", shipment.getValue("ship_actor"));
+		accept.put("shipment_id", shipment.getString("bo_id"));
 		
 		this.appActivity.getEventBus().send(acceptAddress, accept, retHandler);
 
