@@ -1,6 +1,7 @@
 package ocr.sales.channelrestocking;
 
 import io.vertx.core.AsyncResult;
+import io.vertx.core.Future;
 import io.vertx.core.Handler;
 import io.vertx.core.eventbus.Message;
 import io.vertx.core.http.HttpMethod;
@@ -58,26 +59,18 @@ public class ChannelRestockingShipHandler extends ActionHandlerImpl<JsonObject> 
 	 */
 	private void proess(OtoCloudBusMessage<JsonObject> msg, JsonObject bo) {
 		// 根据状态不同调用不同的保存方法
-		JsonObject body = msg.body().getJsonObject("bo");
-		// 发货记录上记录发货单id
-		setShipmentCode(body,bo);
-		String current_state = msg.body().getString("current_state");
-		ChannelRestocking2ShippingBaseHandler handler = null;
-		if (ChannelRestockingConstant.COMMIT_STATUS.equals(current_state)) {
-			handler = new ChannelRestockingCommit2ShippingHandler(appActivity);
-
-		} else if (ChannelRestockingConstant.SHIPPING_STATUS.equals(current_state)) {
-			handler = new ChannelRestockingShipping2ShippingHandler(appActivity);
-		}
-		if (handler == null) {
-			return;
-		}
-		handler.save(body, msg.headers(), result -> {
-			if (result.succeeded()) {
+		JsonObject replenishmentObj = msg.body();
+		JsonObject body = replenishmentObj.getJsonObject("bo");
+		
+		Future<Void> afterFuture = Future.future();
+		afterFuture.setHandler(afterHandle->{
+			if (afterHandle.succeeded()) {
 				// 后续处理
 				afterProcess(body,bo,ret -> {
 					if (ret.succeeded()) {
-						msg.reply(ret.result()); // 返回BO
+						//返回完整补货单
+						msg.reply(replenishmentObj); 
+						//msg.reply(ret.result().body()); // 返回BO
 					} else {
 						Throwable errThrowable = ret.cause();
 						String errMsgString = errThrowable.getMessage();
@@ -85,37 +78,96 @@ public class ChannelRestockingShipHandler extends ActionHandlerImpl<JsonObject> 
 						msg.fail(100, errMsgString);
 					}
 				});
-			} else {
-				Throwable errThrowable = result.cause();
+			}else{
+				Throwable errThrowable = afterHandle.cause();
 				String errMsgString = errThrowable.getMessage();
 				appActivity.getLogger().error(errMsgString, errThrowable);
 				msg.fail(100, errMsgString);
 			}
 		});
+		
+		String current_state = replenishmentObj.getString("current_state");
+		// 发货记录上记录发货单id、判断整单是否完成，完成返回true
+		if(ruleProcess(replenishmentObj,bo)){
+			//设置整单完成状态
+			String newStatus = ChannelRestockingConstant.SHIPPED_STATUS;
+			this.recordFactData(this.appActivity.getBizObjectType(), body, 
+					body.getString("bo_id"), current_state, newStatus, false, false, 
+					replenishmentObj.getJsonObject("actor"), body.getJsonObject("channel").getString("link_account"),
+					null, next->{
+						if (next.succeeded()) {
+							afterFuture.complete();
+						}else{
+							Throwable errThrowable = next.cause();
+							afterFuture.fail(errThrowable);
+						}						
+					});
+			
+		}else{
+
+			ChannelRestocking2ShippingBaseHandler handler = null;
+			
+			if (ChannelRestockingConstant.COMMIT_STATUS.equals(current_state)) {
+				handler = new ChannelRestockingCommit2ShippingHandler(appActivity);
+	
+			} else if (ChannelRestockingConstant.SHIPPING_STATUS.equals(current_state)) {
+				handler = new ChannelRestockingShipping2ShippingHandler(appActivity);
+			}
+			if (handler == null) {				
+				afterFuture.fail("无法创建对象");
+				return;
+			}
+			handler.save(body, msg.headers(), result -> {
+				if (result.succeeded()) {
+					afterFuture.complete();
+				} else {
+					Throwable errThrowable = result.cause();
+					afterFuture.fail(errThrowable);
+				}
+			});
+		}
 	}
 
 	/**
-	 * 回写发货单号到补货单的孙表-发货记录上
+	 * 规则处理：
+	 * 1、计算每行发货数量，如果完成，则置整行为完成状态
+	 * 2、回写发货单号到补货单的孙表-发货记录上
+	 * 3、判断整单是否完成，完成返回true
 	 * @param replenishment
 	 * @param shipment
 	 */
-	private void setShipmentCode(JsonObject replenishment, JsonObject shipment) {
+	private boolean ruleProcess(JsonObject replenishmentObj, JsonObject shipment) {
+		JsonObject replenishment = replenishmentObj.getJsonObject("bo");
 		JsonArray replenishment_b = replenishment.getJsonArray("details");
+		Boolean hasNoCompleted = false;
 		for (Object object : replenishment_b) {
 			JsonObject detail = (JsonObject) object;
 			JsonArray replenishment_s = detail.getJsonArray("shipments");
 			if(replenishment_s == null || replenishment_s.isEmpty()){
+				hasNoCompleted = true;
 				continue;
 			}
+			Double sumQuantity = 0.00;
 			for (Object object2 : replenishment_s) {
 				JsonObject detail_s = (JsonObject) object2;
+				sumQuantity += detail_s.getDouble("ship_quantity");
 				if(detail_s.getBoolean("is_shipped")){
 					continue;
 				}
 				detail_s.put("ship_code", shipment.getString("bo_id"));
 				detail_s.put("is_shipped", true);
 			}
+			//如果整行发货完成，置整行发货完成态
+			if(sumQuantity.compareTo(detail.getDouble("quantity")) >= 0){
+				detail.put("ship_completed", true);
+			}else{
+				hasNoCompleted = true;
+			}
 		}
+		if(!hasNoCompleted){
+			return true;		
+		}
+		return false;
 	}
 
 	/**

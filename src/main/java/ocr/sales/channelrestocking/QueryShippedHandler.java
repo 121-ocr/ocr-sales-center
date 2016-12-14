@@ -14,11 +14,11 @@ import otocloud.framework.core.OtoCloudBusMessage;
  * @date 2016年11月15日
  * @author lijing
  */
-public class ChannelRestockingQueryHandler extends ActionHandlerImpl<JsonObject> {
+public class QueryShippedHandler extends ActionHandlerImpl<JsonObject> {
 	
-	public static final String ADDRESS = "findcreated";
+	public static final String ADDRESS = "find_shipped";
 
-	public ChannelRestockingQueryHandler(AppActivityImpl appActivity) {
+	public QueryShippedHandler(AppActivityImpl appActivity) {
 		super(appActivity);
 		// TODO Auto-generated constructor stub
 	}
@@ -36,7 +36,7 @@ public class ChannelRestockingQueryHandler extends ActionHandlerImpl<JsonObject>
 		
 		JsonObject queryParams = msg.body();
 	    
-	    this.queryLatestFactDataList(appActivity.getBizObjectType(), "created", queryParams, null, findRet->{
+	    this.queryLatestFactDataList(appActivity.getBizObjectType(), ChannelRestockingConstant.SHIPPED_STATUS, queryParams, null, findRet->{
 	        if (findRet.succeeded()) {
 	            msg.reply(findRet.result());
 	        } else {
