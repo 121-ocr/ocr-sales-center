@@ -1,24 +1,76 @@
 package ocr.sales.channelrestocking;
 
+import io.vertx.core.http.HttpMethod;
+import io.vertx.core.json.JsonObject;
+import otocloud.common.ActionURI;
+import otocloud.framework.app.function.ActionDescriptor;
 import otocloud.framework.app.function.AppActivityImpl;
+import otocloud.framework.app.function.BizRootType;
+import otocloud.framework.app.function.BizStateSwitchDesc;
+import otocloud.framework.core.HandlerDescriptor;
+import otocloud.framework.core.OtoCloudBusMessage;
 
 /**
- * 渠道补货单由提交变为发货中
+ * 渠道补货单由发货中变为发货中
  * 
  * @author wanghw
  *
  */
-public class ChannelRestockingShipping2ShippingHandler extends ChannelRestocking2ShippingBaseHandler{
+public class ChannelRestockingShipping2ShippingHandler extends ChannelRestocking2ShippingBaseHandler {
 
 	public ChannelRestockingShipping2ShippingHandler(AppActivityImpl appActivity) {
 		super(appActivity);
 	}
 
+	@Override
 	public String getNewState() {
 		return ChannelRestockingConstant.SHIPPING_STATUS;
 	}
 
+	@Override
 	public String getPreStatus() {
 		return ChannelRestockingConstant.SHIPPING_STATUS;
+	}
+
+	@Override
+	public void handle(OtoCloudBusMessage<JsonObject> msg) {
+		JsonObject body = msg.body();
+		super.save(body, msg.headers(), result -> {
+			if (result.succeeded()) {
+				msg.reply(result.result()); // 返回BO
+			} else {
+				Throwable errThrowable = result.cause();
+				String errMsgString = errThrowable.getMessage();
+				appActivity.getLogger().error(errMsgString, errThrowable);
+				msg.fail(100, errMsgString);
+			}
+		});
+
+	}
+
+	@Override
+	public String getEventAddress() {
+		return ChannelRestockingConstant.ACCEPT_ADDRESS;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public ActionDescriptor getActionDesc() {
+
+		ActionDescriptor actionDescriptor = super.getActionDesc();
+		HandlerDescriptor handlerDescriptor = actionDescriptor.getHandlerDescriptor();
+
+		ActionURI uri = new ActionURI(ChannelRestockingConstant.ACCEPT_ADDRESS, HttpMethod.POST);
+		handlerDescriptor.setRestApiURI(uri);
+
+		// 状态变化定义
+		BizStateSwitchDesc bizStateSwitchDesc = new BizStateSwitchDesc(BizRootType.BIZ_OBJECT,
+				ChannelRestockingConstant.SHIPPING_STATUS, ChannelRestockingConstant.SHIPPING_STATUS);
+		bizStateSwitchDesc.setWebExpose(true); // 是否向web端发布事件
+		actionDescriptor.setBizStateSwitch(bizStateSwitchDesc);
+
+		return actionDescriptor;
 	}
 }

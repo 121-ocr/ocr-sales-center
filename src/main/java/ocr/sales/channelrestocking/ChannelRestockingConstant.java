@@ -13,6 +13,8 @@ public class ChannelRestockingConstant {
 	public static final String QUERY4ACCEPT_ADDRESS = "query4Accept";
 	//补货单发货地址
 	public static final String SHIP_ADDRESS = "ship";
+	//补货单发货地址
+	public static final String ACCEPT_ADDRESS = "update4accept";
 	
 	//创建状态
 	public static final String CREATE_STATUS = "created";
