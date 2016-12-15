@@ -101,7 +101,7 @@ public class ChannelRestockingCommitHandler extends ActionHandlerImpl<JsonObject
 		JsonArray details = replenishmentObj.getJsonArray("details");
 		for(Object item : details){
 			JsonObject detail = (JsonObject)item;
-			JsonObject restockingWarehouse = detail.getJsonObject("restocking_warehose");
+			JsonObject restockingWarehouse = detail.getJsonObject("restocking_warehouse");
 			String warehouseCode = restockingWarehouse.getString("code");
 			JsonObject stockOutObj = new JsonObject();
 			JsonArray stockDetails = new JsonArray();

@@ -18,7 +18,7 @@ bp_replenishments:
     	},
     	"account": "4"
 	},
-	"target_warehose": {
+	"target_warehouse": {
         "code": "WH001",
         "name": "北京总仓"		
 	},
@@ -27,7 +27,7 @@ bp_replenishments:
     "details": [
         {
         	"detail_code": "10",
-        	"restocking_warehose": {
+        	"restocking_warehouse": {
 		        "code": "WH001",
 		        "name": "北京总仓"
 		    },

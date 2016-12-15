@@ -152,7 +152,7 @@ public class ReplenishmentQuantityUpdateHandler extends ActionHandlerImpl<JsonOb
 		retObj.put("supplier", supplier);
 		
 		retObj.put("restocking_warehouse", stockOutObj.getJsonObject("warehouse"));
-		retObj.put("warehouse", replenishmentObj.getJsonObject("target_warehose"));
+		retObj.put("warehouse", replenishmentObj.getJsonObject("target_warehouse"));
 		retObj.put("request_date", replenishmentObj.getString("req_date"));
 		retObj.put("request_code", replenishmentObj.getString("req_code"));
 		retObj.put("replenishment_code", replenishmentObj.getString("bo_id"));

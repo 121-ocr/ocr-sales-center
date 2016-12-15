@@ -57,7 +57,7 @@
         },
         "details" : [ 
             {
-                "restocking_warehose" : {
+                "restocking_warehouse" : {
                     "name" : "河北总仓",
                     "account" : "3",
                     "code" : "WH002"
@@ -93,7 +93,7 @@
                             }
                         ]
                     },
-                    "sales_catelogs" : [ 
+                    "sales_catalogs" : [ 
                         {
                             "name" : "果汁",
                             "inner_code" : "GC0302",
@@ -193,7 +193,7 @@
             } 
 
         ],
-        "target_warehose" : {
+        "target_warehouse" : {
             "name" : "北京朝阳门店仓2",
             "character" : {
                 "name" : "VMI仓",

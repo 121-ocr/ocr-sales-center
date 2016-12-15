@@ -1,6 +1,12 @@
 package ocr.sales.channelrestocking;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import io.vertx.core.AsyncResult;
+import io.vertx.core.CompositeFuture;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
 import io.vertx.core.eventbus.Message;
@@ -8,6 +14,7 @@ import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import otocloud.common.ActionURI;
+import otocloud.common.util.DateTimeUtil;
 import otocloud.framework.app.function.ActionDescriptor;
 import otocloud.framework.app.function.ActionHandlerImpl;
 import otocloud.framework.app.function.AppActivityImpl;
@@ -38,17 +45,13 @@ public class ChannelRestockingShipHandler extends ActionHandlerImpl<JsonObject> 
 	@Override
 	public void handle(OtoCloudBusMessage<JsonObject> msg) {
 		// 前处理
-		beforeProess(msg, result -> {
-			if (result.succeeded()) {
-				// 处理
-				proess(msg, result.result().body());
-			} else {
-				Throwable errThrowable = result.cause();
-				String errMsgString = errThrowable.getMessage();
-				appActivity.getLogger().error(errMsgString, errThrowable);
-				msg.fail(100, errMsgString);
-			}
+		Future<Void> next = Future.future();
+		next.setHandler(handler->{			
+			proess(msg);			
 		});
+		
+		beforeProess(msg, next);	
+
 	}
 
 	/**
@@ -57,7 +60,7 @@ public class ChannelRestockingShipHandler extends ActionHandlerImpl<JsonObject> 
 	 * @param msg
 	 * @param result
 	 */
-	private void proess(OtoCloudBusMessage<JsonObject> msg, JsonObject bo) {
+	private void proess(OtoCloudBusMessage<JsonObject> msg) {
 		// 根据状态不同调用不同的保存方法
 		JsonObject replenishmentObj = msg.body();
 		JsonObject body = replenishmentObj.getJsonObject("bo");
@@ -66,7 +69,7 @@ public class ChannelRestockingShipHandler extends ActionHandlerImpl<JsonObject> 
 		afterFuture.setHandler(afterHandle->{
 			if (afterHandle.succeeded()) {
 				// 后续处理
-				afterProcess(body,bo,ret -> {
+				afterProcess(replenishmentObj, ret -> {
 					if (ret.succeeded()) {
 						//返回完整补货单
 						msg.reply(replenishmentObj); 
@@ -88,7 +91,7 @@ public class ChannelRestockingShipHandler extends ActionHandlerImpl<JsonObject> 
 		
 		String current_state = replenishmentObj.getString("current_state");
 		// 发货记录上记录发货单id、判断整单是否完成，完成返回true
-		if(ruleProcess(replenishmentObj,bo)){
+		if(ruleProcess(replenishmentObj)){
 			//设置整单完成状态
 			String newStatus = ChannelRestockingConstant.SHIPPED_STATUS;
 			this.recordFactData(this.appActivity.getBizObjectType(), body, 
@@ -131,12 +134,11 @@ public class ChannelRestockingShipHandler extends ActionHandlerImpl<JsonObject> 
 	/**
 	 * 规则处理：
 	 * 1、计算每行发货数量，如果完成，则置整行为完成状态
-	 * 2、回写发货单号到补货单的孙表-发货记录上
 	 * 3、判断整单是否完成，完成返回true
 	 * @param replenishment
 	 * @param shipment
 	 */
-	private boolean ruleProcess(JsonObject replenishmentObj, JsonObject shipment) {
+	private boolean ruleProcess(JsonObject replenishmentObj) {
 		JsonObject replenishment = replenishmentObj.getJsonObject("bo");
 		JsonArray replenishment_b = replenishment.getJsonArray("details");
 		Boolean hasNoCompleted = false;
@@ -154,8 +156,6 @@ public class ChannelRestockingShipHandler extends ActionHandlerImpl<JsonObject> 
 				if(detail_s.getBoolean("is_shipped")){
 					continue;
 				}
-				detail_s.put("ship_code", shipment.getString("bo_id"));
-				detail_s.put("is_shipped", true);
 			}
 			//如果整行发货完成，置整行发货完成态
 			if(sumQuantity.compareTo(detail.getDouble("quantity")) >= 0){
@@ -176,9 +176,12 @@ public class ChannelRestockingShipHandler extends ActionHandlerImpl<JsonObject> 
 	 * @param bo
 	 * @param retHandler
 	 */
-	private void afterProcess(JsonObject replenishment,JsonObject shipment, Handler<AsyncResult<Message<JsonObject>>> retHandler) {
+	private void afterProcess(JsonObject replenishmentObj, Handler<AsyncResult<Message<JsonObject>>> retHandler) {
+		
+		JsonObject replenishment = replenishmentObj.getJsonObject("bo");
+		
 		String from_account = this.appActivity.getAppInstContext().getAccount();
-		String to_account = shipment.getJsonObject("channel").getString("link_account");
+		String to_account = replenishment.getJsonObject("channel").getString("link_account");
 		// 调用门店的接口
 		String invSrvName = this.appActivity.getDependencies().getJsonObject("pointofsale_service")
 				.getString("service_name", "");
@@ -186,13 +189,14 @@ public class ChannelRestockingShipHandler extends ActionHandlerImpl<JsonObject> 
 		// 创建收货通知的VO
 		JsonObject accept = new JsonObject();
 		accept.put("replenishments_id", replenishment.getString("bo_id"));
+		accept.put("shipments", replenishment.getJsonArray("shipments"));
 		JsonObject supplier = new JsonObject();
 		supplier.put("link_org_acct_rel", "1");
 		supplier.put("link_account", from_account);
 		accept.put("supplier", supplier);
-		accept.put("ship_date", shipment.getString("ship_date"));
-		accept.put("ship_actor", shipment.getValue("ship_actor"));
-		accept.put("shipment_id", shipment.getString("bo_id"));
+		accept.put("ship_date", DateTimeUtil.now("yyyy-MM-dd"));
+		accept.put("ship_actor", replenishmentObj.getJsonObject("actor"));
+//		accept.put("shipment_id", shipment.getString("bo_id"));
 		
 		this.appActivity.getEventBus().send(acceptAddress, accept, retHandler);
 
@@ -204,49 +208,139 @@ public class ChannelRestockingShipHandler extends ActionHandlerImpl<JsonObject> 
 	 * @param msg
 	 */
 
+/*	private void beforeProess(OtoCloudBusMessage<JsonObject> msg,
+			Handler<AsyncResult<Message<JsonObject>>> retHandler) {*/
+		
 	private void beforeProess(OtoCloudBusMessage<JsonObject> msg,
-			Handler<AsyncResult<Message<JsonObject>>> retHandler) {
+			Future<Void> next) {
+	
 		// 创建发货单
 		String shipmentAddress = appActivity.getAppInstContext().getAccount() + "."
 				+ this.appActivity.getService().getRealServiceName() + ".shipment.create";
 		// 构建发货单VO
 		JsonObject replenishment = msg.body().getJsonObject("bo");
-		JsonObject shipment = new JsonObject();
-		// SimpleDateFormat dfDate=new SimpleDateFormat("yyyy-MM-dd");
-		// String shipdate = dfDate.format(new Date());
-		shipment.put("channel", replenishment.getJsonObject("channel"));
-		shipment.put("target_warehose", replenishment.getJsonObject("target_warehose"));
-		shipment.put("is_completed", "false");
+		
+		//按照仓库进行分组
+		Map<String, List<JsonObject>> shipmentRecordsMap = new HashMap<String, List<JsonObject>>();
 		JsonArray replenishment_b = replenishment.getJsonArray("details");
 		for (Object object : replenishment_b) {
 			JsonObject detail = (JsonObject) object;
-			JsonArray replenishment_s = detail.getJsonArray("shipments");
-			if(replenishment_s == null || replenishment_s.isEmpty()){
-				continue;
+			String whCode = detail.getJsonObject("restocking_warehouse").getString("code");
+			if(shipmentRecordsMap.containsKey(whCode)){
+				shipmentRecordsMap.get(whCode).add(detail);
+			}else{
+				List<JsonObject> values = new ArrayList<JsonObject>();
+				values.add(detail);
+				shipmentRecordsMap.put(whCode, values);
 			}
-			JsonArray shipment_b_list = new JsonArray();
-			int row = 0;
-			for (Object object2 : replenishment_s) {
+		}
+		
+		String boId = replenishment.getString("bo_id");
+		JsonObject channel = replenishment.getJsonObject("channel");
+		JsonObject targetWarehouse = replenishment.getJsonObject("target_warehouse");
+		
+		List<Future> futures = new ArrayList<Future>();
+		
+		JsonArray shipmentIds = new JsonArray();
+		
+		//构建发货单
+		shipmentRecordsMap.forEach((key,values)->{
+			
+			Future<JsonObject> returnFuture = Future.future();
+			futures.add(returnFuture);
+			
+			JsonObject shipment = new JsonObject();
+			
+			shipment.put("replenishments_id", boId);
+			shipment.put("channel", channel);
+			shipment.put("target_warehouse", replenishment.getJsonObject("target_warehouse"));			
+			shipment.put("restocking_warehouse", values.get(0).getJsonObject("restocking_warehouse"));
+			shipment.put("is_completed", "false");
+			
+			for(Object item : values){
 				
-				JsonObject detail_s = (JsonObject) object2;
-				if(detail_s.getBoolean("is_shipped")){
+				JsonObject detail = (JsonObject) item;
+				JsonArray replenishment_s = detail.getJsonArray("shipments");
+				if(replenishment_s == null || replenishment_s.isEmpty()){
 					continue;
 				}
-				shipment.put("ship_date", detail_s.getString("ship_date"));
-				shipment.put("ship_actor", detail_s.getValue("ship_actor"));
-				JsonObject shipment_b = new JsonObject();
-				shipment_b.put("detail_code", row++);
-				shipment_b.put("restocking_warehose", detail.getJsonObject("restocking_warehose"));
-				shipment_b.put("goods", detail.getJsonObject("goods"));
-				shipment_b.put("invbatchcode", detail.getString("invbatchcode"));
-				shipment_b.put("quantity", detail_s.getValue("ship_quantity"));
+				JsonArray shipment_b_list = new JsonArray();
+				int row = 1;
+				for (Object object2 : replenishment_s) {
+					
+					JsonObject detail_s = (JsonObject) object2;
+					if(detail_s.getBoolean("is_shipped")){
+						continue;
+					}
+					shipment.put("ship_date", detail_s.getString("ship_date"));
+					shipment.put("ship_actor", detail_s.getValue("ship_actor"));
+					
+					JsonObject shipment_b = new JsonObject();
+					shipment_b.put("detail_code", row++);
+					shipment_b.put("rep_detail_code", detail.getString("detail_code"));
+					shipment_b.put("goods", detail.getJsonObject("goods"));
+					shipment_b.put("invbatchcode", detail.getString("invbatchcode"));
+					shipment_b.put("shelf_life", detail.getString("shelf_life"));
+					shipment_b.put("quantity", detail_s.getValue("ship_quantity"));
+					
+					shipment_b.put("supply_price", detail.getValue("supply_price"));
+					shipment_b.put("retail_price", detail.getValue("retail_price"));
 
-				shipment_b_list.add(shipment_b);
+					shipment_b_list.add(shipment_b);
+				}
+				if(shipment_b_list.size() > 0){		
+					if(shipment.containsKey("details")){
+						shipment.getJsonArray("details").addAll(shipment_b_list);
+					}else{
+						shipment.put("details", shipment_b_list);
+					}
+				}
+				
 			}
-			shipment.put("details", shipment_b_list);
-		}
-		this.appActivity.getEventBus().send(shipmentAddress, shipment, retHandler);
+			
+			JsonArray shipmentDetails = shipment.getJsonArray("details");
+			if(shipmentDetails == null || shipmentDetails.size() <= 0){
+				returnFuture.complete();
+			}else{				
+				//生成发货单
+				this.appActivity.getEventBus().send(shipmentAddress, shipment, ret->{
+					if (ret.succeeded()) {
+						JsonObject shipmentBo = (JsonObject)ret.result().body();
+						String shipmentBoId = shipmentBo.getString("bo_id");
+						shipmentIds.add(shipmentBoId);
+						//回写补货单上的发货单号
+						for(Object item : values){						
+							JsonObject detail = (JsonObject) item;
+							JsonArray replenishment_s = detail.getJsonArray("shipments");
+							if(replenishment_s == null || replenishment_s.isEmpty()){
+								continue;
+							}
+							for (Object object2 : replenishment_s) {
+								JsonObject detail_s = (JsonObject) object2;
+								detail_s.put("ship_code", shipmentBoId);
+								detail_s.put("is_shipped", true);							
+							}
+						}					
+						returnFuture.complete();
+					}else{
+						Throwable errThrowable = ret.cause();
+						String errMsgString = errThrowable.getMessage();
+						appActivity.getLogger().error(errMsgString, errThrowable);	
+						
+						returnFuture.fail(errThrowable);
+					}
+				});
+			}
+			
+		});
+		
+		CompositeFuture.join(futures).setHandler(ar -> {
+			replenishment.put("shipments", shipmentIds);
+			next.complete();
+		});
+		
 	}
+	
 	/**
 	 * 此action的自描述元数据
 	 */

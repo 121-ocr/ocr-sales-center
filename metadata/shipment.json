@@ -56,7 +56,7 @@
             },
             "link_org_acct_rel" : "1"
         },
-        "target_warehose" : {
+        "target_warehouse" : {
             "name" : "北京朝阳门店仓2",
             "character" : {
                 "name" : "VMI仓",
@@ -81,7 +81,7 @@
         "details" : [ 
             {
             	"detail_code" : "0",
-                "restocking_warehose" : {
+                "restocking_warehouse" : {
                     "name" : "河北总仓",
                     "account" : "3",
                     "code" : "WH002"
