@@ -8,9 +8,9 @@ package ocr.sales.channelrestocking;
 public class ChannelRestockingConstant {
 
 	//待发货补货单的查询地址
-	public static final String QUERY4READYSHIP_ADDRESS = "query4ReadyShip";
+	public static final String QUERY4READYSHIP_ADDRESS = "query4readyship";
 	//待收货补货单的查询地址
-	public static final String QUERY4ACCEPT_ADDRESS = "query4Accept";
+	public static final String QUERY4ACCEPT_ADDRESS = "query4accept";
 	//补货单发货地址
 	public static final String SHIP_ADDRESS = "ship";
 	//补货单发货地址

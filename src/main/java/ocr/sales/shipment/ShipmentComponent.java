@@ -60,6 +60,9 @@ public class ShipmentComponent extends AppActivityImpl {
 		ShipmentQueryHandler shipmentQueryHandler = new ShipmentQueryHandler(this);
 		ret.add(shipmentQueryHandler);
 		
+		ShipmentFindOneHandler shipmentFindOneHandler = new ShipmentFindOneHandler(this);
+		ret.add(shipmentFindOneHandler);
+		
 		return ret;
 	}
 

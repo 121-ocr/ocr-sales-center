@@ -44,7 +44,8 @@ public class ChannelRestockingQuery4AcceptShipHandler extends ActionHandlerImpl<
 	public void handle(OtoCloudBusMessage<JsonObject> msg) {
 
 		JsonObject queryParams = msg.body();
-		this.queryLatestFactDataList(appActivity.getBizObjectType(), getStatus(), null, null, queryParams, null, findRet -> {
+		this.queryLatestFactDataList(appActivity.getBizObjectType(), getStatus(), 
+				null, queryParams, null, findRet -> {
 			if (findRet.succeeded()) {
 				msg.reply(findRet.result());
 			} else {
