@@ -132,7 +132,8 @@
                     "account" : "3"
                 },
                 "invbatchcode" : "1",
-                 "quantity" : 1
+                "accept_quantity" : 1,
+                "reject_quantity" : 0
             }
         ]
     }
