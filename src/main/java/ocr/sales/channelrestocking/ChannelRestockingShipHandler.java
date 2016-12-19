@@ -112,6 +112,7 @@ public class ChannelRestockingShipHandler extends CDOHandlerImpl<JsonObject> {
 							this.recordFactData(this.appActivity.getBizObjectType(), stubBo, boIdString, current_state, newStatus, false, false, actor, null, stubRetp->{
 								
 							});		
+							replenishmentObj.put("current_state", newStatus);
 							body.put("shipments", shipments);
 							afterFuture.complete();
 						}else{
@@ -136,6 +137,13 @@ public class ChannelRestockingShipHandler extends CDOHandlerImpl<JsonObject> {
 			}
 			handler.save(body, msg.headers(), result -> {
 				if (result.succeeded()) {
+					if (ChannelRestockingConstant.COMMIT_STATUS.equals(current_state)) {
+						replenishmentObj.put("current_state", ChannelRestockingConstant.SHIPPING_STATUS);
+			
+					} else if (ChannelRestockingConstant.SHIPPING_STATUS.equals(current_state)) {
+						replenishmentObj.put("current_state", ChannelRestockingConstant.SHIPPED_STATUS);
+					}
+					
 					afterFuture.complete();
 				} else {
 					Throwable errThrowable = result.cause();
@@ -205,6 +213,7 @@ public class ChannelRestockingShipHandler extends CDOHandlerImpl<JsonObject> {
 		
 		if (ChannelRestockingConstant.COMMIT_STATUS.equals(current_state)) {
 			String replenishmentAddress = to_account + "." + invSrvName + "." + "replenishment-mgr.create";
+			//replenishmentObj.put("current_state", ChannelRestockingConstant.SHIPPING_STATUS);
 			this.appActivity.getEventBus().send(replenishmentAddress, replenishmentObj, replenishmentHandler->{
 				if (replenishmentHandler.succeeded()) {
 					
@@ -226,6 +235,7 @@ public class ChannelRestockingShipHandler extends CDOHandlerImpl<JsonObject> {
 			
 		} else if (ChannelRestockingConstant.SHIPPING_STATUS.equals(current_state)) {
 			String shipmentAddress = to_account + "." + invSrvName + "." + "shipment-mgr.batch_create";
+			//replenishmentObj.put("current_state", ChannelRestockingConstant.SHIPPED_STATUS);
 			this.appActivity.getEventBus().send(shipmentAddress, replenishment.getJsonArray("shipments"), shipmentHandler->{
 				if (shipmentHandler.succeeded()) {
 					retFuture.complete();						
