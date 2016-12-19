@@ -36,6 +36,14 @@
 				},
 				"sharedpool": "mongo-ocr"
 			},
+			"cdo_datasource": {
+				"data_sharding_policy": "sharding",
+				"config": {
+					"db_name": "121ocr",
+					"connection_string": "mongodb://127.0.0.1:27017"
+				},
+				"sharedpool": "mongo-ocr"
+			},
 			"inst_config": {
 			},
 			"inst_common": {

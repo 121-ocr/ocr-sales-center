@@ -3,9 +3,10 @@ package ocr.sales.shipment;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonObject;
 import otocloud.common.ActionURI;
+import otocloud.framework.app.common.BizRoleDirection;
 import otocloud.framework.app.function.ActionDescriptor;
-import otocloud.framework.app.function.ActionHandlerImpl;
 import otocloud.framework.app.function.AppActivityImpl;
+import otocloud.framework.app.function.CDOHandlerImpl;
 import otocloud.framework.core.HandlerDescriptor;
 import otocloud.framework.core.OtoCloudBusMessage;
 
@@ -14,7 +15,7 @@ import otocloud.framework.core.OtoCloudBusMessage;
  * @date 2016年11月15日
  * @author lijing
  */
-public class ShipmentFindOneHandler extends ActionHandlerImpl<JsonObject> {
+public class ShipmentFindOneHandler extends CDOHandlerImpl<JsonObject> {
 	
 	public static final String ADDRESS = "findone";
 
@@ -40,7 +41,23 @@ public class ShipmentFindOneHandler extends ActionHandlerImpl<JsonObject> {
 	    
 	    this.queryLatestFactData(appActivity.getBizObjectType(), boId, null, null, findRet->{
 	        if (findRet.succeeded()) {
-	            msg.reply(findRet.result());
+	            //msg.reply(findRet.result());	  
+	        	JsonObject bo = findRet.result();
+				String partner = bo.getString("partner");				
+				
+				this.queryLatestCDO(BizRoleDirection.FROM, partner, appActivity.getBizObjectType(), 
+						boId, null, cdoRet->{
+							if (findRet.succeeded()) {
+								msg.reply(cdoRet.result());
+							}else{
+								Throwable errThrowable = cdoRet.cause();
+								String errMsgString = errThrowable.getMessage();
+								appActivity.getLogger().error(errMsgString, errThrowable);
+								msg.fail(100, errMsgString);
+							}
+						});
+	            
+	            
 	        } else {
 				Throwable errThrowable = findRet.cause();
 				String errMsgString = errThrowable.getMessage();

@@ -9,15 +9,14 @@ import io.vertx.core.AsyncResult;
 import io.vertx.core.CompositeFuture;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
-import io.vertx.core.eventbus.Message;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import otocloud.common.ActionURI;
-import otocloud.common.util.DateTimeUtil;
+import otocloud.framework.app.common.BizRoleDirection;
 import otocloud.framework.app.function.ActionDescriptor;
-import otocloud.framework.app.function.ActionHandlerImpl;
 import otocloud.framework.app.function.AppActivityImpl;
+import otocloud.framework.app.function.CDOHandlerImpl;
 import otocloud.framework.core.HandlerDescriptor;
 import otocloud.framework.core.OtoCloudBusMessage;
 
@@ -27,7 +26,7 @@ import otocloud.framework.core.OtoCloudBusMessage;
  * @author wanghw
  *
  */
-public class ChannelRestockingShipHandler extends ActionHandlerImpl<JsonObject> {
+public class ChannelRestockingShipHandler extends CDOHandlerImpl<JsonObject> {
 
 	public ChannelRestockingShipHandler(AppActivityImpl appActivity) {
 		super(appActivity);
@@ -65,11 +64,13 @@ public class ChannelRestockingShipHandler extends ActionHandlerImpl<JsonObject> 
 		JsonObject replenishmentObj = msg.body();
 		JsonObject body = replenishmentObj.getJsonObject("bo");
 		
+		String current_state = replenishmentObj.getString("current_state");
+		
 		Future<Void> afterFuture = Future.future();
 		afterFuture.setHandler(afterHandle->{
 			if (afterHandle.succeeded()) {
 				// 后续处理
-				afterProcess(replenishmentObj, ret -> {
+				afterProcess(replenishmentObj, current_state, ret -> {
 					if (ret.succeeded()) {
 						//返回完整补货单
 						msg.reply(replenishmentObj); 
@@ -89,19 +90,32 @@ public class ChannelRestockingShipHandler extends ActionHandlerImpl<JsonObject> 
 			}
 		});
 		
-		String current_state = replenishmentObj.getString("current_state");
 		// 发货记录上记录发货单id、判断整单是否完成，完成返回true
 		if(ruleProcess(replenishmentObj)){
 			//设置整单完成状态
 			String newStatus = ChannelRestockingConstant.SHIPPED_STATUS;
-			this.recordFactData(this.appActivity.getBizObjectType(), body, 
-					body.getString("bo_id"), current_state, newStatus, false, false, 
-					replenishmentObj.getJsonObject("actor"), body.getJsonObject("channel").getString("link_account"),
-					null, next->{
-						if (next.succeeded()) {
+			
+			String partner = replenishmentObj.getString("to_account");
+			//String partner = body.getJsonObject("channel").getString("link_account");
+			String boIdString = body.getString("bo_id");
+			
+			JsonObject actor = replenishmentObj.getJsonObject("from_actor");
+			
+			JsonArray shipments = body.getJsonArray("shipments");
+			body.remove("shipments");
+			
+			this.recordCDO(BizRoleDirection.FROM, partner, this.appActivity.getBizObjectType(), body, 
+					boIdString, current_state, newStatus, false, false, 
+					actor, cdoRet->{
+						if (cdoRet.succeeded()) {							
+							JsonObject stubBo = this.buildStubForCDO(body, boIdString, partner);
+							this.recordFactData(this.appActivity.getBizObjectType(), stubBo, boIdString, current_state, newStatus, false, false, actor, null, stubRetp->{
+								
+							});		
+							body.put("shipments", shipments);
 							afterFuture.complete();
 						}else{
-							Throwable errThrowable = next.cause();
+							Throwable errThrowable = cdoRet.cause();
 							afterFuture.fail(errThrowable);
 						}						
 					});
@@ -176,16 +190,54 @@ public class ChannelRestockingShipHandler extends ActionHandlerImpl<JsonObject> 
 	 * @param bo
 	 * @param retHandler
 	 */
-	private void afterProcess(JsonObject replenishmentObj, Handler<AsyncResult<Message<JsonObject>>> retHandler) {
+	private void afterProcess(JsonObject replenishmentObj, String current_state, Handler<AsyncResult<Void>> retHandler) {
 		
 		JsonObject replenishment = replenishmentObj.getJsonObject("bo");
 		
-		String from_account = this.appActivity.getAppInstContext().getAccount();
+		//String from_account = this.appActivity.getAppInstContext().getAccount();
 		String to_account = replenishment.getJsonObject("channel").getString("link_account");
 		// 调用门店的接口
 		String invSrvName = this.appActivity.getDependencies().getJsonObject("pointofsale_service")
 				.getString("service_name", "");
-		String acceptAddress = to_account + "." + invSrvName + "." + "accept.create";
+		
+		Future<Void> retFuture = Future.future();
+		retFuture.setHandler(retHandler);		
+		
+		if (ChannelRestockingConstant.COMMIT_STATUS.equals(current_state)) {
+			String replenishmentAddress = to_account + "." + invSrvName + "." + "replenishment-mgr.create";
+			this.appActivity.getEventBus().send(replenishmentAddress, replenishmentObj, replenishmentHandler->{
+				if (replenishmentHandler.succeeded()) {
+					
+					String shipmentAddress = to_account + "." + invSrvName + "." + "shipment-mgr.batch_create";
+					this.appActivity.getEventBus().send(shipmentAddress, replenishment.getJsonArray("shipments"), shipmentHandler->{
+						if (shipmentHandler.succeeded()) {
+							retFuture.complete();						
+						} else {
+							Throwable errThrowable = shipmentHandler.cause();
+							retFuture.fail(errThrowable);
+						}
+					});
+					
+				} else {
+					Throwable errThrowable = replenishmentHandler.cause();
+					retFuture.fail(errThrowable);
+				}
+			});
+			
+		} else if (ChannelRestockingConstant.SHIPPING_STATUS.equals(current_state)) {
+			String shipmentAddress = to_account + "." + invSrvName + "." + "shipment-mgr.batch_create";
+			this.appActivity.getEventBus().send(shipmentAddress, replenishment.getJsonArray("shipments"), shipmentHandler->{
+				if (shipmentHandler.succeeded()) {
+					retFuture.complete();						
+				} else {
+					Throwable errThrowable = shipmentHandler.cause();
+					retFuture.fail(errThrowable);
+				}
+			});
+			
+		}
+		
+/*		String acceptAddress = to_account + "." + invSrvName + "." + "accept.create";
 		// 创建收货通知的VO
 		JsonObject accept = new JsonObject();
 		accept.put("replenishments_id", replenishment.getString("bo_id"));
@@ -198,7 +250,7 @@ public class ChannelRestockingShipHandler extends ActionHandlerImpl<JsonObject> 
 		accept.put("ship_actor", replenishmentObj.getJsonObject("actor"));
 //		accept.put("shipment_id", shipment.getString("bo_id"));
 		
-		this.appActivity.getEventBus().send(acceptAddress, accept, retHandler);
+		this.appActivity.getEventBus().send(acceptAddress, accept, retHandler);*/
 
 	}
 
@@ -237,7 +289,7 @@ public class ChannelRestockingShipHandler extends ActionHandlerImpl<JsonObject> 
 		
 		String boId = replenishment.getString("bo_id");
 		JsonObject channel = replenishment.getJsonObject("channel");
-		JsonObject targetWarehouse = replenishment.getJsonObject("target_warehouse");
+		//JsonObject targetWarehouse = replenishment.getJsonObject("target_warehouse");
 		
 		List<Future> futures = new ArrayList<Future>();
 		
@@ -306,8 +358,9 @@ public class ChannelRestockingShipHandler extends ActionHandlerImpl<JsonObject> 
 				this.appActivity.getEventBus().send(shipmentAddress, shipment, ret->{
 					if (ret.succeeded()) {
 						JsonObject shipmentBo = (JsonObject)ret.result().body();
+						shipmentBo.put("current_state", "created");
 						String shipmentBoId = shipmentBo.getString("bo_id");
-						shipmentIds.add(shipmentBoId);
+						shipmentIds.add(shipmentBo);
 						//回写补货单上的发货单号
 						for(Object item : values){						
 							JsonObject detail = (JsonObject) item;

@@ -11,11 +11,12 @@ import io.vertx.core.json.JsonObject;
 import otocloud.common.ActionContextTransfomer;
 import otocloud.common.ActionURI;
 import otocloud.common.util.DateTimeUtil;
+import otocloud.framework.app.common.BizRoleDirection;
 import otocloud.framework.app.function.ActionDescriptor;
-import otocloud.framework.app.function.ActionHandlerImpl;
 import otocloud.framework.app.function.AppActivityImpl;
 import otocloud.framework.app.function.BizRootType;
 import otocloud.framework.app.function.BizStateSwitchDesc;
+import otocloud.framework.app.function.CDOHandlerImpl;
 import otocloud.framework.core.HandlerDescriptor;
 import otocloud.framework.core.OtoCloudBusMessage;
 
@@ -24,7 +25,7 @@ import otocloud.framework.core.OtoCloudBusMessage;
  * @date 2016年11月15日
  * @author lijing
  */
-public class ChannelRestockingCommitHandler extends ActionHandlerImpl<JsonObject> {
+public class ChannelRestockingCommitHandler extends CDOHandlerImpl<JsonObject> {
 	
 	public static final String ADDRESS = "commit";
 
@@ -39,6 +40,11 @@ public class ChannelRestockingCommitHandler extends ActionHandlerImpl<JsonObject
 		// TODO Auto-generated method stub
 		return ADDRESS;
 	}
+	
+/*	@Override
+	public JsonObject buildStubForCDO(JsonObject factData, String boId, String partnerAcct){
+		return null;
+	}*/
 
 	//处理器
 	@Override
@@ -49,44 +55,62 @@ public class ChannelRestockingCommitHandler extends ActionHandlerImpl<JsonObject
 		JsonObject so = msg.body();
 		
     	String boId = so.getString("bo_id");
-    	String partnerAcct = so.getJsonObject("channel").getString("account"); //交易单据一般要记录协作方
+    	
+    	String partnerAcct = so.getJsonObject("channel").getString("link_account"); //交易单据一般要记录协作方
     	
     	//当前操作人信息
-    	JsonObject actor = ActionContextTransfomer.fromMessageHeaderToActor(headerMap);    	
-   	
+    	JsonObject actor = ActionContextTransfomer.fromMessageHeaderToActor(headerMap); 
+    	
+    	   	
     	//记录事实对象（业务数据），会根据ActionDescriptor定义的状态机自动进行状态变化，并发出状态变化业务事件
     	//自动查找数据源，自动进行分表处理
-    	this.recordFactData(appActivity.getBizObjectType(), so, boId, actor, partnerAcct, null, result->{
-			if (result.succeeded()) {				
-				//构建拣货单
-				JsonArray stockOuts = convertStockOut(so);
+    	this.recordCDO(BizRoleDirection.FROM, partnerAcct, appActivity.getBizObjectType(), so, boId, actor, 
+    			cdoResult->{
+    		if (cdoResult.succeeded()) {	
+    			String stubBoId = so.getString("bo_id");
+    			JsonObject stubBo = this.buildStubForCDO(so, stubBoId, partnerAcct);
+    			
+    	    	this.recordFactData(appActivity.getBizObjectType(), stubBo, stubBoId, actor, null, result->{
+    				if (result.succeeded()) {				
+    					//构建拣货单
+    					JsonArray stockOuts = convertStockOut(so);
 
-				//提交拣货处理				
-				String invSrvName = this.appActivity.getDependencies().getJsonObject("inventorycenter_service").getString("service_name","");
-				String stockoutPickOutAddress = this.appActivity.getAppInstContext().getAccount() + "." + invSrvName + "." + "stockout-mgr.batch_create";							
-				DeliveryOptions options = new DeliveryOptions();
-				options.setHeaders(headerMap);
-				this.appActivity.getEventBus().<JsonArray>send(stockoutPickOutAddress,
-						stockOuts, invRet->{
-						if(invRet.succeeded()){							
-							msg.reply(invRet.result().body());
-						}else{										
-							Throwable errThrowable = invRet.cause();
-							String errMsgString = errThrowable.getMessage();
-							appActivity.getLogger().error(errMsgString, errThrowable);
-							msg.fail(100, errMsgString);
-						}
-						
-					});	
+    					//提交拣货处理				
+    					String invSrvName = this.appActivity.getDependencies().getJsonObject("inventorycenter_service").getString("service_name","");
+    					String stockoutPickOutAddress = this.appActivity.getAppInstContext().getAccount() + "." + invSrvName + "." + "stockout-mgr.batch_create";							
+    					DeliveryOptions options = new DeliveryOptions();
+    					options.setHeaders(headerMap);
+    					this.appActivity.getEventBus().<JsonArray>send(stockoutPickOutAddress,
+    							stockOuts, invRet->{
+    							if(invRet.succeeded()){							
+    								msg.reply(invRet.result().body());
+    							}else{										
+    								Throwable errThrowable = invRet.cause();
+    								String errMsgString = errThrowable.getMessage();
+    								appActivity.getLogger().error(errMsgString, errThrowable);
+    								msg.fail(100, errMsgString);
+    							}
+    							
+    						});	
 
-			} else {
-				Throwable errThrowable = result.cause();
+    				} else {
+    					Throwable errThrowable = result.cause();
+    					String errMsgString = errThrowable.getMessage();
+    					appActivity.getLogger().error(errMsgString, errThrowable);
+    					msg.fail(100, errMsgString);		
+    				}
+
+    	    	});
+
+    		}else{
+				Throwable errThrowable = cdoResult.cause();
 				String errMsgString = errThrowable.getMessage();
 				appActivity.getLogger().error(errMsgString, errThrowable);
 				msg.fail(100, errMsgString);		
-			}
 
+    		}
     	});
+    	
 
 
 	}

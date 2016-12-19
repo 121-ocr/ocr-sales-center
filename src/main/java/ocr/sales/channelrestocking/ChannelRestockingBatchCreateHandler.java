@@ -88,7 +88,7 @@ public class ChannelRestockingBatchCreateHandler extends ActionHandlerImpl<JsonA
     	
     	//记录事实对象（业务数据），会根据ActionDescriptor定义的状态机自动进行状态变化，并发出状态变化业务事件
     	//自动查找数据源，自动进行分表处理
-    	this.recordFactData(appActivity.getBizObjectType(), replenishment, boId, actor, partnerAcct, null, result->{
+    	this.recordFactData(appActivity.getBizObjectType(), replenishment, boId, actor, null, result->{
 			if (result.succeeded()) {
 				successed_count.total++;
 			} else {

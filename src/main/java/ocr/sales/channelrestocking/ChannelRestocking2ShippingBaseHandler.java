@@ -6,8 +6,9 @@ import io.vertx.core.Handler;
 import io.vertx.core.MultiMap;
 import io.vertx.core.json.JsonObject;
 import otocloud.common.ActionContextTransfomer;
-import otocloud.framework.app.function.ActionHandlerImpl;
+import otocloud.framework.app.common.BizRoleDirection;
 import otocloud.framework.app.function.AppActivityImpl;
+import otocloud.framework.app.function.CDOHandlerImpl;
 import otocloud.framework.core.OtoCloudBusMessage;
 
 /**
@@ -16,7 +17,7 @@ import otocloud.framework.core.OtoCloudBusMessage;
  * @author wanghw
  *
  */
-public class ChannelRestocking2ShippingBaseHandler extends ActionHandlerImpl<JsonObject> {
+public class ChannelRestocking2ShippingBaseHandler extends CDOHandlerImpl<JsonObject> {
 
 	public ChannelRestocking2ShippingBaseHandler(AppActivityImpl appActivity) {
 		super(appActivity);
@@ -32,17 +33,30 @@ public class ChannelRestocking2ShippingBaseHandler extends ActionHandlerImpl<Jso
 		// 自动查找数据源，自动进行分表处理
 		Future<JsonObject> future = Future.future();
 		future.setHandler(retHandler);
-		this.recordFactData(appActivity.getBizObjectType(), bo, boId, getPreStatus(), getNewState(), 
-				needPublishEvent(),isContainsFactData(),actor, partnerAcct, null, result -> {
-			if (result.succeeded()) {
-				future.complete(bo);
-			} else {
-				Throwable errThrowable = result.cause();
-				String errMsgString = errThrowable.getMessage();
-				appActivity.getLogger().error(errMsgString, errThrowable);
-				future.fail(errMsgString);
-			}
-		});
+		
+		this.recordCDO(BizRoleDirection.FROM, partnerAcct, this.appActivity.getBizObjectType(), bo, 
+				boId, getPreStatus(), getNewState(), false, false, 
+				actor, cdoRet->{
+					if (cdoRet.succeeded()) {							
+						JsonObject stubBo = this.buildStubForCDO(bo, boId, partnerAcct);
+						this.recordFactData(appActivity.getBizObjectType(), stubBo, boId, getPreStatus(), getNewState(), 
+								needPublishEvent(),isContainsFactData(),actor, null, result -> {
+							if (result.succeeded()) {
+								future.complete(bo);
+							} else {
+								Throwable errThrowable = result.cause();
+								String errMsgString = errThrowable.getMessage();
+								appActivity.getLogger().error(errMsgString, errThrowable);
+								future.fail(errMsgString);
+							}
+						});
+					}else{
+						Throwable errThrowable = cdoRet.cause();
+						future.fail(errThrowable);
+					}						
+				});
+		
+		
 	}
 
 	public boolean isContainsFactData() {

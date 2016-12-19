@@ -58,24 +58,18 @@ public class ChannelRestockingComponent extends AppActivityImpl {
 		ReplenishmentQuantityUpdateHandler replenishmentQuantityUpdateHandler = new ReplenishmentQuantityUpdateHandler(this);
 		ret.add(replenishmentQuantityUpdateHandler);
 
-		ChannelRestockingHandler channelRestockingHandler = new ChannelRestockingHandler(this);
-		ret.add(channelRestockingHandler);
-		
+	
 		QueryShippedHandler queryShippedHandler = new QueryShippedHandler(this);
 		ret.add(queryShippedHandler);
 		
-		ChannelRestockingRemoveHandler channelRestockingRemoveHandler = new ChannelRestockingRemoveHandler(this);
-		ret.add(channelRestockingRemoveHandler);
-		
+	
 		ChannelRestockingBatchCreateHandler channelRestockingBatchCreateHandler = new ChannelRestockingBatchCreateHandler(this);
 		ret.add(channelRestockingBatchCreateHandler);
 		
 		ChannelRestockingCommitHandler channelRestockingCommitHandler = new ChannelRestockingCommitHandler(this);
 		ret.add(channelRestockingCommitHandler);
 		
-		ChannelRestockingFindOneHandler channelRestockingFindOneHandler = new ChannelRestockingFindOneHandler(this);
-		ret.add(channelRestockingFindOneHandler);
-		
+	
 		ChannelRestockingQuery4AcceptShipHandler channelRestockingQuery4AcceptShipHandler = new ChannelRestockingQuery4AcceptShipHandler(this);
 		ret.add(channelRestockingQuery4AcceptShipHandler);
 		
