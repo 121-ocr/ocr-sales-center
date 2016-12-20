@@ -24,7 +24,7 @@ import otocloud.framework.core.OtoCloudBusMessage;
  */
 public class ShipmentQueryHandler extends CDOHandlerImpl<JsonObject> {
 	
-	public static final String ADDRESS = "find_all";
+	public static final String ADDRESS = "find_created";
 
 	public ShipmentQueryHandler(AppActivityImpl appActivity) {
 		super(appActivity);
