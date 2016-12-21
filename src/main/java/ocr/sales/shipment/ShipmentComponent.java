@@ -57,8 +57,11 @@ public class ShipmentComponent extends AppActivityImpl {
 		ShipmentCreateHandler shipMentCreateHandler = new ShipmentCreateHandler(this);
 		ret.add(shipMentCreateHandler);
 		
-		ShipmentQueryHandler shipmentQueryHandler = new ShipmentQueryHandler(this);
+		ShipmentCreatedQueryHandler shipmentQueryHandler = new ShipmentCreatedQueryHandler(this);
 		ret.add(shipmentQueryHandler);
+		
+		ShipmentCompletedQueryHandler shipmentCompletedQueryHandler = new ShipmentCompletedQueryHandler(this);
+		ret.add(shipmentCompletedQueryHandler);
 		
 		ShipmentFindOneHandler shipmentFindOneHandler = new ShipmentFindOneHandler(this);
 		ret.add(shipmentFindOneHandler);

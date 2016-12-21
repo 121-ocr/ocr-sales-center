@@ -5,7 +5,6 @@ import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonObject;
 import otocloud.common.ActionContextTransfomer;
 import otocloud.common.ActionURI;
-import otocloud.framework.app.common.BizRoleDirection;
 import otocloud.framework.app.function.ActionDescriptor;
 import otocloud.framework.app.function.AppActivityImpl;
 import otocloud.framework.app.function.BizRootType;
@@ -60,27 +59,35 @@ public class ShipmentCompleteHandler extends CDOHandlerImpl<JsonObject> {
 	public void handle(OtoCloudBusMessage<JsonObject> msg) {
 		MultiMap headerMap = msg.headers();
 		
-		JsonObject so = msg.body();
+		JsonObject body = msg.body();
+		JsonObject shipmentBo = body.getJsonObject("bo");
+		
+    	String boId = body.getString("bo_id");
+    	
+    	String partnerAcct = body.getString("to_account");	
+		
+/*		JsonObject so = msg.body();
 		
     	String boId = so.getString("bo_id");
     	
     	String partnerAcct = so.getJsonObject("channel").getString("link_account"); //交易单据一般要记录协作方
-    	
+*/    	
     	//当前操作人信息
     	JsonObject actor = ActionContextTransfomer.fromMessageHeaderToActor(headerMap); 
     	
     	   	
-    	//记录事实对象（业务数据），会根据ActionDescriptor定义的状态机自动进行状态变化，并发出状态变化业务事件
+/*    	//记录事实对象（业务数据），会根据ActionDescriptor定义的状态机自动进行状态变化，并发出状态变化业务事件
     	//自动查找数据源，自动进行分表处理
     	this.recordCDO(BizRoleDirection.FROM, partnerAcct, appActivity.getBizObjectType(), so, boId, actor, 
     			cdoResult->{
     		if (cdoResult.succeeded()) {	
-    			String stubBoId = so.getString("bo_id");
-    			JsonObject stubBo = this.buildStubForCDO(so, stubBoId, partnerAcct);
+    			String stubBoId = so.getString("bo_id"); */
+    	
+    			JsonObject stubBo = this.buildStubForCDO(shipmentBo, boId, partnerAcct);
     			
-    	    	this.recordFactData(appActivity.getBizObjectType(), stubBo, stubBoId, actor, null, result->{
+    	    	this.recordFactData(appActivity.getBizObjectType(), stubBo, boId, actor, null, result->{
     				if (result.succeeded()) {				
-    					msg.reply(so);
+    					msg.reply(stubBo);
     				} else {
     					Throwable errThrowable = result.cause();
     					String errMsgString = errThrowable.getMessage();
@@ -90,14 +97,14 @@ public class ShipmentCompleteHandler extends CDOHandlerImpl<JsonObject> {
 
     	    	});
 
-    		}else{
+/*    		}else{
 				Throwable errThrowable = cdoResult.cause();
 				String errMsgString = errThrowable.getMessage();
 				appActivity.getLogger().error(errMsgString, errThrowable);
 				msg.fail(100, errMsgString);		
 
     		}
-    	});    	
+    	});    	*/
 
 	}
 

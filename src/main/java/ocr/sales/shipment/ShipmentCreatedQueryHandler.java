@@ -22,11 +22,11 @@ import otocloud.framework.core.OtoCloudBusMessage;
  * @date 2016年11月15日
  * @author lijing
  */
-public class ShipmentQueryHandler extends CDOHandlerImpl<JsonObject> {
+public class ShipmentCreatedQueryHandler extends CDOHandlerImpl<JsonObject> {
 	
-	public static final String ADDRESS = "find_created";
+	public static final String ADDRESS = "find-created";
 
-	public ShipmentQueryHandler(AppActivityImpl appActivity) {
+	public ShipmentCreatedQueryHandler(AppActivityImpl appActivity) {
 		super(appActivity);
 		// TODO Auto-generated constructor stub
 	}
@@ -65,7 +65,12 @@ public class ShipmentQueryHandler extends CDOHandlerImpl<JsonObject> {
 						this.queryLatestCDO(BizRoleDirection.FROM, partner, appActivity.getBizObjectType(), 
 								boId, null, cdoRet->{
 									if (findRet.succeeded()) {
-										cdoFuture.complete(cdoRet.result());
+										JsonObject cdo = cdoRet.result();
+										if(cdo.getString("current_state").equals(ShipmentConstant.CREATE_STATUS)){
+											cdoFuture.complete(cdoRet.result());
+										}else{
+											cdoFuture.fail("无最新状态.");
+										}
 									}else{
 										cdoFuture.fail(cdoRet.cause());
 									}									
