@@ -380,8 +380,13 @@ public class ChannelRestockingShipHandler extends CDOHandlerImpl<JsonObject> {
 							}
 							for (Object object2 : replenishment_s) {
 								JsonObject detail_s = (JsonObject) object2;
+								if(detail_s.containsKey("is_shipped")){
+									if(detail_s.getBoolean("is_shipped")){
+										continue;
+									}
+								}
 								detail_s.put("ship_code", shipmentBoId);
-								detail_s.put("is_shipped", true);							
+								detail_s.put("is_shipped", true);		
 							}
 						}					
 						returnFuture.complete();
