@@ -42,9 +42,9 @@ public class ShipmentCompletedQueryHandler extends CDOHandlerImpl<JsonObject> {
 	@Override
 	public void handle(OtoCloudBusMessage<JsonObject> msg) {
 		
-		JsonObject queryParams = msg.body();
+		JsonObject queryParams = msg.body().getJsonObject("content");;
 	    
-	    this.queryLatestFactDataList(appActivity.getBizObjectType(), ShipmentConstant.COMPLETE_STATUS, queryParams, null, findRet->{
+	    this.queryLatestFactDataList(null, appActivity.getBizObjectType(), ShipmentConstant.COMPLETE_STATUS, queryParams, null, findRet->{
 	        if (findRet.succeeded()) {
         	
 				//msg.reply(findRet.result());

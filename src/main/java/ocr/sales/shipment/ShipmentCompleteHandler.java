@@ -5,6 +5,7 @@ import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonObject;
 import otocloud.common.ActionContextTransfomer;
 import otocloud.common.ActionURI;
+import otocloud.common.SessionSchema;
 import otocloud.framework.app.function.ActionDescriptor;
 import otocloud.framework.app.function.AppActivityImpl;
 import otocloud.framework.app.function.BizRootType;
@@ -59,7 +60,7 @@ public class ShipmentCompleteHandler extends CDOHandlerImpl<JsonObject> {
 	public void handle(OtoCloudBusMessage<JsonObject> msg) {
 		MultiMap headerMap = msg.headers();
 		
-		JsonObject body = msg.body();
+		JsonObject body = msg.body().getJsonObject("content");
 		JsonObject shipmentBo = body.getJsonObject("bo");
 		
     	String boId = body.getString("bo_id");
@@ -85,7 +86,9 @@ public class ShipmentCompleteHandler extends CDOHandlerImpl<JsonObject> {
     	
     			JsonObject stubBo = this.buildStubForCDO(shipmentBo, boId, partnerAcct);
     			
-    	    	this.recordFactData(appActivity.getBizObjectType(), stubBo, boId, actor, null, result->{
+    			String bizUnit = msg.getSession().getString(SessionSchema.BIZ_UNIT_ID, null);
+    			
+    	    	this.recordFactData(bizUnit, appActivity.getBizObjectType(), stubBo, boId, actor, null, result->{
     				if (result.succeeded()) {				
     					msg.reply(stubBo);
     				} else {

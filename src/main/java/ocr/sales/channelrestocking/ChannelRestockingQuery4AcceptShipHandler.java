@@ -49,9 +49,9 @@ public class ChannelRestockingQuery4AcceptShipHandler extends CDOHandlerImpl<Jso
 	 */
 	@Override
 	public void handle(OtoCloudBusMessage<JsonObject> msg) {
-
-		JsonObject queryParams = msg.body();
-		this.queryLatestFactDataList(appActivity.getBizObjectType(), getStatus(), 
+		
+		JsonObject queryParams = msg.body().getJsonObject("content");
+		this.queryLatestFactDataList(null, appActivity.getBizObjectType(), getStatus(), 
 				null, queryParams, null, findRet -> {
 			if (findRet.succeeded()) {
 				//msg.reply(findRet.result());

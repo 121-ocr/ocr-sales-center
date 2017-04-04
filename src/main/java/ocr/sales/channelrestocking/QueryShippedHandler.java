@@ -46,13 +46,13 @@ public class QueryShippedHandler extends CDOHandlerImpl<JsonObject> {
 	@Override
 	public void handle(OtoCloudBusMessage<JsonObject> msg) {		
 	
-		JsonObject queryParams = msg.body();
+		JsonObject queryParams = msg.body().getJsonObject("content");
 		PagingOptions pagingObj = PagingOptions.buildPagingOptions(queryParams);
 /*		JsonObject fields = queryParams.getJsonObject("fields");		
 		JsonObject queryCond = queryParams.getJsonObject("query");
 		JsonObject pagingInfo = queryParams.getJsonObject("paging");*/
 		
-		this.queryFactDataList(appActivity.getBizObjectType(), ChannelRestockingConstant.SHIPPED_STATUS, pagingObj, null, findRet->{
+		this.queryFactDataList(null, appActivity.getBizObjectType(), ChannelRestockingConstant.SHIPPED_STATUS, pagingObj, null, findRet->{
 	        if (findRet.succeeded()) {
 	            //msg.reply(findRet.result());
 				JsonObject retObj = findRet.result();

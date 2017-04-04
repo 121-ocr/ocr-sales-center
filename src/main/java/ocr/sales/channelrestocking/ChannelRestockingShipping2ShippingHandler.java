@@ -3,6 +3,7 @@ package ocr.sales.channelrestocking;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonObject;
 import otocloud.common.ActionURI;
+import otocloud.common.SessionSchema;
 import otocloud.framework.app.function.ActionDescriptor;
 import otocloud.framework.app.function.AppActivityImpl;
 import otocloud.framework.app.function.BizRootType;
@@ -34,8 +35,15 @@ public class ChannelRestockingShipping2ShippingHandler extends ChannelRestocking
 
 	@Override
 	public void handle(OtoCloudBusMessage<JsonObject> msg) {
-		JsonObject body = msg.body();
-		super.save(body, msg.headers(), result -> {
+		JsonObject body = msg.body().getJsonObject("content");
+		
+		String to_biz_unit = body.getString("to_biz_unit");
+		JsonObject session = msg.getSession();
+		//boolean is_global_bu =  session.getBoolean(SessionSchema.IS_GLOBAL_BU, true);
+		String bizUnit = session.getString(SessionSchema.BIZ_UNIT_ID, null);
+
+		
+		super.save(bizUnit, to_biz_unit, body, msg.headers(), result -> {
 			if (result.succeeded()) {
 				msg.reply(result.result()); // 返回BO
 			} else {

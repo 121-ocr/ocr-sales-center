@@ -1,5 +1,7 @@
 package ocr.sales;
 
+import io.vertx.core.json.JsonArray;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +45,7 @@ public class SalesCenterService extends AppServiceImpl
 		
 		ShipmentComponent shipmentComponent = new ShipmentComponent();
 		retActivities.add(shipmentComponent);
-
+		
 		return retActivities;
 	}
 }

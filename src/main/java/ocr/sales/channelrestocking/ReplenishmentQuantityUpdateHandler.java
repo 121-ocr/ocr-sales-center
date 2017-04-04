@@ -37,7 +37,7 @@ public class ReplenishmentQuantityUpdateHandler extends CDOHandlerImpl<JsonObjec
 	public void handle(OtoCloudBusMessage<JsonObject> msg) {
 		
 		BizStateChangedMessage bizStateChangedMessage = new BizStateChangedMessage();
-		bizStateChangedMessage.fromJsonObject(msg.body());
+		bizStateChangedMessage.fromJsonObject(msg.body().getJsonObject("content"));
 		
 		JsonObject stockOutObj = bizStateChangedMessage.getFactData();
 		String replenishmentId = stockOutObj.getString("replenishment_code");

@@ -23,7 +23,7 @@ public class ChannelRestocking2ShippingBaseHandler extends CDOHandlerImpl<JsonOb
 		super(appActivity);
 	}
 
-	public void save(JsonObject bo, MultiMap headerMap, Handler<AsyncResult<JsonObject>> retHandler) {
+	public void save(String bizUnit, String partnerBizUnit, JsonObject bo, MultiMap headerMap, Handler<AsyncResult<JsonObject>> retHandler) {
 
 		String boId = bo.getString("bo_id");
 		// 当前操作人信息
@@ -34,12 +34,12 @@ public class ChannelRestocking2ShippingBaseHandler extends CDOHandlerImpl<JsonOb
 		Future<JsonObject> future = Future.future();
 		future.setHandler(retHandler);
 		
-		this.recordCDO(BizRoleDirection.FROM, partnerAcct, this.appActivity.getBizObjectType(), bo, 
+		this.recordCDO(bizUnit, BizRoleDirection.FROM, partnerAcct, partnerBizUnit, this.appActivity.getBizObjectType(), bo, 
 				boId, getPreStatus(), getNewState(), false, false, 
 				actor, cdoRet->{
 					if (cdoRet.succeeded()) {							
 						JsonObject stubBo = this.buildStubForCDO(bo, boId, partnerAcct);
-						this.recordFactData(appActivity.getBizObjectType(), stubBo, boId, getPreStatus(), getNewState(), 
+						this.recordFactData(null, appActivity.getBizObjectType(), stubBo, boId, getPreStatus(), getNewState(), 
 								needPublishEvent(),isContainsFactData(),actor, null, result -> {
 							if (result.succeeded()) {
 								future.complete(bo);

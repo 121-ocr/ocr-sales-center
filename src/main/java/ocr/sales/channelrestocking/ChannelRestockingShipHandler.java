@@ -13,6 +13,7 @@ import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import otocloud.common.ActionURI;
+import otocloud.common.SessionSchema;
 import otocloud.framework.app.common.BizRoleDirection;
 import otocloud.framework.app.function.ActionDescriptor;
 import otocloud.framework.app.function.AppActivityImpl;
@@ -61,7 +62,7 @@ public class ChannelRestockingShipHandler extends CDOHandlerImpl<JsonObject> {
 	 */
 	private void proess(OtoCloudBusMessage<JsonObject> msg) {
 		// 根据状态不同调用不同的保存方法
-		JsonObject replenishmentObj = msg.body();
+		JsonObject replenishmentObj = msg.body().getJsonObject("content");
 		JsonObject body = replenishmentObj.getJsonObject("bo");
 		
 		String current_state = replenishmentObj.getString("current_state");
@@ -96,6 +97,11 @@ public class ChannelRestockingShipHandler extends CDOHandlerImpl<JsonObject> {
 			String newStatus = ChannelRestockingConstant.SHIPPED_STATUS;
 			
 			String partner = replenishmentObj.getString("to_account");
+			String to_biz_unit = replenishmentObj.getString("to_biz_unit");
+			JsonObject session = msg.getSession();
+			//boolean is_global_bu =  session.getBoolean(SessionSchema.IS_GLOBAL_BU, true);
+			String bizUnit = session.getString(SessionSchema.BIZ_UNIT_ID, null);
+
 			//String partner = body.getJsonObject("channel").getString("link_account");
 			String boIdString = body.getString("bo_id");
 			
@@ -104,12 +110,12 @@ public class ChannelRestockingShipHandler extends CDOHandlerImpl<JsonObject> {
 			JsonArray shipments = body.getJsonArray("shipments");
 			body.remove("shipments");
 			
-			this.recordCDO(BizRoleDirection.FROM, partner, this.appActivity.getBizObjectType(), body, 
+			this.recordCDO(bizUnit, BizRoleDirection.FROM, partner, to_biz_unit, this.appActivity.getBizObjectType(), body, 
 					boIdString, current_state, newStatus, false, false, 
 					actor, cdoRet->{
 						if (cdoRet.succeeded()) {							
 							JsonObject stubBo = this.buildStubForCDO(body, boIdString, partner);
-							this.recordFactData(this.appActivity.getBizObjectType(), stubBo, boIdString, current_state, newStatus, false, false, actor, null, stubRetp->{
+							this.recordFactData(bizUnit, this.appActivity.getBizObjectType(), stubBo, boIdString, current_state, newStatus, false, false, actor, null, stubRetp->{
 								
 							});		
 							replenishmentObj.put("current_state", newStatus);
@@ -135,7 +141,14 @@ public class ChannelRestockingShipHandler extends CDOHandlerImpl<JsonObject> {
 				afterFuture.fail("无法创建对象");
 				return;
 			}
-			handler.save(body, msg.headers(), result -> {
+			
+			String to_biz_unit = replenishmentObj.getString("to_biz_unit");
+			JsonObject session = msg.getSession();
+			//boolean is_global_bu =  session.getBoolean(SessionSchema.IS_GLOBAL_BU, true);
+			String bizUnit = session.getString(SessionSchema.BIZ_UNIT_ID, null);
+
+			
+			handler.save(bizUnit, to_biz_unit, body, msg.headers(), result -> {
 				if (result.succeeded()) {
 					if (ChannelRestockingConstant.COMMIT_STATUS.equals(current_state)) {
 						replenishmentObj.put("current_state", ChannelRestockingConstant.SHIPPING_STATUS);

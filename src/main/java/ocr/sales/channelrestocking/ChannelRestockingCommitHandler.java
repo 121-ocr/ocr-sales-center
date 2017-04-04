@@ -52,11 +52,15 @@ public class ChannelRestockingCommitHandler extends CDOHandlerImpl<JsonObject> {
 		
 		MultiMap headerMap = msg.headers();
 		
-		JsonObject so = msg.body();
+		JsonObject so = msg.body().getJsonObject("content");
 		
     	String boId = so.getString("bo_id");
     	
-    	String partnerAcct = so.getJsonObject("channel").getString("link_account"); //交易单据一般要记录协作方
+    	JsonObject channel = so.getJsonObject("channel");
+    	
+    	String partnerAcct = channel.getString("link_account"); 
+    	String partnerBizUnit = channel.getString("link_biz_unit_id"); 
+    	String bizUnit = channel.getString("biz_unit_id");
     	
     	//当前操作人信息
     	JsonObject actor = ActionContextTransfomer.fromMessageHeaderToActor(headerMap); 
@@ -64,24 +68,25 @@ public class ChannelRestockingCommitHandler extends CDOHandlerImpl<JsonObject> {
     	   	
     	//记录事实对象（业务数据），会根据ActionDescriptor定义的状态机自动进行状态变化，并发出状态变化业务事件
     	//自动查找数据源，自动进行分表处理
-    	this.recordCDO(BizRoleDirection.FROM, partnerAcct, appActivity.getBizObjectType(), so, boId, actor, 
+    	this.recordCDO(bizUnit, BizRoleDirection.FROM, partnerAcct, partnerBizUnit, appActivity.getBizObjectType(), so, boId, actor, 
     			cdoResult->{
     		if (cdoResult.succeeded()) {	
     			String stubBoId = so.getString("bo_id");
     			JsonObject stubBo = this.buildStubForCDO(so, stubBoId, partnerAcct);
     			
-    	    	this.recordFactData(appActivity.getBizObjectType(), stubBo, stubBoId, actor, null, result->{
+    	    	this.recordFactData(bizUnit, appActivity.getBizObjectType(), stubBo, stubBoId, actor, null, result->{
     				if (result.succeeded()) {				
     					//构建拣货单
     					JsonArray stockOuts = convertStockOut(so);
+    					JsonObject stockOutsData = new JsonObject().put("content", stockOuts);
 
     					//提交拣货处理				
     					String invSrvName = this.appActivity.getDependencies().getJsonObject("inventorycenter_service").getString("service_name","");
     					String stockoutPickOutAddress = this.appActivity.getAppInstContext().getAccount() + "." + invSrvName + "." + "stockout-mgr.batch_create";							
     					DeliveryOptions options = new DeliveryOptions();
     					options.setHeaders(headerMap);
-    					this.appActivity.getEventBus().<JsonArray>send(stockoutPickOutAddress,
-    							stockOuts, invRet->{
+    					this.appActivity.getEventBus().send(stockoutPickOutAddress,
+    							stockOutsData, invRet->{
     							if(invRet.succeeded()){							
     								msg.reply(invRet.result().body());
     							}else{										

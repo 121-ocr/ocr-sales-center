@@ -23,7 +23,7 @@ import otocloud.framework.core.OtoCloudBusMessage;
  * @date 2016年11月15日
  * @author lijing
  */
-public class ChannelRestockingBatchCreateHandler extends ActionHandlerImpl<JsonArray> {
+public class ChannelRestockingBatchCreateHandler extends ActionHandlerImpl<JsonObject> {
 	
 	public static final String ADDRESS = "batch_create";
 
@@ -41,7 +41,7 @@ public class ChannelRestockingBatchCreateHandler extends ActionHandlerImpl<JsonA
 
 	//处理器
 	@Override
-	public void handle(OtoCloudBusMessage<JsonArray> msg) {
+	public void handle(OtoCloudBusMessage<JsonObject> msg) {
 		
 		MultiMap headerMap = msg.headers();
 		
@@ -49,7 +49,7 @@ public class ChannelRestockingBatchCreateHandler extends ActionHandlerImpl<JsonA
     	JsonObject actor = ActionContextTransfomer.fromMessageHeaderToActor(headerMap);    	
 
 		
-		JsonArray datas = msg.body();
+		JsonArray datas = msg.body().getJsonArray("content");
 		int size = datas.size();
 		if(size == 0){
 			msg.reply("ok");
@@ -88,7 +88,7 @@ public class ChannelRestockingBatchCreateHandler extends ActionHandlerImpl<JsonA
     	
     	//记录事实对象（业务数据），会根据ActionDescriptor定义的状态机自动进行状态变化，并发出状态变化业务事件
     	//自动查找数据源，自动进行分表处理
-    	this.recordFactData(appActivity.getBizObjectType(), replenishment, boId, actor, null, result->{
+    	this.recordFactData(null, appActivity.getBizObjectType(), replenishment, boId, actor, null, result->{
 			if (result.succeeded()) {
 				successed_count.total++;
 			} else {
