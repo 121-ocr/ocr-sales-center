@@ -2,21 +2,20 @@
 	"main": "ocr.sales.App",
 	"options": {
 		"config": {
-			"version_id": 7,
+		    "app_id": 5,
+			"version_id": 5,
 			"service_name": "ocr-sales-center",
-			"app_inst_scope": ["1~1000"],
+			"app_inst_group": "sales01",
 			"app_desc": "营销中心服务",
-			"master_role": "2",
-			"distributed_node_index": 0,
 			"isolation_vertx_pool": false,			
-			"run_webserver": true,
+			"run_webserver": false,
 			"webserver_config": {
 				"webserver_port": 8082,
 				"eventbus_enabled": true,
 				"static_res_service": true
 			},
 			"api_register_server": {
-				
+				"webserver_name": "121webserver-N01"
 			},
 			"sys_datasource": {
 				"config": {
@@ -50,6 +49,17 @@
 				"component_common": {
 				},
 				"component_config": {
+					"customer-mgr": {
+			      		"options": {
+	        				"config" :  {
+	        				    "dependencies":{
+		        					"otocloud-acct": {
+		        						"service_name": "otocloud-acct"
+		        					}
+	        					}
+							}
+						 }
+				   	},
 					"channel-restocking": {
 			      		"options": {
 	        				"config" :  {

@@ -1,11 +1,10 @@
 package ocr.sales;
 
-import io.vertx.core.json.JsonArray;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import ocr.sales.channelrestocking.ChannelRestockingComponent;
+import ocr.sales.customer.CustomerComponent;
 import ocr.sales.shipment.ShipmentComponent;
 import otocloud.framework.app.engine.AppServiceImpl;
 import otocloud.framework.app.engine.WebServer;
@@ -33,7 +32,7 @@ public class SalesCenterService extends AppServiceImpl
 		// TODO Auto-generated method stub
 		return null;
 	}	
-
+	
 
 	//创建服务内的业务活动组件
 	@Override
@@ -45,6 +44,9 @@ public class SalesCenterService extends AppServiceImpl
 		
 		ShipmentComponent shipmentComponent = new ShipmentComponent();
 		retActivities.add(shipmentComponent);
+		
+		CustomerComponent customerComponent = new CustomerComponent();
+		retActivities.add(customerComponent);
 		
 		return retActivities;
 	}

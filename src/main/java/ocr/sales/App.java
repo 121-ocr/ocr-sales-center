@@ -20,6 +20,11 @@ public class App extends AppServiceEngineImpl
 	public AppService newAppInstance() {
 		return new SalesCenterService();
 	}
+	
+	@Override
+	public String getServiceName() {
+		return "ocr-sales-center";
+	}
 
 
 /*    public static void main( String[] args )
