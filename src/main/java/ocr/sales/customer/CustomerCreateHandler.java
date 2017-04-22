@@ -4,8 +4,8 @@ import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonObject;
 import otocloud.common.ActionURI;
 import otocloud.framework.app.function.ActionDescriptor;
+import otocloud.framework.app.function.ActionHandlerImpl;
 import otocloud.framework.app.function.AppActivityImpl;
-import otocloud.framework.app.function.CDOHandlerImpl;
 import otocloud.framework.core.HandlerDescriptor;
 import otocloud.framework.core.OtoCloudBusMessage;
 
@@ -15,7 +15,7 @@ import otocloud.framework.core.OtoCloudBusMessage;
  * @author lj
  *
  */
-public class CustomerCreateHandler extends CDOHandlerImpl<JsonObject> {
+public class CustomerCreateHandler extends ActionHandlerImpl<JsonObject> {
 	
 	public static final String CREATE_ADDRESS = "create";
 
