@@ -15,7 +15,7 @@ import otocloud.framework.app.function.ActionDescriptor;
 import otocloud.framework.app.function.AppActivityImpl;
 import otocloud.framework.app.function.CDOHandlerImpl;
 import otocloud.framework.core.HandlerDescriptor;
-import otocloud.framework.core.OtoCloudBusMessage;
+import otocloud.framework.core.CommandMessage;
 
 /**
  * TODO: 待发货补货单查询
@@ -53,7 +53,7 @@ public class ChannelRestockingQuery4ReadyShipHandler extends CDOHandlerImpl<Json
 	 * 处理器
 	 */
 	@Override
-	public void handle(OtoCloudBusMessage<JsonObject> msg) {
+	public void handle(CommandMessage<JsonObject> msg) {
 
 		JsonObject queryParams = msg.body().getJsonObject("content");
 		//PagingOptions pagingObj = PagingOptions.buildPagingOptions(queryParams);

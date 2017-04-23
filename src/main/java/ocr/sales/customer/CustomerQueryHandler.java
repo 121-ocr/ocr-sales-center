@@ -8,7 +8,7 @@ import otocloud.framework.app.function.ActionDescriptor;
 import otocloud.framework.app.function.ActionHandlerImpl;
 import otocloud.framework.app.function.AppActivityImpl;
 import otocloud.framework.core.HandlerDescriptor;
-import otocloud.framework.core.OtoCloudBusMessage;
+import otocloud.framework.core.CommandMessage;
 
 /**
  * TODO: 渠道列表查询
@@ -36,7 +36,7 @@ public class CustomerQueryHandler extends ActionHandlerImpl<JsonObject> {
      * 1、分页条件中传入渠道专员作为条件：   query: { channel_assistant: lj } 
      */
 	@Override
-	public void handle(OtoCloudBusMessage<JsonObject> msg) {
+	public void handle(CommandMessage<JsonObject> msg) {
 		
 		JsonObject queryParams = msg.body().getJsonObject("content");
 	    PagingOptions pagingObj = PagingOptions.buildPagingOptions(queryParams);        

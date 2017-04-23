@@ -8,7 +8,7 @@ import otocloud.framework.app.function.ActionHandlerImpl;
 import otocloud.framework.app.function.AppActivityImpl;
 import otocloud.framework.app.function.CDOHandlerImpl;
 import otocloud.framework.core.HandlerDescriptor;
-import otocloud.framework.core.OtoCloudBusMessage;
+import otocloud.framework.core.CommandMessage;
 
 /**
  * 发货单创建操作
@@ -56,7 +56,7 @@ public class CustomerUpdateHandler extends ActionHandlerImpl<JsonObject> {
 	 * }
 	 */
 	@Override
-	public void handle(OtoCloudBusMessage<JsonObject> msg) {
+	public void handle(CommandMessage<JsonObject> msg) {
 	
 		JsonObject customer = msg.body().getJsonObject("content");    	
 		Long customer_acct = customer.getLong("customer_acct", -1L);

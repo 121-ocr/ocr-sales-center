@@ -9,7 +9,7 @@ import otocloud.framework.app.function.AppActivityImpl;
 import otocloud.framework.app.function.BizRootType;
 import otocloud.framework.app.function.BizStateSwitchDesc;
 import otocloud.framework.core.HandlerDescriptor;
-import otocloud.framework.core.OtoCloudBusMessage;
+import otocloud.framework.core.CommandMessage;
 
 /**
  * 渠道补货单由发货中变为发货中
@@ -34,7 +34,7 @@ public class ChannelRestockingShipping2ShippingHandler extends ChannelRestocking
 	}
 
 	@Override
-	public void handle(OtoCloudBusMessage<JsonObject> msg) {
+	public void handle(CommandMessage<JsonObject> msg) {
 		JsonObject body = msg.body().getJsonObject("content");
 		
 		String to_biz_unit = body.getString("to_biz_unit");

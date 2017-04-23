@@ -16,7 +16,7 @@ import otocloud.framework.app.function.AppActivityImpl;
 import otocloud.framework.app.function.BizRootType;
 import otocloud.framework.app.function.BizStateSwitchDesc;
 import otocloud.framework.core.HandlerDescriptor;
-import otocloud.framework.core.OtoCloudBusMessage;
+import otocloud.framework.core.CommandMessage;
 
 /**
  * TODO: 渠道补货批量新增
@@ -41,7 +41,7 @@ public class ChannelRestockingBatchCreateHandler extends ActionHandlerImpl<JsonO
 
 	//处理器
 	@Override
-	public void handle(OtoCloudBusMessage<JsonObject> msg) {
+	public void handle(CommandMessage<JsonObject> msg) {
 		
 		MultiMap headerMap = msg.headers();
 		

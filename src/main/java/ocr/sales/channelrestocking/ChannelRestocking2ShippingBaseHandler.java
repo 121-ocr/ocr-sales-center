@@ -9,7 +9,7 @@ import otocloud.common.ActionContextTransfomer;
 import otocloud.framework.app.common.BizRoleDirection;
 import otocloud.framework.app.function.AppActivityImpl;
 import otocloud.framework.app.function.CDOHandlerImpl;
-import otocloud.framework.core.OtoCloudBusMessage;
+import otocloud.framework.core.CommandMessage;
 
 /**
  * 渠道补货单由提交变为发货中
@@ -80,7 +80,7 @@ public class ChannelRestocking2ShippingBaseHandler extends CDOHandlerImpl<JsonOb
 	}
 
 	@Override
-	public void handle(OtoCloudBusMessage<JsonObject> arg0) {
+	public void handle(CommandMessage<JsonObject> arg0) {
 		// TODO Auto-generated method stub
 
 	}

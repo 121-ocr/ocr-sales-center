@@ -7,7 +7,7 @@ import otocloud.framework.app.function.AppActivityImpl;
 import otocloud.framework.app.function.BizStateChangedMessage;
 import otocloud.framework.app.function.BizStateSwitchDesc;
 import otocloud.framework.app.function.CDOHandlerImpl;
-import otocloud.framework.core.OtoCloudBusMessage;
+import otocloud.framework.core.CommandMessage;
 
 
 /**
@@ -34,7 +34,7 @@ public class ReplenishmentQuantityUpdateHandler extends CDOHandlerImpl<JsonObjec
     }
 	
 	@Override
-	public void handle(OtoCloudBusMessage<JsonObject> msg) {
+	public void handle(CommandMessage<JsonObject> msg) {
 		
 		BizStateChangedMessage bizStateChangedMessage = new BizStateChangedMessage();
 		bizStateChangedMessage.fromJsonObject(msg.body().getJsonObject("content"));

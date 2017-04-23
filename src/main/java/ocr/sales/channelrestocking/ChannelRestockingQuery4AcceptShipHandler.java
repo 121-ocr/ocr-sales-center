@@ -14,7 +14,7 @@ import otocloud.framework.app.function.ActionDescriptor;
 import otocloud.framework.app.function.AppActivityImpl;
 import otocloud.framework.app.function.CDOHandlerImpl;
 import otocloud.framework.core.HandlerDescriptor;
-import otocloud.framework.core.OtoCloudBusMessage;
+import otocloud.framework.core.CommandMessage;
 
 /**
  * TODO: 待收货货补货单查询
@@ -48,7 +48,7 @@ public class ChannelRestockingQuery4AcceptShipHandler extends CDOHandlerImpl<Jso
 	 * 根据bo_id查询单据
 	 */
 	@Override
-	public void handle(OtoCloudBusMessage<JsonObject> msg) {
+	public void handle(CommandMessage<JsonObject> msg) {
 		
 		JsonObject queryParams = msg.body().getJsonObject("content");
 		this.queryLatestFactDataList(null, appActivity.getBizObjectType(), getStatus(), 

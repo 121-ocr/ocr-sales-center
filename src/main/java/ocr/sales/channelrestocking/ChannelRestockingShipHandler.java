@@ -19,7 +19,7 @@ import otocloud.framework.app.function.ActionDescriptor;
 import otocloud.framework.app.function.AppActivityImpl;
 import otocloud.framework.app.function.CDOHandlerImpl;
 import otocloud.framework.core.HandlerDescriptor;
-import otocloud.framework.core.OtoCloudBusMessage;
+import otocloud.framework.core.CommandMessage;
 
 /**
  * 渠道补货单发货： 1. 生成发货单 2. 保存补货单 3. 通知门店收货
@@ -43,7 +43,7 @@ public class ChannelRestockingShipHandler extends CDOHandlerImpl<JsonObject> {
 	}
 
 	@Override
-	public void handle(OtoCloudBusMessage<JsonObject> msg) {
+	public void handle(CommandMessage<JsonObject> msg) {
 		// 前处理
 		Future<Void> next = Future.future();
 		next.setHandler(handler->{			
@@ -60,7 +60,7 @@ public class ChannelRestockingShipHandler extends CDOHandlerImpl<JsonObject> {
 	 * @param msg
 	 * @param result
 	 */
-	private void proess(OtoCloudBusMessage<JsonObject> msg) {
+	private void proess(CommandMessage<JsonObject> msg) {
 		// 根据状态不同调用不同的保存方法
 		JsonObject replenishmentObj = msg.body().getJsonObject("content");
 		JsonObject body = replenishmentObj.getJsonObject("bo");
@@ -283,10 +283,10 @@ public class ChannelRestockingShipHandler extends CDOHandlerImpl<JsonObject> {
 	 * @param msg
 	 */
 
-/*	private void beforeProess(OtoCloudBusMessage<JsonObject> msg,
+/*	private void beforeProess(CommandMessage<JsonObject> msg,
 			Handler<AsyncResult<Message<JsonObject>>> retHandler) {*/
 		
-	private void beforeProess(OtoCloudBusMessage<JsonObject> msg,
+	private void beforeProess(CommandMessage<JsonObject> msg,
 			Future<Void> next) {
 	
 		// 创建发货单

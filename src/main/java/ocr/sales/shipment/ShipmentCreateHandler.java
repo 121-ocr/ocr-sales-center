@@ -12,7 +12,7 @@ import otocloud.framework.app.function.BizRootType;
 import otocloud.framework.app.function.BizStateSwitchDesc;
 import otocloud.framework.app.function.CDOHandlerImpl;
 import otocloud.framework.core.HandlerDescriptor;
-import otocloud.framework.core.OtoCloudBusMessage;
+import otocloud.framework.core.CommandMessage;
 
 /**
  * 发货单创建操作
@@ -57,7 +57,7 @@ public class ShipmentCreateHandler extends CDOHandlerImpl<JsonObject> {
 	}
 
 	@Override
-	public void handle(OtoCloudBusMessage<JsonObject> msg) {
+	public void handle(CommandMessage<JsonObject> msg) {
 		MultiMap headerMap = msg.headers();
 		
 		JsonObject so = msg.body().getJsonObject("content");
