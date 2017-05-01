@@ -1,10 +1,5 @@
 package ocr.sales.channelrestocking;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import io.vertx.core.AsyncResult;
 import io.vertx.core.CompositeFuture;
 import io.vertx.core.Future;
@@ -12,14 +7,20 @@ import io.vertx.core.Handler;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import otocloud.common.ActionURI;
-import otocloud.common.SessionSchema;
 import otocloud.framework.app.common.BizRoleDirection;
 import otocloud.framework.app.function.ActionDescriptor;
 import otocloud.framework.app.function.AppActivityImpl;
 import otocloud.framework.app.function.CDOHandlerImpl;
-import otocloud.framework.core.HandlerDescriptor;
+import otocloud.framework.common.CallContextSchema;
 import otocloud.framework.core.CommandMessage;
+import otocloud.framework.core.HandlerDescriptor;
 
 /**
  * 渠道补货单发货： 1. 生成发货单 2. 保存补货单 3. 通知门店收货
@@ -98,9 +99,9 @@ public class ChannelRestockingShipHandler extends CDOHandlerImpl<JsonObject> {
 			
 			String partner = replenishmentObj.getString("to_account");
 			String to_biz_unit = replenishmentObj.getString("to_biz_unit");
-			JsonObject session = msg.getSession();
+			//JsonObject session = msg.getSession();
 			//boolean is_global_bu =  session.getBoolean(SessionSchema.IS_GLOBAL_BU, true);
-			String bizUnit = session.getString(SessionSchema.BIZ_UNIT_ID, null);
+			String bizUnit = msg.getCallContext().getString(CallContextSchema.BIZ_UNIT_ID, null);
 
 			//String partner = body.getJsonObject("channel").getString("link_account");
 			String boIdString = body.getString("bo_id");
@@ -145,7 +146,7 @@ public class ChannelRestockingShipHandler extends CDOHandlerImpl<JsonObject> {
 			String to_biz_unit = replenishmentObj.getString("to_biz_unit");
 			JsonObject session = msg.getSession();
 			//boolean is_global_bu =  session.getBoolean(SessionSchema.IS_GLOBAL_BU, true);
-			String bizUnit = session.getString(SessionSchema.BIZ_UNIT_ID, null);
+			String bizUnit = session.getString(CallContextSchema.BIZ_UNIT_ID, null);
 
 			
 			handler.save(bizUnit, to_biz_unit, body, msg.headers(), result -> {

@@ -8,6 +8,7 @@ import otocloud.framework.app.function.ActionDescriptor;
 import otocloud.framework.app.function.AppActivityImpl;
 import otocloud.framework.app.function.BizRootType;
 import otocloud.framework.app.function.BizStateSwitchDesc;
+import otocloud.framework.common.CallContextSchema;
 import otocloud.framework.core.HandlerDescriptor;
 import otocloud.framework.core.CommandMessage;
 
@@ -38,10 +39,8 @@ public class ChannelRestockingShipping2ShippingHandler extends ChannelRestocking
 		JsonObject body = msg.body().getJsonObject("content");
 		
 		String to_biz_unit = body.getString("to_biz_unit");
-		JsonObject session = msg.getSession();
-		//boolean is_global_bu =  session.getBoolean(SessionSchema.IS_GLOBAL_BU, true);
-		String bizUnit = session.getString(SessionSchema.BIZ_UNIT_ID, null);
-
+		
+		String bizUnit = msg.getCallContext().getString(CallContextSchema.BIZ_UNIT_ID, null);
 		
 		super.save(bizUnit, to_biz_unit, body, msg.headers(), result -> {
 			if (result.succeeded()) {

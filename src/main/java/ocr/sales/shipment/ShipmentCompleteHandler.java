@@ -5,14 +5,14 @@ import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonObject;
 import otocloud.common.ActionContextTransfomer;
 import otocloud.common.ActionURI;
-import otocloud.common.SessionSchema;
 import otocloud.framework.app.function.ActionDescriptor;
 import otocloud.framework.app.function.AppActivityImpl;
 import otocloud.framework.app.function.BizRootType;
 import otocloud.framework.app.function.BizStateSwitchDesc;
 import otocloud.framework.app.function.CDOHandlerImpl;
-import otocloud.framework.core.HandlerDescriptor;
+import otocloud.framework.common.CallContextSchema;
 import otocloud.framework.core.CommandMessage;
+import otocloud.framework.core.HandlerDescriptor;
 
 /**
  * 发货单完成操作
@@ -86,7 +86,7 @@ public class ShipmentCompleteHandler extends CDOHandlerImpl<JsonObject> {
     	
     			JsonObject stubBo = this.buildStubForCDO(shipmentBo, boId, partnerAcct);
     			
-    			String bizUnit = msg.getSession().getString(SessionSchema.BIZ_UNIT_ID, null);
+    			String bizUnit = msg.getCallContext().getString(CallContextSchema.BIZ_UNIT_ID, null);
     			
     	    	this.recordFactData(bizUnit, appActivity.getBizObjectType(), stubBo, boId, actor, null, result->{
     				if (result.succeeded()) {				
