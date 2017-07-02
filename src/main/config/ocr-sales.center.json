@@ -90,7 +90,21 @@
 	        					}
 							}
 						 }
-				   }				   	
+				   },
+					 "saleorg-mgr": {
+			      		"options": {
+	        				"config" :  {
+	        				    "dependencies":{
+		        					"otocloud-acct-org_service": {
+		        						"service_name": "otocloud-acct-org"
+		        					},
+		        					"ocr-channel_service": {
+		        						"service_name": "ocr-channel-manager"
+		        					}
+	        					}
+							}
+						 }
+					 }				   				   	
 				},
 				"component_deployment": []
 			},

@@ -40,7 +40,6 @@ public class CustomerComponent extends AppActivityImpl {
 	//业务活动组件中的业务功能
 	@Override
 	public List<OtoCloudEventHandlerRegistry> registerEventHandlers() {
-		// TODO Auto-generated method stub
 		List<OtoCloudEventHandlerRegistry> ret = new ArrayList<OtoCloudEventHandlerRegistry>();
 
 		CustomerCreateHandler customerCreateHandler = new CustomerCreateHandler(this);
@@ -51,6 +50,9 @@ public class CustomerComponent extends AppActivityImpl {
 		
 		CustomerUpdateHandler customerUpdateHandler = new CustomerUpdateHandler(this);
 		ret.add(customerUpdateHandler);
+		
+		CustomerQueryNoPagingHandler customerQueryNoPagingHandler = new CustomerQueryNoPagingHandler(this);
+		ret.add(customerQueryNoPagingHandler);
 		
 		return ret;
 	}

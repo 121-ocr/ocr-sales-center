@@ -6,9 +6,8 @@ import otocloud.common.ActionURI;
 import otocloud.framework.app.function.ActionDescriptor;
 import otocloud.framework.app.function.ActionHandlerImpl;
 import otocloud.framework.app.function.AppActivityImpl;
-import otocloud.framework.app.function.CDOHandlerImpl;
-import otocloud.framework.core.HandlerDescriptor;
 import otocloud.framework.core.CommandMessage;
+import otocloud.framework.core.HandlerDescriptor;
 
 /**
  * 发货单创建操作

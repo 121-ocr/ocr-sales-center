@@ -5,6 +5,7 @@ import java.util.List;
 
 import ocr.sales.channelrestocking.ChannelRestockingComponent;
 import ocr.sales.customer.CustomerComponent;
+import ocr.sales.saleorg.SaleOrgComponent;
 import ocr.sales.shipment.ShipmentComponent;
 import otocloud.framework.app.engine.AppServiceImpl;
 import otocloud.framework.app.engine.WebServer;
@@ -47,6 +48,9 @@ public class SalesCenterService extends AppServiceImpl
 		
 		CustomerComponent customerComponent = new CustomerComponent();
 		retActivities.add(customerComponent);
+		
+		SaleOrgComponent saleOrgComponent = new SaleOrgComponent();
+		retActivities.add(saleOrgComponent);
 		
 		return retActivities;
 	}
